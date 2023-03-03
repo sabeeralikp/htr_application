@@ -4,13 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:htr/api/htr.dart';
-import 'package:htr/config/assets/assets.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
 import 'package:htr/config/widgets/upload.dart';
 import 'package:htr/models/htr.dart';
 import 'package:htr/routes/route.dart';
+import 'package:htr/screens/home/widgets/fab.dart';
+import 'package:htr/screens/home/widgets/upload_file_body.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -64,29 +63,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
         padding: x32,
         child: Center(
-          child: isUploading
-              ? const UploadingIndicator()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    fileUploadSVG,
-                    h18,
-                    Text('UPLOAD FILE', style: p16SB),
-                    h4,
-                    Text('Upload your pdf or image', style: p7014L),
-                  ],
-                ),
+          child:
+              isUploading ? const UploadingIndicator() : const UploadFileBody(),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text('Upload', style: w16M),
-        icon: cloudUploadIcon,
-        onPressed: uploadFile,
-      ),
+      floatingActionButton: floatingActionButton(uploadFile),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
