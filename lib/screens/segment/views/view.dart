@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:htr/config/fonts/fonts.dart';
 
@@ -56,7 +58,17 @@ class _SegmentState extends State<Segment> {
                   });
                 })
           ],
+          
         ),
+        ElevatedButton(onPressed: () {
+         log("ElevatedButton");
+        },
+        child:Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Done', style: p16SB),
+        ),
+        
+        )
       ];
 
   @override
