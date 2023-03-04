@@ -16,10 +16,24 @@ double _thresholdValue = 0;
 double _horizontalValue = 0;
 double _verticalValue = 0;
 
-
 class _SegmentState extends State<Segment> {
   get controller => null;
   List<Widget> getBottomSheetComponents(context) => [
+        Column(
+          children: const [
+            SizedBox(
+              width: 25,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(24)),
+                clipBehavior: Clip.hardEdge,
+                child: Divider(
+                  height: 30,
+                  thickness: 5,
+                ),
+              ),
+            )
+          ],
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,16 +72,15 @@ class _SegmentState extends State<Segment> {
                   });
                 })
           ],
-          
         ),
-        ElevatedButton(onPressed: () {
-         log("ElevatedButton");
-        },
-        child:Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text('Done', style: p16SB),
-        ),
-        
+        ElevatedButton(
+          onPressed: () {
+            log("ElevatedButton");
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Done', style: p16SB),
+          ),
         )
       ];
 
@@ -78,13 +91,16 @@ class _SegmentState extends State<Segment> {
         title: const Text('Segmentation'),
       ),
       body: Stack(fit: StackFit.expand, children: [
-        Image.network(
-            'https://www.freepik.com/free-photo/top-view-typesetting-parts_30588756.htm#query=malayalam%20letters%20images&position=0&from_view=search&track=ais',
-            fit: BoxFit.cover),
+        // Column(
+        //   children: [
+        //     Image.network(
+        //         'https://th.bing.com/th/id/R.1c3eaf067186c49cbddfb7c678e71e6d?rik=gITa%2bZAwPUCmhg&riu=http%3a%2f%2flondonmedarb.com%2fwp-content%2fuploads%2f2015%2f08%2fSample-Legal-Document-008.png&ehk=2VDs3zm5uif9K5ZnroFy1xPSlUV0p9dVzUDkL03%2bvo4%3d&risl=&pid=ImgRaw&r=0')
+        //   ],
+        // ),
         DraggableScrollableSheet(
             initialChildSize: 0.3,
             minChildSize: 0.1,
-            maxChildSize: 0.5,
+            maxChildSize: 0.6,
             builder: (context, controller) => ClipRRect(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),
@@ -102,7 +118,10 @@ class _SegmentState extends State<Segment> {
                   ),
                 )),
       ]),
-      floatingActionButton: FloatingActionButton(onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.navigate_next_outlined),
+      ),
     );
   }
 }
