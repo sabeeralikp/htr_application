@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:htr/config/colors/colors.dart';
 import 'package:htr/config/fonts/fonts.dart';
+import 'package:htr/config/measures/gap.dart';
+import 'package:htr/config/measures/padding.dart';
 
 class Segment extends StatefulWidget {
   const Segment({super.key});
@@ -20,68 +23,47 @@ class _SegmentState extends State<Segment> {
   get controller => null;
   List<Widget> getBottomSheetComponents(context) => [
         Column(
-          children: const [
-            SizedBox(
-              width: 25,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(24)),
-                clipBehavior: Clip.hardEdge,
-                child: Divider(
-                  height: 30,
-                  thickness: 5,
-                ),
-              ),
+          children:  [
+            Container(
+              width: 32,
+              height: 4,
+              margin: t16B64,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(32),color: kWhiteColor,),
             )
           ],
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Threshold', style: p16SB),
-            Slider(
-                value: _thresholdValue,
-                onChanged: (value) {
-                  setState(() {
-                    _thresholdValue = value;
-                  });
-                })
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Horizontal Spacing', style: p16SB),
-            Slider(
-                value: _horizontalValue,
-                onChanged: (value) {
-                  setState(() {
-                    _horizontalValue = value;
-                  });
-                })
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Vertical Spacing', style: p16SB),
-            Slider(
-                value: _verticalValue,
-                onChanged: (value) {
-                  setState(() {
-                    _verticalValue = value;
-                  });
-                })
-          ],
-        ),
+        Text('Threshold', style: p16SB),
+        Slider(
+            value: _thresholdValue,
+            onChanged: (value) {
+              setState(() {
+                _thresholdValue = value;
+              });
+            }),
+        Text('Horizontal Spacing', style: p16SB),
+        Slider(
+            value: _horizontalValue,
+            onChanged: (value) {
+              setState(() {
+                _horizontalValue = value;
+              });
+            }),
+        Text('Vertical Spacing', style: p16SB),
+        Slider(
+            value: _verticalValue,
+            onChanged: (value) {
+              setState(() {
+                _verticalValue = value;
+              });
+            }),
+        h32,
         ElevatedButton(
-          onPressed: () {
-            log("ElevatedButton");
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text('Done', style: p16SB),
-          ),
-        )
+            onPressed: () {
+              log("ElevatedButton");
+            },
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Done', style: p16SB)))
       ];
 
   @override
@@ -91,14 +73,21 @@ class _SegmentState extends State<Segment> {
         title: const Text('Segmentation'),
       ),
       body: Stack(fit: StackFit.expand, children: [
-        // Column(
-        //   children: [
-        //     Image.network(
-        //         'https://th.bing.com/th/id/R.1c3eaf067186c49cbddfb7c678e71e6d?rik=gITa%2bZAwPUCmhg&riu=http%3a%2f%2flondonmedarb.com%2fwp-content%2fuploads%2f2015%2f08%2fSample-Legal-Document-008.png&ehk=2VDs3zm5uif9K5ZnroFy1xPSlUV0p9dVzUDkL03%2bvo4%3d&risl=&pid=ImgRaw&r=0')
-        //   ],
-        // ),
+        ListView(padding: x16T32B64, children: [
+          Container(
+            decoration: BoxDecoration(border: Border.all()),
+            child: Image.network(
+                'https://image.isu.pub/171101225917-98e8fff30de9ee1d950dd520987b7977/jpg/page_1.jpg'),
+          ),
+          h18,
+          Container(
+            decoration: BoxDecoration(border: Border.all()),
+            child: Image.network(
+                'https://image.isu.pub/171101225917-98e8fff30de9ee1d950dd520987b7977/jpg/page_1.jpg'),
+          )
+        ]),
         DraggableScrollableSheet(
-            initialChildSize: 0.3,
+            initialChildSize: 0.6,
             minChildSize: 0.1,
             maxChildSize: 0.6,
             builder: (context, controller) => ClipRRect(
@@ -106,9 +95,8 @@ class _SegmentState extends State<Segment> {
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24)),
                   child: Container(
-                    color: const Color.fromARGB(31, 92, 89, 255),
-                    padding:
-                        const EdgeInsets.only(left: 32, top: 32, right: 32),
+                    color: const Color.fromARGB(255, 217, 218, 235),
+                    padding: x32,
                     child: ListView.builder(
                         controller: controller,
                         itemCount: getBottomSheetComponents(context).length,
