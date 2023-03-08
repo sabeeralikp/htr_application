@@ -22,16 +22,14 @@ double _verticalValue = 0;
 class _SegmentState extends State<Segment> {
   get controller => null;
   List<Widget> getBottomSheetComponents(context) => [
-        Column(
-          children:  [
-            Container(
+        Column(children: [
+          Container(
               width: 32,
               height: 4,
               margin: t16B64,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(32),color: kWhiteColor,),
-            )
-          ],
-        ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32), color: kWhiteColor))
+        ]),
         Text('Threshold', style: p16SB),
         Slider(
             value: _thresholdValue,
@@ -88,14 +86,14 @@ class _SegmentState extends State<Segment> {
         ]),
         DraggableScrollableSheet(
             initialChildSize: 0.6,
-            minChildSize: 0.1,
-            maxChildSize: 0.6,
+            minChildSize: 0.18,
+            maxChildSize: 0.65,
             builder: (context, controller) => ClipRRect(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24)),
                   child: Container(
-                    color: const Color.fromARGB(255, 217, 218, 235),
+                    color: kSecondaryBgColor,
                     padding: x32,
                     child: ListView.builder(
                         controller: controller,
@@ -106,10 +104,6 @@ class _SegmentState extends State<Segment> {
                   ),
                 )),
       ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.navigate_next_outlined),
-      ),
     );
   }
 }
