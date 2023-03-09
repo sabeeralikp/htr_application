@@ -15,9 +15,9 @@ class Segment extends StatefulWidget {
 
 // creating a variable
 // ignore: unused_element
-double _thresholdValue = 0;
-double _horizontalValue = 0;
-double _verticalValue = 0;
+double _thresholdValue = 10;
+double _horizontalValue = 30;
+double _verticalValue = 50;
 
 class _SegmentState extends State<Segment> {
   get controller => null;
@@ -30,38 +30,46 @@ class _SegmentState extends State<Segment> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32), color: kWhiteColor))
         ]),
-        Text('Threshold', style: p16SB),
+        Text('Adjust Threshold', style: p20SB, textAlign: TextAlign.center),
+        h20,
+        Text('Threshold Value', style: p16M),
         Slider(
             value: _thresholdValue,
+            min: 0,
+            max: 100,
             onChanged: (value) {
               setState(() {
                 _thresholdValue = value;
               });
             }),
-        Text('Horizontal Spacing', style: p16SB),
+        Text('Horizontal Spacing', style: p16M),
         Slider(
             value: _horizontalValue,
+            min: 0,
+            max: 100,
             onChanged: (value) {
               setState(() {
                 _horizontalValue = value;
               });
             }),
-        Text('Vertical Spacing', style: p16SB),
+        Text('Vertical Spacing', style: p16M),
         Slider(
             value: _verticalValue,
+            min: 0,
+            max: 100,
             onChanged: (value) {
               setState(() {
                 _verticalValue = value;
               });
             }),
-        h32,
+        h16,
         ElevatedButton(
             onPressed: () {
               log("ElevatedButton");
             },
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text('Done', style: p16SB)))
+            child: const Padding(
+                padding: EdgeInsets.all(16.0), child: Text('Threshold'))),
+        TextButton(onPressed: () {}, child: const Text('Next'))
       ];
 
   @override
@@ -82,12 +90,13 @@ class _SegmentState extends State<Segment> {
             decoration: BoxDecoration(border: Border.all()),
             child: Image.network(
                 'https://image.isu.pub/171101225917-98e8fff30de9ee1d950dd520987b7977/jpg/page_1.jpg'),
-          )
+          ),
+          h36
         ]),
         DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.18,
-            maxChildSize: 0.65,
+            initialChildSize: 0.7,
+            minChildSize: 0.15,
+            maxChildSize: 0.7,
             builder: (context, controller) => ClipRRect(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),

@@ -22,10 +22,14 @@ import 'package:htr/config/colors/colors.dart';
 // p16SB
 
 // Primary Color
+TextStyle p20SB = GoogleFonts.inter(
+    color: kPrimaryColor, fontSize: 20, fontWeight: FontWeight.w600);
 TextStyle p16SB = GoogleFonts.inter(
     color: kPrimaryColor, fontSize: 16, fontWeight: FontWeight.w600);
+TextStyle p16M = GoogleFonts.inter(
+    color: kPrimaryColor, fontSize: 14, fontWeight: FontWeight.w400);
 
-//    Primary Color with Opacity
+// Primary Color with Opacity
 TextStyle p7014L = GoogleFonts.inter(
     color: kPrimaryColor.withOpacity(0.70),
     fontSize: 14,

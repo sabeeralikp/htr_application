@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:htr/config/colors/colors.dart';
+import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/widgets/fab.dart';
 
 ThemeData htrDarkThemeData(BuildContext context) => ThemeData.dark().copyWith(
@@ -10,8 +12,18 @@ ThemeData htrLightThemeData(BuildContext context) => ThemeData(
       floatingActionButtonTheme: fabTheme,
       sliderTheme: SliderThemeData(
         trackShape: CustomTrackShape(),
-        
+        activeTrackColor: kPrimaryColor,
+        inactiveTrackColor: kWhiteColor,
+        thumbColor: kPrimaryColor,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+              foregroundColor: MaterialStateProperty.all<Color>(kWhiteColor),
+              textStyle: MaterialStateProperty.all<TextStyle>(w16M))),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(p16M))),
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 
