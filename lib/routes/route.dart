@@ -18,7 +18,7 @@ class RouteProvider {
         return MaterialPageRoute(
             builder: (_) => ResulPage(args: settings.arguments as HTRModel));
       case segment:
-        return MaterialPageRoute(builder: (_) => const Segment());
+        return MaterialPageRoute(builder: (_) => const Edit());
       default:
         return MaterialPageRoute(builder: (_) => const Home());
     }
