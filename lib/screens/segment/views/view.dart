@@ -78,8 +78,6 @@ class _SegmentState extends State<Segment> {
         Text('Horizontal Spacing $_horizontalValue', style: p16M),
         Slider(
             value: _horizontalValue,
-            min: 0,
-            max: 100,
             onChanged: (value) {
               setState(() {
                 _horizontalValue = value;
@@ -88,22 +86,20 @@ class _SegmentState extends State<Segment> {
         Text('Vertical Spacing $_verticalValue', style: p16M),
         Slider(
             value: _verticalValue,
-            min: 0,
-            max: 100,
             onChanged: (value) {
               setState(() {
                 _verticalValue = value;
               });
             }),
-        h16,
+        h32,
         ElevatedButton(
             onPressed: () {
               log("ElevatedButton");
               _getCordinates(widget.args!.id);
             },
-            child: const Padding(
-                padding: EdgeInsets.all(16.0), child: Text('Threshold'))),
-        TextButton(onPressed: () {}, child: const Text('Next'))
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Done', style: p16SB)))
       ];
   @override
   Widget build(BuildContext context) {
@@ -185,9 +181,9 @@ class _SegmentState extends State<Segment> {
           h18
         ]),
         DraggableScrollableSheet(
-            initialChildSize: 0.7,
-            minChildSize: 0.15,
-            maxChildSize: 0.7,
+            initialChildSize: 0.6,
+            minChildSize: 0.18,
+            maxChildSize: 0.65,
             builder: (context, controller) => ClipRRect(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),
@@ -203,6 +199,8 @@ class _SegmentState extends State<Segment> {
                         }),
                   ),
                 )),
+               
+                
       ]),
     );
   }
