@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/config/measures/padding.dart';
 import 'package:htr/config/widgets/upload.dart';
-import 'package:htr/models/htr.dart';
+import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
 import 'package:htr/screens/home/widgets/fab.dart';
 import 'package:htr/screens/home/widgets/upload_file_body.dart';
@@ -20,7 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   File? file;
-  HTRModel? htr;
+  UploadHTRModel? htr;
   bool isUploading = false;
   FilePickerResult? result;
 
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
 
   void navigateToResult() {
     if (htr != null) {
-      Navigator.of(context).pushNamed(RouteProvider.result, arguments: htr);
+      Navigator.of(context).pushNamed(RouteProvider.segment, arguments: htr);
     }
   }
 

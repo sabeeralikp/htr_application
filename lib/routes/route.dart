@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:htr/models/htr.dart';
+import 'package:htr/models/upload_htr.dart';
 import 'package:htr/screens/result/result.dart';
 import 'package:htr/screens/segment/segment.dart';
 
@@ -18,7 +19,9 @@ class RouteProvider {
         return MaterialPageRoute(
             builder: (_) => ResulPage(args: settings.arguments as HTRModel));
       case segment:
-        return MaterialPageRoute(builder: (_) => const Segment());
+        return MaterialPageRoute(
+            builder: (_) =>
+                Segment(args: settings.arguments as UploadHTRModel));
       default:
         return MaterialPageRoute(builder: (_) => const Home());
     }

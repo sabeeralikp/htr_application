@@ -1,26 +1,59 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:htr/api/api.dart';
+import 'package:htr/api/htr.dart';
 import 'package:htr/config/colors/colors.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
+import 'package:htr/models/cordinates.dart';
+import 'package:htr/models/upload_htr.dart';
 
 class Segment extends StatefulWidget {
-  const Segment({super.key});
+  final UploadHTRModel? args;
+  const Segment({required this.args, super.key});
 
   @override
   State<Segment> createState() => _SegmentState();
 }
 
-// creating a variable
-// ignore: unused_element
-double _thresholdValue = 10;
-double _horizontalValue = 30;
-double _verticalValue = 50;
-
 class _SegmentState extends State<Segment> {
-  get controller => null;
+  double _thresholdValue = 80;
+  double _horizontalValue = 3;
+  double _verticalValue = 40;
+  List<bool> _isTapped = [];
+  List<Cordinates> _cordinates = [];
+  double _deviceWidth = 0;
+  _getCordinates(uploadHTR) async {
+    _cordinates = await postThresholdValues(
+        _thresholdValue, _horizontalValue, _verticalValue, uploadHTR);
+    _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
+    setState(() {});
+  }
+
+  selectBoxes(event, i) {
+    for (int j = 0; j < _cordinates.length; j++) {
+      double kc = _deviceWidth / _cordinates[j].imgW!.toDouble();
+      double xB = _cordinates[j].x! * kc;
+      double xS = event.position.dx;
+      double wB = _cordinates[j].w! * kc;
+      double yB = _cordinates[j].y! * kc;
+      double yS = event.position.dy;
+      double hB = _cordinates[j].h! * kc;
+
+      if (xB < xS &&
+          xS < (xB + wB) &&
+          yB < yS &&
+          yS < (yB + hB) &&
+          _cordinates[j].p == i) {
+        setState(() {
+          _isTapped[j] = _isTapped[j] ? false : true;
+        });
+      }
+    }
+  }
+
   List<Widget> getBottomSheetComponents(context) => [
         Column(children: [
           Container(
@@ -32,17 +65,17 @@ class _SegmentState extends State<Segment> {
         ]),
         Text('Adjust Threshold', style: p20SB, textAlign: TextAlign.center),
         h20,
-        Text('Threshold Value', style: p16M),
+        Text('Threshold Value $_thresholdValue', style: p16M),
         Slider(
             value: _thresholdValue,
             min: 0,
-            max: 100,
+            max: 300,
             onChanged: (value) {
               setState(() {
                 _thresholdValue = value;
               });
             }),
-        Text('Horizontal Spacing', style: p16M),
+        Text('Horizontal Spacing $_horizontalValue', style: p16M),
         Slider(
             value: _horizontalValue,
             min: 0,
@@ -52,7 +85,7 @@ class _SegmentState extends State<Segment> {
                 _horizontalValue = value;
               });
             }),
-        Text('Vertical Spacing', style: p16M),
+        Text('Vertical Spacing $_verticalValue', style: p16M),
         Slider(
             value: _verticalValue,
             min: 0,
@@ -66,32 +99,90 @@ class _SegmentState extends State<Segment> {
         ElevatedButton(
             onPressed: () {
               log("ElevatedButton");
+              _getCordinates(widget.args!.id);
             },
             child: const Padding(
                 padding: EdgeInsets.all(16.0), child: Text('Threshold'))),
         TextButton(onPressed: () {}, child: const Text('Next'))
       ];
-
   @override
   Widget build(BuildContext context) {
+    _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Segmentation'),
-      ),
       body: Stack(fit: StackFit.expand, children: [
-        ListView(padding: x16T32B64, children: [
-          Container(
-            decoration: BoxDecoration(border: Border.all()),
-            child: Image.network(
-                'https://image.isu.pub/171101225917-98e8fff30de9ee1d950dd520987b7977/jpg/page_1.jpg'),
-          ),
-          h18,
-          Container(
-            decoration: BoxDecoration(border: Border.all()),
-            child: Image.network(
-                'https://image.isu.pub/171101225917-98e8fff30de9ee1d950dd520987b7977/jpg/page_1.jpg'),
-          ),
-          h36
+        ListView(children: [
+          for (int i = 0; i < widget.args!.numberOfPages!; i++)
+            Column(children: [
+              Stack(
+                children: [
+                  Image.network(
+                    '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '')}/$i.png',
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                  Listener(
+                    onPointerDown: (PointerDownEvent event) {
+                      selectBoxes(event, i);
+                    },
+                    child: _cordinates.isNotEmpty
+                        ? SizedBox(
+                            height: _cordinates[i].imgH!.toDouble(),
+                            child: Stack(
+                              children: [
+                                for (int j = 0; j < _cordinates.length; j++)
+                                  _cordinates[j].p == i
+                                      ? Positioned(
+                                          left: _cordinates[j].x!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          top: _cordinates[j].y!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          child: Container(
+                                              height: _cordinates[j]
+                                                      .h!
+                                                      .toDouble() *
+                                                  _deviceWidth /
+                                                  _cordinates[j]
+                                                      .imgW!
+                                                      .toDouble(),
+                                              width:
+                                                  _cordinates[j].w!.toDouble() *
+                                                      _deviceWidth /
+                                                      _cordinates[j]
+                                                          .imgW!
+                                                          .toDouble(),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                color: _isTapped[j]
+                                                    ? Colors.blue
+                                                    : Colors.blue[100]!,
+                                                width: 1,
+                                              ))),
+                                        )
+                                      : Text(j.toString()),
+                              ],
+                            ),
+                          )
+                        : const SizedBox(),
+                  )
+                ],
+              ),
+              h18
+            ]),
+          h18
         ]),
         DraggableScrollableSheet(
             initialChildSize: 0.7,
