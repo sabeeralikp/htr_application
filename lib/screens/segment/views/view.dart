@@ -26,7 +26,7 @@ class _SegmentState extends State<Segment> {
   double _verticalValue = 40;
   List<bool> _isTapped = [];
   List<Cordinates> _cordinates = [];
-  final List<Cordinates> _selectedCordinates = [];
+  List<Cordinates> _selectedCordinates = [];
   bool isLoading = false;
   double _deviceWidth = 0;
   _getCordinates(uploadHTR) async {
@@ -42,10 +42,10 @@ class _SegmentState extends State<Segment> {
     return extractedText;
   }
 
-  void navigateToResult() {
+  void navigateToResult(extractedText) {
     if (_selectedCordinates.isNotEmpty) {
       Navigator.of(context)
-          .pushNamed(RouteProvider.result, arguments: _selectedCordinates);
+          .pushNamed(RouteProvider.result, arguments: extractedText);
     }
   }
 
@@ -66,6 +66,7 @@ class _SegmentState extends State<Segment> {
             min: 0,
             max: 300,
             onChanged: (value) {
+              _selectedCordinates = [];
               setState(() {
                 _thresholdValue = value;
               });
@@ -108,7 +109,7 @@ class _SegmentState extends State<Segment> {
                 List<dynamic> extractedText =
                     await _getExtractedText(widget.args!.id) as List<dynamic>;
                 log(extractedText.toString());
-                navigateToResult();
+                navigateToResult(extractedText);
               }
             },
             child: const Text('Next'))
