@@ -18,6 +18,7 @@ class Cordinates {
   int? p;
   int? imgH;
   int? imgW;
+  int? uploadHTR;
 
   Cordinates({this.x, this.y, this.w, this.h, this.p, this.imgH, this.imgW});
   Cordinates.fromJson(Map<String, dynamic> json) {
@@ -28,6 +29,7 @@ class Cordinates {
     p = json['p']?.toInt();
     imgH = json['img_h']?.toInt();
     imgW = json['img_w']?.toInt();
+    uploadHTR = json['upload_htr']?.toInt();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -38,6 +40,7 @@ class Cordinates {
     data['p'] = p;
     data['img_h'] = imgH;
     data['img_w'] = imgW;
+    data['upload_htr'] = uploadHTR;
 
     return data;
   }

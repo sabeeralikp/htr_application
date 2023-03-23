@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -66,6 +67,24 @@ Future<List<Cordinates>> postThresholdValues(
     final response = await dio.post("/api/document/threshold", data: formData);
     if (response.statusCode == 200) {
       return Cordinates.listFromJson(response.data);
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return [];
+}
+
+Future<List<dynamic>> postExtractText(
+    List<Cordinates> cordinates, uploadHTR) async {
+  FormData formData = FormData.fromMap(
+      {"cordinates": jsonEncode(cordinates), "upload_htr": uploadHTR});
+  try {
+    final response = await dio.post("/api/document/extract", data: formData);
+    if (response.statusCode == 200) {
+      return response.data;
     } else {
       log('${response.statusCode} : ${response.data.toString()}');
       throw response.statusCode!;
