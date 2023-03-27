@@ -28,6 +28,11 @@ class _ResulPageState extends State<ResulPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Result Page'),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.download_for_offline_rounded))
+          ],
         ),
         body: Column(
           children: [
