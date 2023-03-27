@@ -272,7 +272,7 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
   @override
   Widget build(BuildContext context) {
     if (_init) {
-      _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4) - _offset;
+      _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4);
       _init = false;
     }
     return Stack(
