@@ -222,27 +222,132 @@ class _SegmentState extends State<Segment> {
                   ]),
                 h18
               ]),
-              DraggableScrollableSheet(
-                  initialChildSize: 0.7,
-                  minChildSize: 0.15,
-                  maxChildSize: 0.7,
-                  builder: (context, controller) => ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(24),
-                            topRight: Radius.circular(24)),
-                        child: Container(
-                          color: kSecondaryBgColor,
-                          padding: x32,
-                          child: ListView.builder(
-                              controller: controller,
-                              itemCount:
-                                  getBottomSheetComponents(context).length,
-                              itemBuilder: (context, index) {
-                                return getBottomSheetComponents(context)[index];
-                              }),
-                        ),
-                      )),
+              LayoutBuilder(builder: (context, constraint) {
+                if (constraint.maxWidth < 700) {
+                  return DraggableScrollableSheet(
+                      initialChildSize: 0.7,
+                      minChildSize: 0.15,
+                      maxChildSize: 0.7,
+                      builder: (context, controller) => ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(24),
+                                topRight: Radius.circular(24)),
+                            child: Container(
+                              color: kSecondaryBgColor,
+                              padding: x32,
+                              child: ListView.builder(
+                                  controller: controller,
+                                  itemCount:
+                                      getBottomSheetComponents(context).length,
+                                  itemBuilder: (context, index) {
+                                    return getBottomSheetComponents(
+                                        context)[index];
+                                  }),
+                            ),
+                          ));
+                }
+                return ThresholdSideSheet(
+                  getBottomSheetComponents: getBottomSheetComponents(context),
+                );
+              }),
             ]),
+    );
+  }
+}
+
+class ThresholdSideSheet extends StatefulWidget {
+  final List<Widget> getBottomSheetComponents;
+  const ThresholdSideSheet({required this.getBottomSheetComponents, super.key});
+
+  @override
+  State<ThresholdSideSheet> createState() => _ThresholdSideSheetState();
+}
+
+class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
+  static const double _offset = 20;
+  double _drawerLeft = 20;
+  IconData _drawerIcon = Icons.arrow_back_ios;
+  bool _init = true;
+  final ScrollController controller = ScrollController();
+  @override
+  Widget build(BuildContext context) {
+    if (_init) {
+      _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4) - _offset;
+      _init = false;
+    }
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          width: MediaQuery.of(context).size.width / 4,
+          top: 0,
+          height: MediaQuery.of(context).size.height,
+          left: _drawerLeft,
+          child: GestureDetector(
+              onPanUpdate: (details) {
+                _drawerLeft += details.delta.dx;
+                if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
+                  _drawerLeft = MediaQuery.of(context).size.width * 3 / 4;
+                }
+                if (_drawerLeft >=
+                    MediaQuery.of(context).size.width - _offset) {
+                  _drawerLeft = MediaQuery.of(context).size.width - _offset;
+                }
+                if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
+                  _drawerIcon = Icons.arrow_forward_ios;
+                }
+                if (_drawerLeft >=
+                    MediaQuery.of(context).size.width - 2 * _offset) {
+                  _drawerIcon = Icons.arrow_back_ios;
+                }
+                setState(() {});
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: kSecondaryBgColor,
+                    borderRadius: BorderRadiusDirectional.only(
+                        topStart: Radius.circular(24),
+                        bottomStart: Radius.circular(24))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        if (_drawerLeft <=
+                            MediaQuery.of(context).size.width * 3 / 4) {
+                          _drawerLeft =
+                              MediaQuery.of(context).size.width - 2 * _offset;
+                          _drawerIcon = Icons.arrow_back_ios;
+                        } else {
+                          _drawerLeft =
+                              MediaQuery.of(context).size.width * 3 / 4;
+                          _drawerIcon = Icons.arrow_forward_ios;
+                        }
+                        setState(() {});
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(_drawerIcon, color: kWhiteColor),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [...widget.getBottomSheetComponents],
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+        ),
+      ],
     );
   }
 }
