@@ -16,6 +16,8 @@ dependencies:
   http_parser: ^4.0.2
   internet_file: ^1.2.0
   flutter_quill: ^7.0.1
+  pdf: ^3.10.1
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,10 @@ flutter:
   assets:
     - assets/background/file_upload.svg
     - assets/icons/cloud_upload.svg
+    - assets/font/NotoSansMalayalam/NotoSansMalayalam-Regular.ttf
+    - assets/font/NotoSansMalayalam/NotoSansMalayalam-Bold.ttf
+    - assets/font/Noto_Serif_Malayalam/static/NotoSerifMalayalam-Regular.ttf
+    - assets/font/Noto_Serif_Malayalam/static/NotoSerifMalayalam-Bold.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
