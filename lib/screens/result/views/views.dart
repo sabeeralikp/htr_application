@@ -39,6 +39,7 @@ class _ResulPageState extends State<ResulPage> {
       fontWeight = pw.FontWeight.bold;
       fontSize = 20;
     } else {
+      fontWeight = pw.FontWeight.bold;
       fontSize = 16;
     }
     return [fontWeight, fontSize];
@@ -54,12 +55,13 @@ class _ResulPageState extends State<ResulPage> {
           case "header":
             if (value == 1) {
               fontWeight = pw.FontWeight.bold;
-              fontSize = 24;
+              fontSize = 18;
             } else if (value == 2) {
               fontWeight = pw.FontWeight.bold;
-              fontSize = 20;
-            } else {
               fontSize = 16;
+            } else {
+              fontWeight = pw.FontWeight.bold;
+              fontSize = 12;
             }
             break;
         }
@@ -71,12 +73,29 @@ class _ResulPageState extends State<ResulPage> {
   getAttributedText(Map<String, dynamic>? attribute, String text,
       bool hasAttribute, pw.FontWeight fontWeight, double fontSize) {
     PdfColor fontColor = PdfColor.fromHex("#000");
+    pw.FontStyle fontStyle = pw.FontStyle.normal;
+    pw.TextDecoration decoration = pw.TextDecoration.none;
+    pw.BoxDecoration boxDecoration = const pw.BoxDecoration();
     if (hasAttribute) {
       attribute!.forEach((key, value) {
         switch (key) {
           case "color":
             fontColor = PdfColor.fromHex(value);
             break;
+          case "bold":
+            fontWeight = pw.FontWeight.bold;
+            break;
+          case "italic":
+            fontStyle = pw.FontStyle.italic;
+            break;
+          case "underline":
+            decoration = pw.TextDecoration.underline;
+            break;
+          case "strike":
+            decoration = pw.TextDecoration.lineThrough;
+            break;
+          case "background":
+            boxDecoration = pw.BoxDecoration(color: PdfColor.fromHex(value));
         }
       });
     }
@@ -84,7 +103,10 @@ class _ResulPageState extends State<ResulPage> {
         style: pw.TextStyle(
             color: fontColor,
             fontWeight: fontWeight,
+            fontStyle: fontStyle,
             fontSize: fontSize,
+            decoration: decoration,
+            background: boxDecoration,
             fontFallback: [pw.Font.symbol()]));
   }
 
@@ -101,11 +123,12 @@ class _ResulPageState extends State<ResulPage> {
           pdfColumnWidget = pdfColumnWidget +
               [
                 pw.Row(
-                    children: [...texts],
+                    children: [...texts.reversed],
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     mainAxisAlignment: pw.MainAxisAlignment.start)
               ];
         }
+        texts = [];
         header = getHeaderAttributedText(element.attributes,
             element.data.toString(), element.attributes != null);
       } else {
@@ -119,7 +142,7 @@ class _ResulPageState extends State<ResulPage> {
     }
     pdfColumnWidget = pdfColumnWidget +
         [
-          pw.Row(children: [...texts])
+          pw.Row(children: [...texts.reversed])
         ];
     return pw.Column(
         children: [...pdfColumnWidget.reversed],
@@ -136,11 +159,14 @@ class _ResulPageState extends State<ResulPage> {
 
   getTheme() async {
     var myTheme = pw.ThemeData.withFont(
-      base: pw.Font.ttf(await rootBundle.load(
-          "assets/font/Noto_Serif_Malayalam/static/NotoSerifMalayalam-Regular.ttf")),
-      bold: pw.Font.ttf(await rootBundle.load(
-          "assets/font/Noto_Serif_Malayalam/static/NotoSerifMalayalam-Bold.ttf")),
-    );
+        base: pw.Font.ttf(await rootBundle
+            .load("assets/font/mandharam/mandharam_regular.ttf")),
+        bold: pw.Font.ttf(
+            await rootBundle.load("assets/font/mandharam/mandharam_bold.ttf")),
+        italic: pw.Font.ttf(await rootBundle
+            .load("assets/font/mandharam/mandharam_italic.ttf")),
+        boldItalic: pw.Font.ttf(await rootBundle
+            .load("assets/font/mandharam/mandharam_bold_italic.ttf")));
     return myTheme;
   }
 
@@ -158,6 +184,7 @@ class _ResulPageState extends State<ResulPage> {
                   var delta = _controller.document.toDelta().toList();
                   pdf.addPage(pw.Page(
                       pageFormat: PdfPageFormat.a4,
+                      margin: pw.EdgeInsets.zero,
                       build: (pw.Context context) {
                         return deltaToPDF(delta);
                       }));
