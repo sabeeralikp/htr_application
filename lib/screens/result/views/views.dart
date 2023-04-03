@@ -114,10 +114,7 @@ class _ResulPageState extends State<ResulPage> {
     List header = [null, null];
     List texts = [];
     List pdfColumnWidget = [];
-    pw.FontWeight defaultWeight = pw.FontWeight.normal;
     for (var element in deltaList.reversed) {
-      print(element.data);
-      print(element.attributes);
       if (element.data == '\n') {
         if (header != [] && texts != []) {
           pdfColumnWidget = pdfColumnWidget +
@@ -154,7 +151,6 @@ class _ResulPageState extends State<ResulPage> {
     final output = await getTemporaryDirectory();
     final file = File("${output.path}/example.pdf");
     await file.writeAsBytes(await pdf.save());
-    print(output.path);
   }
 
   getTheme() async {
