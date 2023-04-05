@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
+import 'package:htr/api/htr.dart';
+import 'package:htr/models/save_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -17,13 +19,16 @@ class ResulPage extends StatefulWidget {
 
 class _ResulPageState extends State<ResulPage> {
   final fq.QuillController _controller = fq.QuillController.basic();
+  List<SaveDataModel> saveDatas = [];
   @override
   void initState() {
     super.initState();
     if (widget.args != null) {
       String words = "";
-      for (var str in widget.args!) {
-        words = "$words $str";
+      for (int i = 0; i < widget.args!.length; i += 2) {
+        words = "$words ${widget.args![i]}";
+        saveDatas.add(SaveDataModel(
+            imageCordinate: i + 1, annotatedText: widget.args![i]));
       }
       _controller.document.insert(0, words.replaceFirst(" ", ""));
     }
@@ -166,6 +171,13 @@ class _ResulPageState extends State<ResulPage> {
     return myTheme;
   }
 
+  saveData(List<String> editedData) async {
+    for (int i = 0; i < editedData.length; i++) {
+      saveDatas[i].annotatedText = editedData[i];
+    }
+    await postSaveData(saveDatas);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +196,8 @@ class _ResulPageState extends State<ResulPage> {
                       build: (pw.Context context) {
                         return deltaToPDF(delta);
                       }));
-                  await savePDf(pdf);
+                  await saveData(_controller.document.toPlainText().split(" "));
+                  // await savePDf(pdf);
                 },
                 icon: const Icon(Icons.download_for_offline_rounded))
           ],
