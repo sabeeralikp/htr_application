@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -25,10 +26,13 @@ class _ResulPageState extends State<ResulPage> {
     super.initState();
     if (widget.args != null) {
       String words = "";
-      for (int i = 0; i < widget.args!.length; i += 2) {
+      for (int i = 0; i < widget.args!.length ~/ 2; i++) {
         words = "$words ${widget.args![i]}";
+        log((widget.args![i + (widget.args!.length ~/ 2)]['id']).toString());
+        log((widget.args![i]).toString());
         saveDatas.add(SaveDataModel(
-            imageCordinate: i + 1, annotatedText: widget.args![i]));
+            imageCordinate: widget.args![i + (widget.args!.length ~/ 2)]['id'],
+            annotatedText: widget.args![i]));
       }
       _controller.document.insert(0, words.replaceFirst(" ", ""));
     }

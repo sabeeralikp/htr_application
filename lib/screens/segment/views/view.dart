@@ -119,6 +119,20 @@ class _SegmentState extends State<Segment> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Segment'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  _isTapped = [
+                    for (int k = 0; k < _cordinates.length; k++) true
+                  ];
+                  for (var i = 0; i < _cordinates.length; i++) {
+                    _selectedCordinates.add(_cordinates[i]);
+                  }
+                });
+              },
+              icon: const Icon(Icons.select_all))
+        ],
       ),
       body: isLoading
           ? const Center(child: LoadingIndicator())
