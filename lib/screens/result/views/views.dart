@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
+import 'package:htr/api/api.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/models/save_data.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,6 +22,8 @@ class ResulPage extends StatefulWidget {
 class _ResulPageState extends State<ResulPage> {
   final fq.QuillController _controller = fq.QuillController.basic();
   List<SaveDataModel> saveDatas = [];
+  int selectedIndex = -1;
+  List<bool> isSelected = [false, false];
   @override
   void initState() {
     super.initState();
@@ -157,9 +160,34 @@ class _ResulPageState extends State<ResulPage> {
   }
 
   savePDf(pdf) async {
-    final output = await getTemporaryDirectory();
-    final file = File("${output.path}/example.pdf");
+    final output = await getApplicationDocumentsDirectory();
+    final file = File("${output.path}/document.pdf");
     await file.writeAsBytes(await pdf.save());
+    log(output.path);
+    showSavedSnackbar(output.path);
+  }
+
+  saveDOCX(pdf) async {
+    final output = await getApplicationDocumentsDirectory();
+    final file = File("${output.path}/document.pdf");
+    await file.writeAsBytes(await pdf.save());
+    String? filePath = await exportAsDOC(file);
+    log(output.path);
+    log(filePath ?? 'Hello');
+    final request = await HttpClient().getUrl(Uri.parse(baseURL +
+        filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
+    final response = await request.close();
+    final docfile = File("${output.path}/document.docx");
+    response.pipe(docfile.openWrite());
+    showSavedSnackbar(output.path);
+  }
+
+  showSavedSnackbar(String downloadLocation) {
+    SnackBar snackBar = SnackBar(
+      content:
+          Text('The File has been downloaded and saved to $downloadLocation'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   getTheme() async {
@@ -182,6 +210,91 @@ class _ResulPageState extends State<ResulPage> {
     await postSaveData(saveDatas);
   }
 
+  exportDoc() async {
+    final pdf = pw.Document(
+      theme: await getTheme(),
+    );
+    var delta = _controller.document.toDelta().toList();
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        margin: pw.EdgeInsets.zero,
+        build: (pw.Context context) {
+          return deltaToPDF(delta);
+        }));
+    await saveData(_controller.document.toPlainText().split(" "));
+    if (isSelected[0]) {
+      await savePDf(pdf);
+    } else if (isSelected[1]) {
+      await saveDOCX(pdf);
+    }
+  }
+
+  Future<void> _showAlertDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) => AlertDialog(
+            title: const Text('Export As'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  const Text('Save the document as'),
+                  ListTile(
+                      title: const Text('PDF'),
+                      isThreeLine: false,
+                      onTap: () {
+                        setState(() {
+                          isSelected = [
+                            for (var i = 0; i < isSelected.length; i++) false
+                          ];
+                          isSelected[0] = true;
+                        });
+                      },
+                      trailing: isSelected[0]
+                          ? const Icon(Icons.check, color: Colors.green)
+                          : const SizedBox()),
+                  ListTile(
+                      title: const Text('DOCX'),
+                      isThreeLine: false,
+                      onTap: () {
+                        setState(() {
+                          isSelected = [
+                            for (var i = 0; i < isSelected.length; i++) false
+                          ];
+                          isSelected[1] = true;
+                        });
+                      },
+                      trailing: isSelected[1]
+                          ? const Icon(Icons.check, color: Colors.green)
+                          : const SizedBox()),
+                  // ExportElement(itemName: 'PDF'),
+                  // ExportElement(itemName: 'DOCX'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Export'),
+                onPressed: () {
+                  exportDoc();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,18 +303,7 @@ class _ResulPageState extends State<ResulPage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  final pdf = pw.Document(
-                    theme: await getTheme(),
-                  );
-                  var delta = _controller.document.toDelta().toList();
-                  pdf.addPage(pw.Page(
-                      pageFormat: PdfPageFormat.a4,
-                      margin: pw.EdgeInsets.zero,
-                      build: (pw.Context context) {
-                        return deltaToPDF(delta);
-                      }));
-                  await saveData(_controller.document.toPlainText().split(" "));
-                  // await savePDf(pdf);
+                  _showAlertDialog();
                 },
                 icon: const Icon(Icons.download_for_offline_rounded))
           ],
@@ -217,5 +319,34 @@ class _ResulPageState extends State<ResulPage> {
             )
           ],
         ));
+  }
+}
+
+class ExportElement extends StatefulWidget {
+  final String itemName;
+  const ExportElement({
+    super.key,
+    required this.itemName,
+  });
+
+  @override
+  State<ExportElement> createState() => _ExportElementState();
+}
+
+class _ExportElementState extends State<ExportElement> {
+  bool isSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Text(widget.itemName),
+        isThreeLine: false,
+        onTap: () {
+          setState(() {
+            isSelected = !isSelected;
+          });
+        },
+        trailing: isSelected
+            ? const Icon(Icons.check, color: Colors.green)
+            : const SizedBox());
   }
 }

@@ -96,10 +96,8 @@ Future<List<dynamic>> postExtractText(
   return [];
 }
 
-Future<List<dynamic>> postSaveData(
-    List<SaveDataModel> saveDatas) async {
-  FormData formData = FormData.fromMap({
-      "saveDatas": jsonEncode(saveDatas)});
+Future<List<dynamic>> postSaveData(List<SaveDataModel> saveDatas) async {
+  FormData formData = FormData.fromMap({"saveDatas": jsonEncode(saveDatas)});
   try {
     final response = await dio.post("/api/document/saveData", data: formData);
     if (response.statusCode == 200) {
@@ -112,4 +110,22 @@ Future<List<dynamic>> postSaveData(
     log(error.toString());
   }
   return [];
+}
+
+Future<String?> exportAsDOC(File file) async {
+  FormData formData = FormData.fromMap({
+    "file": await MultipartFile.fromFile(file.path),
+  });
+  try {
+    final response = await dio.post("/api/document/exportDoc", data: formData);
+    if (response.statusCode == 200) {
+      return response.data["file"];
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return null;
 }
