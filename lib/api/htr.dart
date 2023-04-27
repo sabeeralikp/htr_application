@@ -78,6 +78,23 @@ Future<List<Cordinates>> postThresholdValues(
   return [];
 }
 
+Future<List<Cordinates>> postAutoSegmentationValues(uploadHTR) async {
+  FormData formData = FormData.fromMap({"upload_htr": uploadHTR});
+  try {
+    final response =
+        await dio.post("/api/document/autoSegment", data: formData);
+    if (response.statusCode == 200) {
+      return Cordinates.listFromJson(response.data);
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return [];
+}
+
 Future<List<dynamic>> postExtractText(
     List<Cordinates> cordinates, uploadHTR) async {
   FormData formData = FormData.fromMap(

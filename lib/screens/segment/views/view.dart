@@ -10,6 +10,7 @@ import 'package:htr/config/widgets/loading.dart';
 import 'package:htr/models/cordinates.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
+import 'package:htr/screens/home/widgets/fab.dart';
 
 class Segment extends StatefulWidget {
   final UploadHTRModel? args;
@@ -31,6 +32,12 @@ class _SegmentState extends State<Segment> {
   _getCordinates(uploadHTR) async {
     _cordinates = await postThresholdValues(
         _thresholdValue, _horizontalValue, _verticalValue, uploadHTR);
+    _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
+    setState(() {});
+  }
+
+  _getAutoSegmentationCordinates(uploadHTR) async {
+    _cordinates = await postAutoSegmentationValues(uploadHTR);
     _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
     setState(() {});
   }
@@ -120,7 +127,7 @@ class _SegmentState extends State<Segment> {
       appBar: AppBar(
         title: const Text('Segment'),
         actions: [
-          IconButton(
+          TextButton(
               onPressed: () {
                 setState(() {
                   _isTapped = [
@@ -131,7 +138,7 @@ class _SegmentState extends State<Segment> {
                   }
                 });
               },
-              icon: const Icon(Icons.select_all))
+              child: const Text("Select All"))
         ],
       ),
       body: isLoading
@@ -264,6 +271,10 @@ class _SegmentState extends State<Segment> {
                 );
               }),
             ]),
+      floatingActionButton: floatingActionButton(() {
+        _getAutoSegmentationCordinates(widget.args!.id);
+      }, 'Auto Segment', const Icon(Icons.auto_awesome, color: Colors.white)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -350,7 +361,7 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
                     Padding(
                       padding: const EdgeInsets.only(left: 32.0),
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
+                        // mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [...widget.getBottomSheetComponents],

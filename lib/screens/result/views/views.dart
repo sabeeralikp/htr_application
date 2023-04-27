@@ -301,11 +301,11 @@ class _ResulPageState extends State<ResulPage> {
         appBar: AppBar(
           title: const Text('Result Page'),
           actions: [
-            IconButton(
+            TextButton(
                 onPressed: () async {
                   _showAlertDialog();
                 },
-                icon: const Icon(Icons.download_for_offline_rounded))
+                child: const Text("Export As"))
           ],
         ),
         body: Column(

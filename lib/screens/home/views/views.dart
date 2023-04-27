@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:htr/api/htr.dart';
+import 'package:htr/config/assets/assets.dart';
 import 'package:htr/config/measures/padding.dart';
 import 'package:htr/config/widgets/upload.dart';
 import 'package:htr/models/upload_htr.dart';
@@ -70,7 +71,8 @@ class _HomeState extends State<Home> {
               isUploading ? const UploadingIndicator() : const UploadFileBody(),
         ),
       ),
-      floatingActionButton: floatingActionButton(uploadFile),
+      floatingActionButton:
+          floatingActionButton(uploadFile, 'Upload', cloudUploadIcon),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
