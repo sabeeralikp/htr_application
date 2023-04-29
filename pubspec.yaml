@@ -18,6 +18,8 @@ dependencies:
   flutter_quill: ^7.0.1
   pdf: ^3.10.1
   path_provider: ^2.0.14
+  intl: ^0.17.0
+  timeago: ^3.3.0
 
 dev_dependencies:
   flutter_test:

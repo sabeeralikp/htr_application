@@ -6,6 +6,7 @@ class UploadHTRModel {
   int? numberOfPages;
   String? uploadedBy;
   String? uploadedOn;
+  String? segment;
 
   UploadHTRModel(
       {this.id,

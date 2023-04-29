@@ -10,7 +10,6 @@ import 'package:htr/config/widgets/loading.dart';
 import 'package:htr/models/cordinates.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
-import 'package:htr/screens/home/widgets/fab.dart';
 
 class Segment extends StatefulWidget {
   final UploadHTRModel? args;
@@ -105,21 +104,15 @@ class _SegmentState extends State<Segment> {
             },
             child: const Padding(
                 padding: EdgeInsets.all(16.0), child: Text('Threshold'))),
-        TextButton(
-            onPressed: () async {
-              log("Next Button");
-              if (_selectedCordinates.isNotEmpty) {
-                setState(() {
-                  isLoading = true;
-                });
-                List<dynamic> extractedText =
-                    await _getExtractedText(widget.args!.id) as List<dynamic>;
-                log(extractedText.toString());
-                navigateToResult(extractedText);
-              }
-            },
-            child: const Text('Next'))
       ];
+  @override
+  void initState() {
+    super.initState();
+    if (widget.args!.segment == "auto") {
+      _getAutoSegmentationCordinates(widget.args!.id);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -138,7 +131,21 @@ class _SegmentState extends State<Segment> {
                   }
                 });
               },
-              child: const Text("Select All"))
+              child: const Text("Select All")),
+          TextButton(
+              onPressed: () async {
+                log("Next Button");
+                if (_selectedCordinates.isNotEmpty) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  List<dynamic> extractedText =
+                      await _getExtractedText(widget.args!.id) as List<dynamic>;
+                  log(extractedText.toString());
+                  navigateToResult(extractedText);
+                }
+              },
+              child: const Text('Next'))
         ],
       ),
       body: isLoading
@@ -242,39 +249,36 @@ class _SegmentState extends State<Segment> {
                   ]),
                 h18
               ]),
-              LayoutBuilder(builder: (context, constraint) {
-                if (constraint.maxWidth < 700) {
-                  return DraggableScrollableSheet(
-                      initialChildSize: 0.7,
-                      minChildSize: 0.15,
-                      maxChildSize: 0.7,
-                      builder: (context, controller) => ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24)),
-                            child: Container(
-                              color: kSecondaryBgColor,
-                              padding: x32,
-                              child: ListView.builder(
-                                  controller: controller,
-                                  itemCount:
-                                      getBottomSheetComponents(context).length,
-                                  itemBuilder: (context, index) {
-                                    return getBottomSheetComponents(
-                                        context)[index];
-                                  }),
-                            ),
-                          ));
-                }
-                return ThresholdSideSheet(
-                  getBottomSheetComponents: getBottomSheetComponents(context),
-                );
-              }),
+              if (widget.args!.segment != "auto")
+                LayoutBuilder(builder: (context, constraint) {
+                  if (constraint.maxWidth < 700) {
+                    return DraggableScrollableSheet(
+                        initialChildSize: 0.7,
+                        minChildSize: 0.15,
+                        maxChildSize: 0.7,
+                        builder: (context, controller) => ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24)),
+                              child: Container(
+                                color: kSecondaryBgColor,
+                                padding: x32,
+                                child: ListView.builder(
+                                    controller: controller,
+                                    itemCount: getBottomSheetComponents(context)
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      return getBottomSheetComponents(
+                                          context)[index];
+                                    }),
+                              ),
+                            ));
+                  }
+                  return ThresholdSideSheet(
+                    getBottomSheetComponents: getBottomSheetComponents(context),
+                  );
+                }),
             ]),
-      floatingActionButton: floatingActionButton(() {
-        _getAutoSegmentationCordinates(widget.args!.id);
-      }, 'Auto Segment', const Icon(Icons.auto_awesome, color: Colors.white)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
