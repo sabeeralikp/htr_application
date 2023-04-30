@@ -115,9 +115,10 @@ class _HomeState extends State<Home> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ListTile(
-                                      leading: const Icon(
-                                          Icons.file_present_outlined,
-                                          color: kPrimaryColor),
+                                      leading: SizedBox(
+                                          width: 48,
+                                          height: 48,
+                                          child: pdfFile),
                                       visualDensity: const VisualDensity(
                                           horizontal: -4, vertical: -4),
                                       contentPadding: EdgeInsets.zero,
@@ -140,9 +141,22 @@ class _HomeState extends State<Home> {
                                             htr = null;
                                           });
                                         },
-                                        child: const Icon(
-                                          Icons.close_rounded,
-                                          color: Colors.red,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(50)),
+                                            border: Border.all(
+                                                color: Colors.red, width: 0.75),
+                                            color: const Color.fromARGB(
+                                                80, 244, 67, 54),
+                                          ),
+                                          child: const Icon(
+                                            Icons.close_rounded,
+                                            size: 18,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ),
                                     ),

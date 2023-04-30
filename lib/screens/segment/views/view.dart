@@ -50,7 +50,12 @@ class _SegmentState extends State<Segment> {
   void navigateToResult(extractedText) {
     if (_selectedCordinates.isNotEmpty) {
       Navigator.of(context)
-          .pushNamed(RouteProvider.result, arguments: extractedText);
+          .pushNamed(RouteProvider.result, arguments: extractedText)
+          .then((value) => {
+                setState(() {
+                  isLoading = false;
+                })
+              });
     }
   }
 
@@ -110,6 +115,8 @@ class _SegmentState extends State<Segment> {
     super.initState();
     if (widget.args!.segment == "auto") {
       _getAutoSegmentationCordinates(widget.args!.id);
+    } else if (widget.args!.segment == "manual") {
+      _getCordinates(widget.args!.id);
     }
   }
 
@@ -132,20 +139,28 @@ class _SegmentState extends State<Segment> {
                 });
               },
               child: const Text("Select All")),
-          TextButton(
-              onPressed: () async {
-                log("Next Button");
-                if (_selectedCordinates.isNotEmpty) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  List<dynamic> extractedText =
-                      await _getExtractedText(widget.args!.id) as List<dynamic>;
-                  log(extractedText.toString());
-                  navigateToResult(extractedText);
-                }
-              },
-              child: const Text('Next'))
+          const SizedBox(
+            width: 8,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: ElevatedButton(
+                onPressed: () async {
+                  if (_selectedCordinates.isNotEmpty) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    List<dynamic> extractedText =
+                        await _getExtractedText(widget.args!.id)
+                            as List<dynamic>;
+                    navigateToResult(extractedText);
+                  }
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Text('Next'),
+                )),
+          )
         ],
       ),
       body: isLoading
