@@ -114,7 +114,7 @@ Future<List<dynamic>> postExtractText(
 }
 
 Future<List<dynamic>> postSaveData(List<SaveDataModel> saveDatas) async {
-  FormData formData = FormData.fromMap({"saveDatas": jsonEncode(saveDatas)});
+  FormData formData = FormData.fromMap({"datas": jsonEncode(saveDatas)});
   try {
     final response = await dio.post("/api/document/saveData", data: formData);
     if (response.statusCode == 200) {
