@@ -1,6 +1,8 @@
 import 'dart:developer';
+// import 'dart:html' as html;
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
@@ -160,11 +162,25 @@ class _ResulPageState extends State<ResulPage> {
   }
 
   savePDf(pdf) async {
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/document.pdf");
-    await file.writeAsBytes(await pdf.save());
-    log(output.path);
-    showSavedSnackbar(output.path);
+    if (!kIsWeb) {
+      final output = await getApplicationDocumentsDirectory();
+      final file = File("${output.path}/document.pdf");
+      await file.writeAsBytes(await pdf.save());
+      log(output.path);
+      showSavedSnackbar(output.path);
+    } else {
+      // final bytes = await pdf.save();
+      // final blob = html.Blob([bytes], 'application/pdf');
+      // final url = html.Url.createObjectUrlFromBlob(blob);
+      // final anchor = html.AnchorElement()
+      //   ..href = url
+      //   ..style.display = 'none'
+      //   ..download = 'some_name.pdf';
+      // html.document.body?.children.add(anchor);
+      // anchor.click();
+      // html.document.body?.children.remove(anchor);
+      // html.Url.revokeObjectUrl(url);
+    }
   }
 
   saveDOCX(pdf) async {
