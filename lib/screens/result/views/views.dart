@@ -175,7 +175,7 @@ class _ResulPageState extends State<ResulPage> {
       // final anchor = html.AnchorElement()
       //   ..href = url
       //   ..style.display = 'none'
-      //   ..download = 'some_name.pdf';
+      //   ..download = 'document.pdf';
       // html.document.body?.children.add(anchor);
       // anchor.click();
       // html.document.body?.children.remove(anchor);
