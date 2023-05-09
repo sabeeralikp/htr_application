@@ -9,6 +9,7 @@ import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:htr/api/api.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/models/save_data.dart';
+import 'package:open_app_file/open_app_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -167,7 +168,7 @@ class _ResulPageState extends State<ResulPage> {
       final file = File("${output.path}/document.pdf");
       await file.writeAsBytes(await pdf.save());
       log(output.path);
-      showSavedSnackbar(output.path);
+      showSavedSnackbar(output.path, 'document.pdf');
     } else {
       // final bytes = await pdf.save();
       // final blob = html.Blob([bytes], 'application/pdf');
@@ -195,13 +196,18 @@ class _ResulPageState extends State<ResulPage> {
     final response = await request.close();
     final docfile = File("${output.path}/document.docx");
     response.pipe(docfile.openWrite());
-    showSavedSnackbar(output.path);
+    showSavedSnackbar(output.path, 'document.docx');
   }
 
-  showSavedSnackbar(String downloadLocation) {
+  showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
       content:
           Text('The File has been downloaded and saved to $downloadLocation'),
+      action: SnackBarAction(
+          label: 'Open',
+          onPressed: () {
+            OpenAppFile.open('$downloadLocation/$filename');
+          }),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
