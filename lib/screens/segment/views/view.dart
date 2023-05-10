@@ -172,7 +172,7 @@ class _SegmentState extends State<Segment> {
                     Stack(
                       children: [
                         Image.network(
-                          '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '')}/$i.png',
+                          '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {
                             if (loadingProgress == null) {

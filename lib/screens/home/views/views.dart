@@ -7,12 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/config/assets/assets.dart';
 import 'package:htr/config/colors/colors.dart';
+import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/padding.dart';
 import 'package:htr/config/widgets/upload.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
-import 'package:htr/screens/home/widgets/fab.dart';
 import 'package:htr/screens/home/widgets/upload_file_body.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 enum Segmentation { manual, auto }
@@ -65,6 +66,23 @@ class _HomeState extends State<Home> {
     if (htr != null) {
       htr!.segment = selectedSegment.name;
       Navigator.of(context).pushNamed(RouteProvider.segment, arguments: htr);
+    }
+  }
+
+  getCameraImage() async {
+    try {
+      final XFile? capturedImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (capturedImage == null) return;
+      file = File(capturedImage.path);
+      if (file != null) {
+        htr = await uploadHTR(file!);
+        isUploading = false;
+        setState(() {});
+        log(htr.toString());
+      }
+    } on Exception catch (e) {
+      log('Failed to pick image: $e');
     }
   }
 
@@ -213,7 +231,26 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: htr == null
-          ? floatingActionButton(uploadFile, 'Upload', cloudUploadIcon)
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FloatingActionButton.extended(
+                  label: Text('Upload', style: w16M),
+                  icon: cloudUploadIcon,
+                  onPressed: uploadFile,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                if (Platform.isAndroid || Platform.isIOS)
+                  FloatingActionButton(
+                      onPressed: () {
+                        getCameraImage();
+                      },
+                      child: const Icon(Icons.camera_alt_rounded,
+                          color: Colors.white))
+              ],
+            )
           : const SizedBox(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

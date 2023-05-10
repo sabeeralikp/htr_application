@@ -13,10 +13,14 @@ final dio = Dio(baseOptions);
 
 Future<UploadHTRModel?> uploadHTR(File file) async {
   String fileName = file.path.split('/').last;
+  log(fileName);
   FormData formData = FormData.fromMap({
     "filename": fileName,
     "file": await MultipartFile.fromFile(file.path,
-        filename: fileName, contentType: MediaType('application', 'pdf')),
+        filename: fileName,
+        contentType: file.uri.pathSegments.last.split('.').last == 'pdf'
+            ? MediaType('application', 'pdf')
+            : MediaType('image', file.uri.pathSegments.last.split('.').last)),
   });
   try {
     final response = await dio.post("/api/document/postHTR", data: formData);
