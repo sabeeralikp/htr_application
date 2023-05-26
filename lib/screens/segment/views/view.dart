@@ -64,13 +64,13 @@ class _SegmentState extends State<Segment> {
           Container(
               width: 32,
               height: 4,
-              margin: t16B64,
+              margin: pT16B64,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32), color: kWhiteColor))
         ]),
-        Text('Adjust Threshold', style: p20SB, textAlign: TextAlign.center),
+        Text('Adjust Threshold', style: fP20SB, textAlign: TextAlign.center),
         h20,
-        Text('Threshold Value $_thresholdValue', style: p16M),
+        Text('Threshold Value $_thresholdValue', style: fP16N),
         Slider(
             value: _thresholdValue,
             min: 0,
@@ -81,7 +81,7 @@ class _SegmentState extends State<Segment> {
                 _thresholdValue = value;
               });
             }),
-        Text('Horizontal Spacing $_horizontalValue', style: p16M),
+        Text('Horizontal Spacing $_horizontalValue', style: fP16N),
         Slider(
             value: _horizontalValue,
             min: 0,
@@ -91,7 +91,7 @@ class _SegmentState extends State<Segment> {
                 _horizontalValue = value;
               });
             }),
-        Text('Vertical Spacing $_verticalValue', style: p16M),
+        Text('Vertical Spacing $_verticalValue', style: fP16N),
         Slider(
             value: _verticalValue,
             min: 0,
@@ -277,7 +277,7 @@ class _SegmentState extends State<Segment> {
                                   topRight: Radius.circular(24)),
                               child: Container(
                                 color: kSecondaryBgColor,
-                                padding: x32,
+                                padding: pX32,
                                 child: ListView.builder(
                                     controller: controller,
                                     itemCount: getBottomSheetComponents(context)

@@ -3,12 +3,17 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/config/assets/assets.dart';
+import 'package:htr/config/borders/borders.dart';
+import 'package:htr/config/buttons/button_themes.dart';
 import 'package:htr/config/colors/colors.dart';
+import 'package:htr/config/decorations/box.dart';
 import 'package:htr/config/fonts/fonts.dart';
+import 'package:htr/config/icons/icons.dart';
+import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
+import 'package:htr/config/measures/visual_density.dart';
 import 'package:htr/config/widgets/upload.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
@@ -86,11 +91,23 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void removeHTR() {
+    setState(() {
+      htr = null;
+    });
+  }
+
+  void segmentOnClick(Set<Segmentation> newSelection) {
+    setState(() {
+      selectedSegment = newSelection.first;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: x32,
+        padding: pX32,
         child: Center(
           child: isUploading
               ? const UploadingIndicator()
@@ -101,31 +118,18 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(32),
-                          decoration: const BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
+                          padding: pA32,
+                          decoration: bDP16,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('Choose Segmentation Method',
-                                  style: GoogleFonts.inter(
-                                      color: kWhiteColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400)),
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              Text('Choose Segmentation Method', style: fW16N),
+                              h16,
                               Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: const BoxDecoration(
-                                  color: kWhiteColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
-                                ),
+                                padding: pA8,
+                                decoration: bDW8,
                                 width: 250,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -137,59 +141,38 @@ class _HomeState extends State<Home> {
                                           width: 48,
                                           height: 48,
                                           child: pdfFile),
-                                      visualDensity: const VisualDensity(
-                                          horizontal: -4, vertical: -4),
-                                      contentPadding: EdgeInsets.zero,
+                                      visualDensity: vDn4n4,
+                                      contentPadding: p0,
                                       title: Text(
                                         htr!.filename!,
-                                        style: const TextStyle(
-                                            color: kPrimaryColor,
-                                            fontWeight: FontWeight.w500),
+                                        style: fP16M,
                                       ),
                                       subtitle: Text(
                                         timeago.format(
                                             DateTime.parse(htr!.uploadedOn!)),
-                                        style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.w400),
+                                        style: fG14N,
                                       ),
                                       trailing: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            htr = null;
-                                          });
-                                        },
+                                        onTap: removeHTR,
                                         child: Container(
-                                          padding: const EdgeInsets.all(4),
+                                          padding: pA4,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(50)),
-                                            border: Border.all(
-                                                color: Colors.red, width: 0.75),
-                                            color: const Color.fromARGB(
-                                                80, 244, 67, 54),
+                                            border: bRA075,
+                                            color: kRedBgColor,
                                           ),
-                                          child: const Icon(
-                                            Icons.close_rounded,
-                                            size: 18,
-                                            color: Colors.red,
-                                          ),
+                                          child: iCloseR18,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              h16,
                               SegmentedButton<Segmentation>(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              kWhiteColor),
-                                      foregroundColor:
-                                          MaterialStateProperty.all(
-                                              kPrimaryColor)),
+                                  style: segmentButtonStyle,
                                   segments: const <ButtonSegment<Segmentation>>[
                                     ButtonSegment<Segmentation>(
                                         value: Segmentation.manual,
@@ -201,17 +184,10 @@ class _HomeState extends State<Home> {
                                         icon: Icon(Icons.auto_awesome)),
                                   ],
                                   selected: <Segmentation>{selectedSegment},
-                                  onSelectionChanged:
-                                      (Set<Segmentation> newSelection) {
-                                    setState(() {
-                                      selectedSegment = newSelection.first;
-                                    });
-                                  }),
-                              const SizedBox(height: 48),
+                                  onSelectionChanged: segmentOnClick),
+                              h48,
                               ElevatedButton(
-                                  onPressed: () {
-                                    navigateToResult();
-                                  },
+                                  onPressed: navigateToResult,
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
@@ -220,9 +196,7 @@ class _HomeState extends State<Home> {
                                           MaterialStateProperty.all(
                                               kPrimaryColor)),
                                   child: const Padding(
-                                    padding: EdgeInsets.all(16.0),
-                                    child: Text('Continue'),
-                                  ))
+                                      padding: pA16, child: Text('Continue')))
                             ],
                           ),
                         ),
@@ -235,20 +209,13 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FloatingActionButton.extended(
-                  label: Text('Upload', style: w16M),
-                  icon: cloudUploadIcon,
-                  onPressed: uploadFile,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
+                    label: Text('Upload', style: fW16M),
+                    icon: cloudUploadIcon,
+                    onPressed: uploadFile),
+                w8,
                 if (Platform.isAndroid || Platform.isIOS)
                   FloatingActionButton(
-                      onPressed: () {
-                        getCameraImage();
-                      },
-                      child: const Icon(Icons.camera_alt_rounded,
-                          color: Colors.white))
+                      onPressed: getCameraImage(), child: iCamera)
               ],
             )
           : const SizedBox(),

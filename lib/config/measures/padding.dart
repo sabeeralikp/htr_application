@@ -1,24 +1,37 @@
-// [sides]-[value]-[sides]-[value]-...
-// [sides]
-//    a => all sides
-//    x => horizontal sides
-//    y => vertical sides
-//    l => Left side
-//    t => Top side
-//    b => bottom side
-//    r => right side
-
 import 'package:flutter/material.dart';
 
-const EdgeInsets x32 = EdgeInsets.symmetric(horizontal: 32);
-const EdgeInsets x16 = EdgeInsets.symmetric(horizontal: 16);
+/// p[sides]-[value]-[sides]-[value]-...
+/// [sides]
+///    A => all sides
+///    X => horizontal sides
+///    Y => vertical sides
+//    L => Left side
+//    T => Top side
+//    B => bottom side
+//    R => right side
 
-const EdgeInsets y32 = EdgeInsets.symmetric(vertical: 32);
-const EdgeInsets y8 = EdgeInsets.symmetric(vertical: 8);
+const EdgeInsets p0 = EdgeInsets.zero;
 
-const EdgeInsets x16Y32 = EdgeInsets.symmetric(horizontal: 16, vertical: 32);
-const EdgeInsets x16T32B64 =
+// All-Directional Padding
+const EdgeInsets pA4 = EdgeInsets.all(4);
+const EdgeInsets pA8 = EdgeInsets.all(8);
+const EdgeInsets pA16 = EdgeInsets.all(16);
+const EdgeInsets pA32 = EdgeInsets.all(32);
+
+// X-Directional Padding
+const EdgeInsets pX16 = EdgeInsets.symmetric(horizontal: 16);
+const EdgeInsets pX32 = EdgeInsets.symmetric(horizontal: 32);
+
+// Y-Directional Padding
+const EdgeInsets pY8 = EdgeInsets.symmetric(vertical: 8);
+const EdgeInsets pY32 = EdgeInsets.symmetric(vertical: 32);
+
+// XY-Directional Padding
+const EdgeInsets pX16Y32 = EdgeInsets.symmetric(horizontal: 16, vertical: 32);
+
+// Others
+const EdgeInsets pX16T32B64 =
     EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 64);
-const EdgeInsets x16T32B80 =
+const EdgeInsets pX16T32B80 =
     EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 80);
-const EdgeInsets t16B64 = EdgeInsets.only(top: 16, bottom: 32);
+const EdgeInsets pT16B64 = EdgeInsets.only(top: 16, bottom: 32);

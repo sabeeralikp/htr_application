@@ -20,10 +20,10 @@ ThemeData htrLightThemeData(BuildContext context) => ThemeData(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
               foregroundColor: MaterialStateProperty.all<Color>(kWhiteColor),
-              textStyle: MaterialStateProperty.all<TextStyle>(w16M))),
+              textStyle: MaterialStateProperty.all<TextStyle>(fW16M))),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-              textStyle: MaterialStateProperty.all<TextStyle>(p16M))),
+              textStyle: MaterialStateProperty.all<TextStyle>(fP16N))),
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 

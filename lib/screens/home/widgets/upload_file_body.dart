@@ -15,9 +15,9 @@ class UploadFileBody extends StatelessWidget {
       children: <Widget>[
         fileUploadSVG,
         h18,
-        Text('UPLOAD FILE', style: p16SB),
+        Text('UPLOAD FILE', style: fP16SB),
         h4,
-        Text('Upload your pdf or image', style: p7014L),
+        Text('Upload your pdf or image', style: fP7014L),
       ],
     );
   }
