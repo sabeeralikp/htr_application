@@ -16,5 +16,5 @@ final SvgPicture fileUploadSVG =
 final SvgPicture cloudUploadIcon =
     SvgPicture.asset(cloudUploadPath, semanticsLabel: 'Cloud Upload SVG');
 
-final SvgPicture pdfFile =
+final SvgPicture pdfFileIcon =
     SvgPicture.asset(pdfFilePath, semanticsLabel: 'PDF File SVG');

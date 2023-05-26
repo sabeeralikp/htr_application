@@ -3,6 +3,6 @@ import 'package:htr/config/colors/colors.dart';
 
 // Button Styles
 
-ButtonStyle segmentButtonStyle = ButtonStyle(
+ButtonStyle wPButtonStyle = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(kWhiteColor),
     foregroundColor: MaterialStateProperty.all(kPrimaryColor));

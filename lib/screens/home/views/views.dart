@@ -5,21 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/config/assets/assets.dart';
-import 'package:htr/config/borders/borders.dart';
 import 'package:htr/config/buttons/button_themes.dart';
-import 'package:htr/config/colors/colors.dart';
 import 'package:htr/config/decorations/box.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/icons/icons.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
-import 'package:htr/config/measures/visual_density.dart';
 import 'package:htr/config/widgets/upload.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
 import 'package:htr/screens/home/widgets/upload_file_body.dart';
+import 'package:htr/screens/home/widgets/uploaded_file.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 enum Segmentation { manual, auto }
 
@@ -52,7 +49,6 @@ class _HomeState extends State<Home> {
           htr = await uploadHTRWeb(fileBytes, fileName);
           isUploading = false;
           setState(() {});
-          log(htr!.toString());
         }
       } else {
         file = File(result!.files.single.path!);
@@ -60,7 +56,6 @@ class _HomeState extends State<Home> {
           htr = await uploadHTR(file!);
           isUploading = false;
           setState(() {});
-          log(htr.toString());
         }
       }
       // navigateToResult();
@@ -84,7 +79,6 @@ class _HomeState extends State<Home> {
         htr = await uploadHTR(file!);
         isUploading = false;
         setState(() {});
-        log(htr.toString());
       }
     } on Exception catch (e) {
       log('Failed to pick image: $e');
@@ -127,52 +121,11 @@ class _HomeState extends State<Home> {
                             children: [
                               Text('Choose Segmentation Method', style: fW16N),
                               h16,
-                              Container(
-                                padding: pA8,
-                                decoration: bDW8,
-                                width: 250,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ListTile(
-                                      leading: SizedBox(
-                                          width: 48,
-                                          height: 48,
-                                          child: pdfFile),
-                                      visualDensity: vDn4n4,
-                                      contentPadding: p0,
-                                      title: Text(
-                                        htr!.filename!,
-                                        style: fP16M,
-                                      ),
-                                      subtitle: Text(
-                                        timeago.format(
-                                            DateTime.parse(htr!.uploadedOn!)),
-                                        style: fG14N,
-                                      ),
-                                      trailing: InkWell(
-                                        onTap: removeHTR,
-                                        child: Container(
-                                          padding: pA4,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(50)),
-                                            border: bRA075,
-                                            color: kRedBgColor,
-                                          ),
-                                          child: iCloseR18,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              UploadedFileContainer(
+                                  htr: htr!, removeHTR: removeHTR),
                               h16,
                               SegmentedButton<Segmentation>(
-                                  style: segmentButtonStyle,
+                                  style: wPButtonStyle,
                                   segments: const <ButtonSegment<Segmentation>>[
                                     ButtonSegment<Segmentation>(
                                         value: Segmentation.manual,
@@ -181,20 +134,14 @@ class _HomeState extends State<Home> {
                                     ButtonSegment<Segmentation>(
                                         value: Segmentation.auto,
                                         label: Text('Automatic'),
-                                        icon: Icon(Icons.auto_awesome)),
+                                        icon: Icon(Icons.auto_awesome))
                                   ],
                                   selected: <Segmentation>{selectedSegment},
                                   onSelectionChanged: segmentOnClick),
                               h48,
                               ElevatedButton(
                                   onPressed: navigateToResult,
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              kWhiteColor),
-                                      foregroundColor:
-                                          MaterialStateProperty.all(
-                                              kPrimaryColor)),
+                                  style: wPButtonStyle,
                                   child: const Padding(
                                       padding: pA16, child: Text('Continue')))
                             ],
