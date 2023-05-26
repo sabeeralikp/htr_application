@@ -1,22 +1,5 @@
 import 'dart:developer';
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:htr/api/htr.dart';
-import 'package:htr/config/assets/assets.dart';
-import 'package:htr/config/buttons/button_themes.dart';
-import 'package:htr/config/decorations/box.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/icons/icons.dart';
-import 'package:htr/config/measures/gap.dart';
-import 'package:htr/config/measures/padding.dart';
-import 'package:htr/config/widgets/upload.dart';
-import 'package:htr/models/upload_htr.dart';
-import 'package:htr/routes/route.dart';
-import 'package:htr/screens/home/widgets/upload_file_body.dart';
-import 'package:htr/screens/home/widgets/uploaded_file.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:htr/screens/home/widgets/widgets.dart';
 
 enum Segmentation { manual, auto }
 
