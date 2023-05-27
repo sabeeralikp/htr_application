@@ -1,8 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:htr/api/api.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/config/colors/colors.dart';
+import 'package:htr/config/decorations/box.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
@@ -28,9 +28,10 @@ class _SegmentState extends State<Segment> {
   List<Cordinates> _selectedCordinates = [];
   bool isLoading = false;
   double _deviceWidth = 0;
-  _getCordinates(uploadHTR) async {
+
+  _getCordinates() async {
     _cordinates = await postThresholdValues(
-        _thresholdValue, _horizontalValue, _verticalValue, uploadHTR);
+        _thresholdValue, _horizontalValue, _verticalValue, widget.args!.id);
     _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
     setState(() {});
   }
@@ -59,65 +60,102 @@ class _SegmentState extends State<Segment> {
     }
   }
 
+  void thresholdSliderOnChanged(value) {
+    _selectedCordinates = [];
+    setState(() {
+      _thresholdValue = value;
+    });
+  }
+
+  void horizontalSliderOnChanged(value) {
+    _selectedCordinates = [];
+    setState(() {
+      _horizontalValue = value;
+    });
+  }
+
+  void verticalSliderOnChanged(value) {
+    _selectedCordinates = [];
+    setState(() {
+      _verticalValue = value;
+    });
+  }
+
   List<Widget> getBottomSheetComponents(context) => [
-        Column(children: [
-          Container(
-              width: 32,
-              height: 4,
-              margin: pT16B64,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32), color: kWhiteColor))
-        ]),
+        Container(width: 32, height: 4, margin: pT16B64, decoration: bDW32),
         Text('Adjust Threshold', style: fP20SB, textAlign: TextAlign.center),
         h20,
-        Text('Threshold Value $_thresholdValue', style: fP16N),
+        TitleWithValue(title: 'Threshold Value', value: _thresholdValue),
         Slider(
             value: _thresholdValue,
             min: 0,
             max: 300,
-            onChanged: (value) {
-              _selectedCordinates = [];
-              setState(() {
-                _thresholdValue = value;
-              });
-            }),
-        Text('Horizontal Spacing $_horizontalValue', style: fP16N),
+            onChanged: thresholdSliderOnChanged),
+        TitleWithValue(title: 'Horizontal Spacing', value: _horizontalValue),
         Slider(
             value: _horizontalValue,
             min: 0,
             max: 100,
-            onChanged: (value) {
-              setState(() {
-                _horizontalValue = value;
-              });
-            }),
-        Text('Vertical Spacing $_verticalValue', style: fP16N),
+            onChanged: horizontalSliderOnChanged),
+        TitleWithValue(title: 'Vertical Spacing', value: _verticalValue),
         Slider(
             value: _verticalValue,
             min: 0,
             max: 100,
-            onChanged: (value) {
-              setState(() {
-                _verticalValue = value;
-              });
-            }),
+            onChanged: verticalSliderOnChanged),
         h16,
         ElevatedButton(
-            onPressed: () {
-              log("ElevatedButton");
-              _getCordinates(widget.args!.id);
-            },
-            child: const Padding(
-                padding: EdgeInsets.all(16.0), child: Text('Threshold'))),
+            onPressed: _getCordinates,
+            child: const Padding(padding: pA16, child: Text('Threshold'))),
       ];
-  @override
-  void initState() {
-    super.initState();
+
+  void initFunction() {
     if (widget.args!.segment == "auto") {
       _getAutoSegmentationCordinates(widget.args!.id);
     } else if (widget.args!.segment == "manual") {
-      _getCordinates(widget.args!.id);
+      _getCordinates();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initFunction();
+  }
+
+  void selectAllOnClick() {
+    setState(() {
+      _isTapped = [for (int k = 0; k < _cordinates.length; k++) true];
+      for (var i = 0; i < _cordinates.length; i++) {
+        _selectedCordinates.add(_cordinates[i]);
+      }
+    });
+  }
+
+  void nextOnClick() async {
+    if (_selectedCordinates.isNotEmpty) {
+      setState(() {
+        isLoading = true;
+      });
+      List<dynamic> extractedText =
+          await _getExtractedText(widget.args!.id) as List<dynamic>;
+      navigateToResult(extractedText);
+    }
+  }
+
+  Widget imageLoadingBuilder(
+      BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) {
+      return child;
+    }
+    return Center(
+      child: CircularProgressIndicator(
+        value: loadingProgress.expectedTotalBytes != null
+            ? loadingProgress.cumulativeBytesLoaded /
+                loadingProgress.expectedTotalBytes!
+            : null,
+      ),
+    );
   }
 
   @override
@@ -128,38 +166,13 @@ class _SegmentState extends State<Segment> {
         title: const Text('Segment'),
         actions: [
           TextButton(
-              onPressed: () {
-                setState(() {
-                  _isTapped = [
-                    for (int k = 0; k < _cordinates.length; k++) true
-                  ];
-                  for (var i = 0; i < _cordinates.length; i++) {
-                    _selectedCordinates.add(_cordinates[i]);
-                  }
-                });
-              },
-              child: const Text("Select All")),
-          const SizedBox(
-            width: 8,
-          ),
+              onPressed: selectAllOnClick, child: const Text("Select All")),
+          w8,
           Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: pR8,
             child: ElevatedButton(
-                onPressed: () async {
-                  if (_selectedCordinates.isNotEmpty) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    List<dynamic> extractedText =
-                        await _getExtractedText(widget.args!.id)
-                            as List<dynamic>;
-                    navigateToResult(extractedText);
-                  }
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Text('Next'),
-                )),
+                onPressed: nextOnClick,
+                child: const Padding(padding: pY8, child: Text('Next'))),
           )
         ],
       ),
@@ -172,23 +185,8 @@ class _SegmentState extends State<Segment> {
                     Stack(
                       children: [
                         Image.network(
-                          '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                        ),
+                            '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
+                            loadingBuilder: imageLoadingBuilder),
                         _cordinates.isNotEmpty
                             ? SizedBox(
                                 height: _cordinates[i].imgH!.toDouble(),
@@ -247,8 +245,8 @@ class _SegmentState extends State<Segment> {
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
                                                       color: _isTapped[j]
-                                                          ? Colors.blue
-                                                          : Colors.blue[100]!,
+                                                          ? kBlueColor
+                                                          : kUnSelectedBlueColor,
                                                       width: 1,
                                                     ))),
                                               ),
@@ -294,6 +292,28 @@ class _SegmentState extends State<Segment> {
                   );
                 }),
             ]),
+    );
+  }
+}
+
+class TitleWithValue extends StatelessWidget {
+  const TitleWithValue({super.key, required double value, required this.title})
+      : _horizontalValue = value;
+
+  final double _horizontalValue;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(title, style: fP16M),
+        w8,
+        Container(
+            decoration: bDW8,
+            padding: pA8,
+            child: Text(_horizontalValue.toStringAsFixed(1), style: fP16M))
+      ],
     );
   }
 }

@@ -12,4 +12,5 @@ import 'package:flutter/material.dart';
 
 const BorderRadius bRA8 = BorderRadius.all(Radius.circular(8));
 const BorderRadius bRA16 = BorderRadius.all(Radius.circular(16));
+const BorderRadius bRA32 = BorderRadius.all(Radius.circular(32));
 const BorderRadius bRA50 = BorderRadius.all(Radius.circular(50));

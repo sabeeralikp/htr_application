@@ -18,3 +18,5 @@ BoxDecoration bDR50b075 = BoxDecoration(
 
 const BoxDecoration bDW8 =
     BoxDecoration(color: kWhiteColor, borderRadius: bRA8);
+const BoxDecoration bDW32 =
+    BoxDecoration(color: kWhiteColor, borderRadius: bRA32);

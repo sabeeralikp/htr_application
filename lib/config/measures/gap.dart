@@ -15,3 +15,4 @@ const SizedBox h8 = SizedBox(height: 8);
 const SizedBox h4 = SizedBox(height: 4);
 
 const SizedBox w8 = SizedBox(width: 8);
+const SizedBox w16 = SizedBox(width: 16);
