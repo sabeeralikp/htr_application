@@ -29,9 +29,13 @@ const EdgeInsets pY32 = EdgeInsets.symmetric(vertical: 32);
 // XY-Directional Padding
 const EdgeInsets pX16Y32 = EdgeInsets.symmetric(horizontal: 16, vertical: 32);
 
+// Only Left Padding
+const EdgeInsets pL8 = EdgeInsets.only(left: 8);
+const EdgeInsets pL32 = EdgeInsets.only(left: 32);
+
+
 // Only Right Padding
 const EdgeInsets pR8 = EdgeInsets.only(right: 8);
-
 
 // Others
 const EdgeInsets pX16T32B64 =

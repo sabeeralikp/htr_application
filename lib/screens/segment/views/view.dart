@@ -1,15 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:htr/api/api.dart';
-import 'package:htr/api/htr.dart';
-import 'package:htr/config/colors/colors.dart';
-import 'package:htr/config/decorations/box.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/measures/gap.dart';
-import 'package:htr/config/measures/padding.dart';
-import 'package:htr/config/widgets/loading.dart';
-import 'package:htr/models/cordinates.dart';
-import 'package:htr/models/upload_htr.dart';
-import 'package:htr/routes/route.dart';
+import 'package:htr/screens/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
   final UploadHTRModel? args;
@@ -82,7 +71,7 @@ class _SegmentState extends State<Segment> {
   }
 
   List<Widget> getBottomSheetComponents(context) => [
-        Container(width: 32, height: 4, margin: pT16B64, decoration: bDW32),
+        Container(width: 48, height: 4, margin: pT16B64, decoration: bDW32),
         Text('Adjust Threshold', style: fP20SB, textAlign: TextAlign.center),
         h20,
         TitleWithValue(title: 'Threshold Value', value: _thresholdValue),
@@ -158,6 +147,19 @@ class _SegmentState extends State<Segment> {
     );
   }
 
+  void boundingBoxOnClick(int j) {
+    setState(() {
+      _isTapped[j] = _isTapped[j] ? false : true;
+    });
+    if (_isTapped[j]) {
+      _selectedCordinates.add(_cordinates[j]);
+    } else {
+      if (_selectedCordinates.contains(_cordinates[j])) {
+        _selectedCordinates.remove(_cordinates[j]);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
@@ -182,235 +184,82 @@ class _SegmentState extends State<Segment> {
               ListView(children: [
                 for (int i = 0; i < widget.args!.numberOfPages!; i++)
                   Column(children: [
-                    Stack(
-                      children: [
-                        Image.network(
-                            '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
-                            loadingBuilder: imageLoadingBuilder),
-                        _cordinates.isNotEmpty
-                            ? SizedBox(
-                                height: _cordinates[i].imgH!.toDouble(),
-                                child: Stack(
-                                  children: [
-                                    for (int j = 0; j < _cordinates.length; j++)
-                                      _cordinates[j].p == i
-                                          ? Positioned(
-                                              left:
-                                                  _cordinates[j].x!.toDouble() *
-                                                      _deviceWidth /
-                                                      _cordinates[j]
-                                                          .imgW!
-                                                          .toDouble(),
-                                              top:
-                                                  _cordinates[j].y!.toDouble() *
-                                                      _deviceWidth /
-                                                      _cordinates[j]
-                                                          .imgW!
-                                                          .toDouble(),
-                                              child: InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _isTapped[j] = _isTapped[j]
-                                                        ? false
-                                                        : true;
-                                                  });
-                                                  if (_isTapped[j]) {
+                    Stack(children: [
+                      Image.network(
+                          '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
+                          loadingBuilder: imageLoadingBuilder),
+                      _cordinates.isNotEmpty
+                          ? SizedBox(
+                              height: _cordinates[i].imgH!.toDouble(),
+                              child: Stack(children: [
+                                for (int j = 0; j < _cordinates.length; j++)
+                                  _cordinates[j].p == i
+                                      ? Positioned(
+                                          left: _cordinates[j].x!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          top: _cordinates[j].y!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  _isTapped[j] = _isTapped[j]
+                                                      ? false
+                                                      : true;
+                                                });
+                                                if (_isTapped[j]) {
+                                                  _selectedCordinates
+                                                      .add(_cordinates[j]);
+                                                } else {
+                                                  if (_selectedCordinates
+                                                      .contains(
+                                                          _cordinates[j])) {
                                                     _selectedCordinates
-                                                        .add(_cordinates[j]);
-                                                  } else {
-                                                    if (_selectedCordinates
-                                                        .contains(
-                                                            _cordinates[j])) {
-                                                      _selectedCordinates
-                                                          .remove(
-                                                              _cordinates[j]);
-                                                    }
+                                                        .remove(_cordinates[j]);
                                                   }
-                                                },
-                                                child: Container(
-                                                    height: _cordinates[j]
-                                                            .h!
-                                                            .toDouble() *
-                                                        _deviceWidth /
-                                                        _cordinates[j]
-                                                            .imgW!
-                                                            .toDouble(),
-                                                    width: _cordinates[j]
-                                                            .w!
-                                                            .toDouble() *
-                                                        _deviceWidth /
-                                                        _cordinates[j]
-                                                            .imgW!
-                                                            .toDouble(),
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                      color: _isTapped[j]
-                                                          ? kBlueColor
-                                                          : kUnSelectedBlueColor,
-                                                      width: 1,
-                                                    ))),
-                                              ),
-                                            )
-                                          : Text(j.toString()),
-                                  ],
-                                ),
-                              )
-                            : const SizedBox()
-                      ],
-                    ),
+                                                }
+                                              },
+                                              child: Container(
+                                                  height: _cordinates[j]
+                                                          .h!
+                                                          .toDouble() *
+                                                      _deviceWidth /
+                                                      _cordinates[j]
+                                                          .imgW!
+                                                          .toDouble(),
+                                                  width: _cordinates[j]
+                                                          .w!
+                                                          .toDouble() *
+                                                      _deviceWidth /
+                                                      _cordinates[j]
+                                                          .imgW!
+                                                          .toDouble(),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                    color: _isTapped[j]
+                                                        ? kBlueColor
+                                                        : kUnSelectedBlueColor,
+                                                    width: 1,
+                                                  )))))
+                                      : const SizedBox()
+                              ]))
+                          : const SizedBox()
+                    ]),
                     h18
                   ]),
                 h18
               ]),
               if (widget.args!.segment != "auto")
-                LayoutBuilder(builder: (context, constraint) {
-                  if (constraint.maxWidth < 700) {
-                    return DraggableScrollableSheet(
-                        initialChildSize: 0.7,
-                        minChildSize: 0.15,
-                        maxChildSize: 0.7,
-                        builder: (context, controller) => ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(24),
-                                  topRight: Radius.circular(24)),
-                              child: Container(
-                                color: kSecondaryBgColor,
-                                padding: pX32,
-                                child: ListView.builder(
-                                    controller: controller,
-                                    itemCount: getBottomSheetComponents(context)
-                                        .length,
-                                    itemBuilder: (context, index) {
-                                      return getBottomSheetComponents(
-                                          context)[index];
-                                    }),
-                              ),
-                            ));
-                  }
-                  return ThresholdSideSheet(
-                    getBottomSheetComponents: getBottomSheetComponents(context),
-                  );
-                }),
+                LayoutBuilder(
+                    builder: (context, constraint) => (constraint.maxWidth <
+                            700)
+                        ? DraggableScrollableSheetForThresholding(
+                            getBottomSheetComponents: getBottomSheetComponents)
+                        : ThresholdSideSheet(
+                            getBottomSheetComponents:
+                                getBottomSheetComponents(context))),
             ]),
-    );
-  }
-}
-
-class TitleWithValue extends StatelessWidget {
-  const TitleWithValue({super.key, required double value, required this.title})
-      : _horizontalValue = value;
-
-  final double _horizontalValue;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(title, style: fP16M),
-        w8,
-        Container(
-            decoration: bDW8,
-            padding: pA8,
-            child: Text(_horizontalValue.toStringAsFixed(1), style: fP16M))
-      ],
-    );
-  }
-}
-
-class ThresholdSideSheet extends StatefulWidget {
-  final List<Widget> getBottomSheetComponents;
-  const ThresholdSideSheet({required this.getBottomSheetComponents, super.key});
-
-  @override
-  State<ThresholdSideSheet> createState() => _ThresholdSideSheetState();
-}
-
-class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
-  static const double _offset = 20;
-  double _drawerLeft = 20;
-  IconData _drawerIcon = Icons.arrow_back_ios;
-  bool _init = true;
-  final ScrollController controller = ScrollController();
-  @override
-  Widget build(BuildContext context) {
-    if (_init) {
-      _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4);
-      _init = false;
-    }
-    return Stack(
-      children: <Widget>[
-        Positioned(
-          width: MediaQuery.of(context).size.width / 4,
-          top: 0,
-          height: MediaQuery.of(context).size.height,
-          left: _drawerLeft,
-          child: GestureDetector(
-              onPanUpdate: (details) {
-                _drawerLeft += details.delta.dx;
-                if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
-                  _drawerLeft = MediaQuery.of(context).size.width * 3 / 4;
-                }
-                if (_drawerLeft >=
-                    MediaQuery.of(context).size.width - _offset) {
-                  _drawerLeft = MediaQuery.of(context).size.width - _offset;
-                }
-                if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
-                  _drawerIcon = Icons.arrow_forward_ios;
-                }
-                if (_drawerLeft >=
-                    MediaQuery.of(context).size.width - 2 * _offset) {
-                  _drawerIcon = Icons.arrow_back_ios;
-                }
-                setState(() {});
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: kSecondaryBgColor,
-                    borderRadius: BorderRadiusDirectional.only(
-                        topStart: Radius.circular(24),
-                        bottomStart: Radius.circular(24))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        if (_drawerLeft <=
-                            MediaQuery.of(context).size.width * 3 / 4) {
-                          _drawerLeft =
-                              MediaQuery.of(context).size.width - 2 * _offset;
-                          _drawerIcon = Icons.arrow_back_ios;
-                        } else {
-                          _drawerLeft =
-                              MediaQuery.of(context).size.width * 3 / 4;
-                          _drawerIcon = Icons.arrow_forward_ios;
-                        }
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(_drawerIcon, color: kWhiteColor),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 32.0),
-                      child: Column(
-                        // mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [...widget.getBottomSheetComponents],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-        ),
-      ],
     );
   }
 }

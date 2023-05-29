@@ -20,3 +20,5 @@ const BoxDecoration bDW8 =
     BoxDecoration(color: kWhiteColor, borderRadius: bRA8);
 const BoxDecoration bDW32 =
     BoxDecoration(color: kWhiteColor, borderRadius: bRA32);
+const BoxDecoration bDSBgTS24BS24 =
+    BoxDecoration(color: kSecondaryBgColor, borderRadius: bRTS24BS24);

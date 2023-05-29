@@ -53,18 +53,20 @@ class _HomeState extends State<Home> {
   }
 
   getCameraImage() async {
-    try {
-      final XFile? capturedImage =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (capturedImage == null) return;
-      file = File(capturedImage.path);
-      if (file != null) {
-        htr = await uploadHTR(file!);
-        isUploading = false;
-        setState(() {});
+    if (mounted) {
+      try {
+        final XFile? capturedImage =
+            await ImagePicker().pickImage(source: ImageSource.camera);
+        if (capturedImage == null) return;
+        file = File(capturedImage.path);
+        if (file != null) {
+          htr = await uploadHTR(file!);
+          isUploading = false;
+          setState(() {});
+        }
+      } on Exception catch (e) {
+        log('Failed to pick image: $e');
       }
-    } on Exception catch (e) {
-      log('Failed to pick image: $e');
     }
   }
 
@@ -145,7 +147,7 @@ class _HomeState extends State<Home> {
                 w8,
                 if (Platform.isAndroid || Platform.isIOS)
                   FloatingActionButton(
-                      onPressed: getCameraImage(), child: iCamera)
+                      onPressed: getCameraImage, child: iCamera)
               ],
             )
           : const SizedBox(),
