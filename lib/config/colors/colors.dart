@@ -9,3 +9,5 @@ const Color kRedBgColor = Color.fromRGBO(244, 67, 54, 0.314);
 
 const Color kBlueColor = Colors.blue;
 const Color kUnSelectedBlueColor = Color.fromRGBO(187, 222, 251, 1);
+
+const Color kGreenColor = Colors.green;
