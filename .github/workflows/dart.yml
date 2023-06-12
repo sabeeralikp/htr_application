@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
@@ -17,6 +16,7 @@ jobs:
         with:
           flutter-version: '3.0.2'
           channel: 'stable'
+          sdk: '>=2.18.4 <3.0.0'
       - run: flutter --version
 
       - name: Install dependencies
