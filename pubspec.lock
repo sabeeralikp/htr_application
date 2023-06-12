@@ -105,6 +105,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  delta_to_pdf:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "9132f1717e11f99cba74837d430b658f19702022"
+      url: "https://github.com/sabeeralikp/delta_to_pdf.git"
+    source: git
+    version: "0.0.1"
   device_info_plus:
     dependency: transitive
     description:
@@ -258,10 +267,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "028b9722cb6e6310f473126cc8226363e93cf528eabbe339dd37235b2ae53d9d"
+      sha256: c6ceba58f8f63e26b69162c99b0d835e92abd92844209f50683d1d4a0e9b0b2b
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
+    version: "7.2.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -500,10 +509,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf
-      sha256: "70d84154dc5b6ddf28eee6c012510a4cbbebb3a1879c0957e05364a95e8f3832"
+      sha256: "9f75fc7f5580ea5e635b5724de58fb27f684c9ad03ed46fdc1aac768e4557315"
       url: "https://pub.dev"
     source: hosted
-    version: "3.10.3"
+    version: "3.10.4"
   pedantic:
     dependency: transitive
     description:
@@ -783,4 +792,4 @@ packages:
     version: "6.3.0"
 sdks:
   dart: ">=3.0.0-417 <4.0.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.10.0"
