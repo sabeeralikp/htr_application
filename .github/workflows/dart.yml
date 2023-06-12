@@ -16,7 +16,7 @@ jobs:
         with:
           flutter-version: '3.0.2'
           channel: 'stable'
-          sdk: '>=2.18.4 <3.0.0'
+          sdk: '>=2.19.0-0 <4.0.0'
       - run: flutter --version
 
       - name: Install dependencies
