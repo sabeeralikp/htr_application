@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:htr/config/assets/assets.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UploadFileBody extends StatelessWidget {
   const UploadFileBody({
@@ -11,13 +12,15 @@ class UploadFileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         fileUploadSVG,
-        h18,
-        Text('UPLOAD FILE', style: fP16SB),
+        Text(AppLocalizations.of(context).home_body_title,
+            style: fP16SB, textAlign: TextAlign.center),
         h4,
-        Text('Upload your pdf or image', style: fP7014L),
+        Text(AppLocalizations.of(context).home_body_description,
+            style: fP7014L, textAlign: TextAlign.center),
       ],
     );
   }

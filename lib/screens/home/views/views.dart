@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'package:htr/providers/locale_provider.dart';
 import 'package:htr/screens/home/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 enum Segmentation { manual, auto }
 
@@ -85,6 +87,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(actions: [
+        IconButton(
+            onPressed: () => Provider.of<LocaleProvider>(context, listen: false)
+                .changeLocale(),
+            icon: const Icon(Icons.translate_rounded))
+      ]),
       body: Padding(
         padding: pX32,
         child: Center(
