@@ -1,4 +1,34 @@
 {
     "home_body_title": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക",
-    "home_body_description": "നിങ്ങളുടെ pdf അല്ലെങ്കിൽ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക"
+    "home_body_description": "നിങ്ങളുടെ പി.ഡി.ഫ്  അല്ലെങ്കിൽ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
+    "upload_fab": "അപ്‌ലോഡ്",
+    "file_uploaded_title": "വിഭജിക്കാൻ ഉള്ള രീതി തിരഞ്ഞെടുക്കുക",
+    "segmentation_button_manual": "മാനുവൽ",
+    "segmentation_button_auto": "ഓട്ടോമാറ്റിക്",
+    "segmentation_button_cont": "തുടരുക",
+    "appbar_title": "വിഭജനും ",
+    "text_button_selectall": "എല്ലാം തിരഞ്ഞെടുക്കുക",
+    "elevated_button_next": "അടുത്തത്",
+    "appbar_result": "ഫലം",
+    "title_export":"പരിവർത്തനം ചെയ്യുക",
+    "appbar_export": "പരിവർത്തനം ചെയ്യുക",
+    "save_the_doc": "രേഖ ഇപ്രകാരം സൂക്ഷിക്കുക",
+    "text_button_cancel": "ഉപേക്ഷിക്കുക",
+    "text_button_export" : "പരിവർത്തനം ചെയ്യുക",
+    "snack_location" : "ഫയൽ ഡൗൺലോഡ് ചെയ്യുകയും ഇവിടെ സൂക്ഷിക്കുകയും ചെയ്തിരിക്കുന്നു {downloadLocation}", 
+    "snack_action":"തുറക്കുക",
+    "sheet_components_adjust":"പരിധി ക്രമീകരിക്കുക",
+    "sheet_components_threshold_value":"പരിധി മൂല്യം നിർണയിക്കുക",
+    "sheet_components_horizontal_spacing": "തിരശ്ചീന അകലം",
+    "sheet_components_vertical_spacing": "ലംബതലത്തിലുള്ള അകലം",
+    "eleveted_button_threshold": "തുടരുക",
+    "@snack_location":{
+        "placeholders": {
+          "downloadLocation": {
+            "type": "String"
+          }
+        }
+    }
+
+
 }

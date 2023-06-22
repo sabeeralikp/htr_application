@@ -74,14 +74,11 @@ class _ResulPageState extends State<ResulPage> {
 
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
-      content:
-          Text('The File has been downloaded and saved to $downloadLocation'),
-      action: SnackBarAction(
-          label: 'Open',
-          onPressed: () {
-            OpenAppFile.open('$downloadLocation/$filename');
-          }),
-    );
+        content:
+            Text(AppLocalizations.of(context).snack_location(downloadLocation)),
+        action: SnackBarAction(
+            label: AppLocalizations.of(context).snack_action,
+            onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
@@ -139,11 +136,11 @@ class _ResulPageState extends State<ResulPage> {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState) => AlertDialog(
-            title: const Text('Export As'),
+            title: Text(AppLocalizations.of(context).title_export),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  const Text('Save the document as'),
+                  Text(AppLocalizations.of(context).save_the_doc),
                   ListTile(
                       title: const Text('PDF'),
                       isThreeLine: false,
@@ -177,10 +174,10 @@ class _ResulPageState extends State<ResulPage> {
             ),
             actions: <Widget>[
               TextButton(
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context).text_button_cancel),
                   onPressed: () => Navigator.of(context).pop()),
               ElevatedButton(
-                child: const Text('Export'),
+                child: Text(AppLocalizations.of(context).text_button_export),
                 onPressed: () {
                   exportDoc();
                   Navigator.of(context).pop();
@@ -197,11 +194,11 @@ class _ResulPageState extends State<ResulPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Result Page'),
+          title: Text(AppLocalizations.of(context).appbar_result),
           actions: [
             TextButton(
                 onPressed: () async => _showAlertDialog(),
-                child: const Text("Export As"))
+                child: Text(AppLocalizations.of(context).appbar_export))
           ],
         ),
         body: Column(

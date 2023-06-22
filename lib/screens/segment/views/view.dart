@@ -72,21 +72,21 @@ class _SegmentState extends State<Segment> {
 
   List<Widget> getBottomSheetComponents(context) => [
         Container(width: 48, height: 4, margin: pT16B64, decoration: bDW32),
-        Text('Adjust Threshold', style: fP20SB, textAlign: TextAlign.center),
+        Text(AppLocalizations.of(context).sheet_components_adjust, style: fP20SB, textAlign: TextAlign.center),
         h20,
-        TitleWithValue(title: 'Threshold Value', value: _thresholdValue),
+        TitleWithValue(title: AppLocalizations.of(context).sheet_components_threshold_value, value: _thresholdValue),
         Slider(
             value: _thresholdValue,
             min: 0,
             max: 300,
             onChanged: thresholdSliderOnChanged),
-        TitleWithValue(title: 'Horizontal Spacing', value: _horizontalValue),
+        TitleWithValue(title: AppLocalizations.of(context).sheet_components_horizontal_spacing, value: _horizontalValue),
         Slider(
             value: _horizontalValue,
             min: 0,
             max: 100,
             onChanged: horizontalSliderOnChanged),
-        TitleWithValue(title: 'Vertical Spacing', value: _verticalValue),
+        TitleWithValue(title: AppLocalizations.of(context).sheet_components_vertical_spacing, value: _verticalValue),
         Slider(
             value: _verticalValue,
             min: 0,
@@ -95,7 +95,7 @@ class _SegmentState extends State<Segment> {
         h16,
         ElevatedButton(
             onPressed: _getCordinates,
-            child: const Padding(padding: pA16, child: Text('Threshold'))),
+            child: Padding(padding: pA16, child: Text(AppLocalizations.of(context).eleveted_button_threshold))),
       ];
 
   void initFunction() {
@@ -165,16 +165,16 @@ class _SegmentState extends State<Segment> {
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Segment'),
+        title: Text(AppLocalizations.of(context).appbar_title),
         actions: [
           TextButton(
-              onPressed: selectAllOnClick, child: const Text("Select All")),
+              onPressed: selectAllOnClick, child: Text(AppLocalizations.of(context).text_button_selectall)),
           w8,
           Padding(
             padding: pR8,
             child: ElevatedButton(
                 onPressed: nextOnClick,
-                child: const Padding(padding: pY8, child: Text('Next'))),
+                child: Padding(padding: pY8, child: Text(AppLocalizations.of(context).elevated_button_next))),
           )
         ],
       ),

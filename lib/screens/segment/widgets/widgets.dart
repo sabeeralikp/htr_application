@@ -13,3 +13,4 @@ export 'package:htr/routes/route.dart';
 export 'package:htr/screens/segment/widgets/draggable_scrollable_sheet.dart';
 export 'package:htr/screens/segment/widgets/threshold_sheet.dart';
 export 'package:htr/screens/segment/widgets/title_with_value.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';

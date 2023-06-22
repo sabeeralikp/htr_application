@@ -11,17 +11,19 @@ class UploadFileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        fileUploadSVG,
-        Text(AppLocalizations.of(context).home_body_title,
-            style: fP16SB, textAlign: TextAlign.center),
-        h4,
-        Text(AppLocalizations.of(context).home_body_description,
-            style: fP7014L, textAlign: TextAlign.center),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          fileUploadSVG,
+          Text(AppLocalizations.of(context).home_body_title,
+              style: fP16SB, textAlign: TextAlign.center),
+          h4,
+          Text(AppLocalizations.of(context).home_body_description,
+              style: fP7014L, textAlign: TextAlign.center),
+        ],
+      ),
     );
   }
 }

@@ -8,3 +8,4 @@ export 'package:open_app_file/open_app_file.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:pdf/pdf.dart';
 export 'package:delta_to_pdf/delta_to_pdf.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';

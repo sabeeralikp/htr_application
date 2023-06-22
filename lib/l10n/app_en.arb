@@ -1,4 +1,32 @@
 {
     "home_body_title": "UPLOAD FILE",
-    "home_body_description": "Upload your pdf or image"
+    "home_body_description": "Upload your pdf or image",
+    "upload_fab":"Upload",
+    "file_uploaded_title":"Choose Segmentation Method",
+    "segmentation_button_manual": "Manual",
+    "segmentation_button_auto": "Automatic",
+    "segmentation_button_cont": "Continue",
+    "appbar_title":"Segment",
+    "text_button_selectall": "Select All",
+    "elevated_button_next": "Next",
+    "appbar_result": "Result",
+    "title_export":"Export As",
+    "appbar_export": "Export As",
+    "save_the_doc": "Save the document as",
+    "text_button_cancel": "Cancel",
+    "text_button_export" : "Export",
+    "snack_location" : "The File has been downloaded and saved to {downloadLocation}",
+    "snack_action":"Open",
+    "sheet_components_adjust":"Adjust Threshold",
+    "sheet_components_threshold_value":"Threshold Value",
+    "sheet_components_horizontal_spacing": "Horizontal Spacing",
+    "sheet_components_vertical_spacing": "Vertical Spacing",
+    "eleveted_button_threshold": "Threshold",
+    "@snack_location":{
+        "placeholders": {
+          "downloadLocation": {
+            "type": "String"
+          }
+        }
+    }
 }

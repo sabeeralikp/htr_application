@@ -3,6 +3,7 @@ import 'package:htr/providers/locale_provider.dart';
 import 'package:htr/screens/home/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+
 enum Segmentation { manual, auto }
 
 class Home extends StatefulWidget {
@@ -112,22 +113,22 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('Choose Segmentation Method', style: fW16N),
+                              Text(AppLocalizations.of(context).file_uploaded_title, style: fW16N),
                               h16,
                               UploadedFileContainer(
                                   htr: htr!, removeHTR: removeHTR),
                               h16,
                               SegmentedButton<Segmentation>(
                                   style: wPButtonStyle,
-                                  segments: const <ButtonSegment<Segmentation>>[
+                                  segments:  <ButtonSegment<Segmentation>>[
                                     ButtonSegment<Segmentation>(
                                         value: Segmentation.manual,
-                                        label: Text('Manual'),
-                                        icon: Icon(Icons.tune_rounded)),
-                                    ButtonSegment<Segmentation>(
+                                        label: Text(AppLocalizations.of(context).segmentation_button_manual),
+                                        icon: const Icon(Icons.tune_rounded)),
+                                     ButtonSegment<Segmentation>(
                                         value: Segmentation.auto,
-                                        label: Text('Automatic'),
-                                        icon: Icon(Icons.auto_awesome))
+                                        label: Text(AppLocalizations.of(context).segmentation_button_auto),
+                                        icon: const Icon(Icons.auto_awesome))
                                   ],
                                   selected: <Segmentation>{selectedSegment},
                                   onSelectionChanged: segmentOnClick),
@@ -135,8 +136,8 @@ class _HomeState extends State<Home> {
                               ElevatedButton(
                                   onPressed: navigateToResult,
                                   style: wPButtonStyle,
-                                  child: const Padding(
-                                      padding: pA16, child: Text('Continue')))
+                                  child:  Padding(
+                                      padding: pA16, child: Text(AppLocalizations.of(context).segmentation_button_cont)))
                             ],
                           ),
                         ),
@@ -149,7 +150,7 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FloatingActionButton.extended(
-                    label: Text('Upload', style: fW16M),
+                    label: Text(AppLocalizations.of(context).upload_fab, style: fW16M),
                     icon: cloudUploadIcon,
                     onPressed: uploadFile),
                 w8,

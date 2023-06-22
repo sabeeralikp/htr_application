@@ -16,3 +16,4 @@ export 'package:htr/routes/route.dart';
 export 'package:htr/screens/home/widgets/upload_file_body.dart';
 export 'package:htr/screens/home/widgets/uploaded_file.dart';
 export 'package:image_picker/image_picker.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';
