@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 ///
 /// [@author	Sabeerali]
 /// [ @since	v0.0.1 ]
-/// [@version	v1.0.0	Monday, March 1st, 2023]
+/// [@version	v1.0.0	March 1st, 2023]
 /// [@see		StatelessWidget]
 /// [@args key]
 /// [@description parent app of the application]
