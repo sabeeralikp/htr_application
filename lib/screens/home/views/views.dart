@@ -1,8 +1,6 @@
 import 'dart:developer';
-import 'package:htr/providers/locale_provider.dart';
-import 'package:htr/screens/home/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
+import 'package:htr/screens/home/widgets/widgets.dart';
 
 enum Segmentation { manual, auto }
 
@@ -44,7 +42,6 @@ class _HomeState extends State<Home> {
           setState(() {});
         }
       }
-      // navigateToResult();
     }
   }
 
@@ -88,79 +85,90 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(
-            onPressed: () => Provider.of<LocaleProvider>(context, listen: false)
-                .changeLocale(),
-            icon: const Icon(Icons.translate_rounded))
-      ]),
-      body: Padding(
-        padding: pX32,
-        child: Center(
-          child: isUploading
-              ? const UploadingIndicator()
-              : htr == null
-                  ? const UploadFileBody()
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: pA32,
-                          decoration: bDP16,
-                          child: Column(
+        appBar: AppBar(actions: [
+          IconButton(
+              onPressed: () =>
+                  Provider.of<LocaleProvider>(context, listen: false)
+                      .changeLocale(),
+              icon: const Icon(Icons.translate_rounded))
+        ]),
+        body: Padding(
+            padding: pX32,
+            child: Center(
+                child: isUploading
+                    ? const UploadingIndicator()
+                    : htr == null
+                        ? const UploadFileBody()
+                        : Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(AppLocalizations.of(context).file_uploaded_title, style: fW16N),
-                              h16,
-                              UploadedFileContainer(
-                                  htr: htr!, removeHTR: removeHTR),
-                              h16,
-                              SegmentedButton<Segmentation>(
-                                  style: wPButtonStyle,
-                                  segments:  <ButtonSegment<Segmentation>>[
-                                    ButtonSegment<Segmentation>(
-                                        value: Segmentation.manual,
-                                        label: Text(AppLocalizations.of(context).segmentation_button_manual),
-                                        icon: const Icon(Icons.tune_rounded)),
-                                     ButtonSegment<Segmentation>(
-                                        value: Segmentation.auto,
-                                        label: Text(AppLocalizations.of(context).segmentation_button_auto),
-                                        icon: const Icon(Icons.auto_awesome))
-                                  ],
-                                  selected: <Segmentation>{selectedSegment},
-                                  onSelectionChanged: segmentOnClick),
-                              h48,
-                              ElevatedButton(
-                                  onPressed: navigateToResult,
-                                  style: wPButtonStyle,
-                                  child:  Padding(
-                                      padding: pA16, child: Text(AppLocalizations.of(context).segmentation_button_cont)))
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-        ),
-      ),
-      floatingActionButton: htr == null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+                                Container(
+                                    padding: pA32,
+                                    decoration: bDP16,
+                                    child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              AppLocalizations.of(context)
+                                                  .file_uploaded_title,
+                                              style: fW16N),
+                                          h16,
+                                          UploadedFileContainer(
+                                              htr: htr!, removeHTR: removeHTR),
+                                          h16,
+                                          SegmentedButton<Segmentation>(
+                                              style: wPButtonStyle,
+                                              segments: <ButtonSegment<
+                                                  Segmentation>>[
+                                                ButtonSegment<Segmentation>(
+                                                    value: Segmentation.manual,
+                                                    label: Text(AppLocalizations
+                                                            .of(context)
+                                                        .segmentation_button_manual),
+                                                    icon: const Icon(
+                                                        Icons.tune_rounded)),
+                                                ButtonSegment<Segmentation>(
+                                                    value: Segmentation.auto,
+                                                    label: Text(AppLocalizations
+                                                            .of(context)
+                                                        .segmentation_button_auto),
+                                                    icon: const Icon(
+                                                        Icons.auto_awesome))
+                                              ],
+                                              selected: <Segmentation>{
+                                                selectedSegment
+                                              },
+                                              onSelectionChanged:
+                                                  segmentOnClick),
+                                          h48,
+                                          ElevatedButton(
+                                              onPressed: navigateToResult,
+                                              style: wPButtonStyle,
+                                              child: Padding(
+                                                  padding: pA16,
+                                                  child: Text(AppLocalizations
+                                                          .of(context)
+                                                      .segmentation_button_cont)))
+                                        ]))
+                              ]))),
+        floatingActionButton: htr == null
+            ? Row(mainAxisSize: MainAxisSize.min, children: [
                 FloatingActionButton.extended(
-                    label: Text(AppLocalizations.of(context).upload_fab, style: fW16M),
+                    label: Text(AppLocalizations.of(context).upload_fab,
+                        style: fW16M),
                     icon: cloudUploadIcon,
                     onPressed: uploadFile),
                 w8,
                 if (Platform.isAndroid || Platform.isIOS)
                   FloatingActionButton(
                       onPressed: getCameraImage, child: iCamera)
-              ],
-            )
-          : const SizedBox(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+              ])
+            : const SizedBox(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }

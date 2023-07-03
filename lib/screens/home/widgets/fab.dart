@@ -5,6 +5,6 @@ FloatingActionButton floatingActionButton(onPressedFn, title, icon) {
   return FloatingActionButton.extended(
     label: Text(title, style: fW16M),
     icon: icon,
-    onPressed: onPressedFn,
+    onPressed: onPressedFn
   );
 }

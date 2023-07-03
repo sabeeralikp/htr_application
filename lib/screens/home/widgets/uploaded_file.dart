@@ -17,29 +17,28 @@ class UploadedFileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: pA8,
-      decoration: bDW8,
-      width: 250,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListTile(
-            leading: SizedBox(width: 48, height: 48, child: pdfFileIcon),
-            visualDensity: vDn4n4,
-            contentPadding: p0,
-            title: Text(htr.filename!, style: fP16M),
-            subtitle: Text(timeago.format(DateTime.parse(htr.uploadedOn!)),
-                style: fG14N),
-            trailing: InkWell(
-              onTap: removeHTR,
-              child: Container(
-                  padding: pA4, decoration: bDR50b075, child: iCloseR18),
-            ),
-          ),
-        ],
-      ),
-    );
+        padding: pA8,
+        decoration: bDW8,
+        width: 250,
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                  leading: SizedBox(width: 48, height: 48, child: pdfFileIcon),
+                  visualDensity: vDn4n4,
+                  contentPadding: p0,
+                  title: Text(htr.filename!, style: fP16M),
+                  subtitle: Text(
+                      timeago.format(DateTime.parse(htr.uploadedOn!)),
+                      style: fG14N),
+                  trailing: InkWell(
+                      onTap: removeHTR,
+                      child: Container(
+                          padding: pA4,
+                          decoration: bDR50b075,
+                          child: iCloseR18)))
+            ]));
   }
 }

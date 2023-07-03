@@ -22,16 +22,14 @@ class _DraggableScrollableSheetForThresholdingState
         minChildSize: 0.15,
         maxChildSize: 0.7,
         builder: (context, controller) => ClipRRect(
-              borderRadius: bRTL24TR24,
-              child: Container(
+            borderRadius: bRTL24TR24,
+            child: Container(
                 color: kSecondaryBgColor,
                 padding: pX32,
                 child: ListView.builder(
                     controller: controller,
                     itemCount: widget.getBottomSheetComponents(context).length,
                     itemBuilder: (context, index) =>
-                        widget.getBottomSheetComponents(context)[index]),
-              ),
-            ));
+                        widget.getBottomSheetComponents(context)[index]))));
   }
 }

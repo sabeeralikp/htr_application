@@ -51,9 +51,8 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
       _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4);
       _init = false;
     }
-    return Stack(
-      children: <Widget>[
-        Positioned(
+    return Stack(children: <Widget>[
+      Positioned(
           width: MediaQuery.of(context).size.width / 4,
           top: 0,
           height: MediaQuery.of(context).size.height,
@@ -61,32 +60,26 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
           child: GestureDetector(
               onPanUpdate: sideSheetWidthonPanUpdate,
               child: Container(
-                decoration: bDSBgTS24BS24,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: thresholdSheetExpandCollapse,
-                      child: Padding(
-                        padding: pL8,
-                        child: Center(
-                            child: Icon(_drawerIcon, color: kWhiteColor)),
-                      ),
-                    ),
-                    Padding(
-                      padding: pL32,
-                      child: Column(
-                        // mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [...widget.getBottomSheetComponents],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-        ),
-      ],
-    );
+                  decoration: bDSBgTS24BS24,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        InkWell(
+                          onTap: thresholdSheetExpandCollapse,
+                          child: Padding(
+                            padding: pL8,
+                            child: Center(
+                                child: Icon(_drawerIcon, color: kWhiteColor)),
+                          ),
+                        ),
+                        Padding(
+                            padding: pL32,
+                            child: Column(
+                                // mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [...widget.getBottomSheetComponents]))
+                      ]))))
+    ]);
   }
 }

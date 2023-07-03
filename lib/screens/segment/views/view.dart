@@ -72,21 +72,31 @@ class _SegmentState extends State<Segment> {
 
   List<Widget> getBottomSheetComponents(context) => [
         Container(width: 48, height: 4, margin: pT16B64, decoration: bDW32),
-        Text(AppLocalizations.of(context).sheet_components_adjust, style: fP20SB, textAlign: TextAlign.center),
+        Text(AppLocalizations.of(context).sheet_components_adjust,
+            style: fP20SB, textAlign: TextAlign.center),
         h20,
-        TitleWithValue(title: AppLocalizations.of(context).sheet_components_threshold_value, value: _thresholdValue),
+        TitleWithValue(
+            title:
+                AppLocalizations.of(context).sheet_components_threshold_value,
+            value: _thresholdValue),
         Slider(
             value: _thresholdValue,
             min: 0,
             max: 300,
             onChanged: thresholdSliderOnChanged),
-        TitleWithValue(title: AppLocalizations.of(context).sheet_components_horizontal_spacing, value: _horizontalValue),
+        TitleWithValue(
+            title: AppLocalizations.of(context)
+                .sheet_components_horizontal_spacing,
+            value: _horizontalValue),
         Slider(
             value: _horizontalValue,
             min: 0,
             max: 100,
             onChanged: horizontalSliderOnChanged),
-        TitleWithValue(title: AppLocalizations.of(context).sheet_components_vertical_spacing, value: _verticalValue),
+        TitleWithValue(
+            title:
+                AppLocalizations.of(context).sheet_components_vertical_spacing,
+            value: _verticalValue),
         Slider(
             value: _verticalValue,
             min: 0,
@@ -95,7 +105,10 @@ class _SegmentState extends State<Segment> {
         h16,
         ElevatedButton(
             onPressed: _getCordinates,
-            child: Padding(padding: pA16, child: Text(AppLocalizations.of(context).eleveted_button_threshold))),
+            child: Padding(
+                padding: pA16,
+                child: Text(
+                    AppLocalizations.of(context).eleveted_button_threshold))),
       ];
 
   void initFunction() {
@@ -138,13 +151,11 @@ class _SegmentState extends State<Segment> {
       return child;
     }
     return Center(
-      child: CircularProgressIndicator(
-        value: loadingProgress.expectedTotalBytes != null
-            ? loadingProgress.cumulativeBytesLoaded /
-                loadingProgress.expectedTotalBytes!
-            : null,
-      ),
-    );
+        child: CircularProgressIndicator(
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null));
   }
 
   void boundingBoxOnClick(int j) {
@@ -164,102 +175,106 @@ class _SegmentState extends State<Segment> {
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).appbar_title),
-        actions: [
-          TextButton(
-              onPressed: selectAllOnClick, child: Text(AppLocalizations.of(context).text_button_selectall)),
-          w8,
-          Padding(
-            padding: pR8,
-            child: ElevatedButton(
-                onPressed: nextOnClick,
-                child: Padding(padding: pY8, child: Text(AppLocalizations.of(context).elevated_button_next))),
-          )
-        ],
-      ),
-      body: isLoading
-          ? const Center(child: LoadingIndicator())
-          : Stack(fit: StackFit.expand, children: [
-              ListView(children: [
-                for (int i = 0; i < widget.args!.numberOfPages!; i++)
-                  Column(children: [
-                    Stack(children: [
-                      Image.network(
-                          '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
-                          loadingBuilder: imageLoadingBuilder),
-                      _cordinates.isNotEmpty
-                          ? SizedBox(
-                              height: _cordinates[i].imgH!.toDouble(),
-                              child: Stack(children: [
-                                for (int j = 0; j < _cordinates.length; j++)
-                                  _cordinates[j].p == i
-                                      ? Positioned(
-                                          left: _cordinates[j].x!.toDouble() *
-                                              _deviceWidth /
-                                              _cordinates[j].imgW!.toDouble(),
-                                          top: _cordinates[j].y!.toDouble() *
-                                              _deviceWidth /
-                                              _cordinates[j].imgW!.toDouble(),
-                                          child: InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  _isTapped[j] = _isTapped[j]
-                                                      ? false
-                                                      : true;
-                                                });
-                                                if (_isTapped[j]) {
-                                                  _selectedCordinates
-                                                      .add(_cordinates[j]);
-                                                } else {
-                                                  if (_selectedCordinates
-                                                      .contains(
-                                                          _cordinates[j])) {
-                                                    _selectedCordinates
-                                                        .remove(_cordinates[j]);
-                                                  }
-                                                }
-                                              },
-                                              child: Container(
-                                                  height: _cordinates[j]
-                                                          .h!
-                                                          .toDouble() *
-                                                      _deviceWidth /
-                                                      _cordinates[j]
-                                                          .imgW!
-                                                          .toDouble(),
-                                                  width: _cordinates[j]
-                                                          .w!
-                                                          .toDouble() *
-                                                      _deviceWidth /
-                                                      _cordinates[j]
-                                                          .imgW!
-                                                          .toDouble(),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                    color: _isTapped[j]
-                                                        ? kBlueColor
-                                                        : kUnSelectedBlueColor,
-                                                    width: 1,
-                                                  )))))
-                                      : const SizedBox()
-                              ]))
-                          : const SizedBox()
-                    ]),
-                    h18
-                  ]),
-                h18
-              ]),
-              if (widget.args!.segment != "auto")
-                LayoutBuilder(
-                    builder: (context, constraint) => (constraint.maxWidth <
-                            700)
-                        ? DraggableScrollableSheetForThresholding(
-                            getBottomSheetComponents: getBottomSheetComponents)
-                        : ThresholdSideSheet(
-                            getBottomSheetComponents:
-                                getBottomSheetComponents(context))),
+        appBar: AppBar(
+            title: Text(AppLocalizations.of(context).appbar_title),
+            actions: [
+              TextButton(
+                  onPressed: selectAllOnClick,
+                  child:
+                      Text(AppLocalizations.of(context).text_button_selectall)),
+              w8,
+              Padding(
+                  padding: pR8,
+                  child: ElevatedButton(
+                      onPressed: nextOnClick,
+                      child: Padding(
+                          padding: pY8,
+                          child: Text(AppLocalizations.of(context)
+                              .elevated_button_next))))
             ]),
-    );
+        body: isLoading
+            ? const Center(child: LoadingIndicator())
+            : Stack(fit: StackFit.expand, children: [
+                ListView(children: [
+                  for (int i = 0; i < widget.args!.numberOfPages!; i++)
+                    Column(children: [
+                      Stack(children: [
+                        Image.network(
+                            '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
+                            loadingBuilder: imageLoadingBuilder),
+                        _cordinates.isNotEmpty
+                            ? SizedBox(
+                                height: _cordinates[i].imgH!.toDouble(),
+                                child: Stack(children: [
+                                  for (int j = 0; j < _cordinates.length; j++)
+                                    _cordinates[j].p == i
+                                        ? Positioned(
+                                            left: _cordinates[j].x!.toDouble() *
+                                                _deviceWidth /
+                                                _cordinates[j].imgW!.toDouble(),
+                                            top: _cordinates[j].y!.toDouble() *
+                                                _deviceWidth /
+                                                _cordinates[j].imgW!.toDouble(),
+                                            child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _isTapped[j] = _isTapped[j]
+                                                        ? false
+                                                        : true;
+                                                  });
+                                                  if (_isTapped[j]) {
+                                                    _selectedCordinates
+                                                        .add(_cordinates[j]);
+                                                  } else {
+                                                    if (_selectedCordinates
+                                                        .contains(
+                                                            _cordinates[j])) {
+                                                      _selectedCordinates
+                                                          .remove(
+                                                              _cordinates[j]);
+                                                    }
+                                                  }
+                                                },
+                                                child: Container(
+                                                    height: _cordinates[j]
+                                                            .h!
+                                                            .toDouble() *
+                                                        _deviceWidth /
+                                                        _cordinates[j]
+                                                            .imgW!
+                                                            .toDouble(),
+                                                    width: _cordinates[j]
+                                                            .w!
+                                                            .toDouble() *
+                                                        _deviceWidth /
+                                                        _cordinates[j]
+                                                            .imgW!
+                                                            .toDouble(),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                      color: _isTapped[j]
+                                                          ? kBlueColor
+                                                          : kUnSelectedBlueColor,
+                                                      width: 1,
+                                                    )))))
+                                        : const SizedBox()
+                                ]))
+                            : const SizedBox()
+                      ]),
+                      h18
+                    ]),
+                  h18
+                ]),
+                if (widget.args!.segment != "auto")
+                  LayoutBuilder(
+                      builder: (context, constraint) =>
+                          (constraint.maxWidth < 700)
+                              ? DraggableScrollableSheetForThresholding(
+                                  getBottomSheetComponents:
+                                      getBottomSheetComponents)
+                              : ThresholdSideSheet(
+                                  getBottomSheetComponents:
+                                      getBottomSheetComponents(context)))
+              ]));
   }
 }

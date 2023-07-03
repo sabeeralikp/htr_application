@@ -13,15 +13,13 @@ class TitleWithValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(title, style: fP16M),
-        w8,
-        Container(
-            decoration: bDW8,
-            padding: pA8,
-            child: Text(_horizontalValue.toStringAsFixed(1), style: fP16M))
-      ],
-    );
+    return Row(children: [
+      Text(title, style: fP16M),
+      w8,
+      Container(
+          decoration: bDW8,
+          padding: pA8,
+          child: Text(_horizontalValue.toStringAsFixed(1), style: fP16M))
+    ]);
   }
 }

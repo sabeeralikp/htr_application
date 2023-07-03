@@ -29,6 +29,7 @@ dependencies:
       url: https://github.com/sabeeralikp/delta_to_pdf.git
       ref: master
   provider: ^6.0.5
+  dartdoc: ^6.2.2
 
 dev_dependencies:
   flutter_test:

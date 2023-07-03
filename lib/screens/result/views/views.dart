@@ -131,86 +131,88 @@ class _ResulPageState extends State<ResulPage> {
 
   Future<void> _showAlertDialog() async {
     return showDialog<void>(
-      context: context,
-      barrierDismissible: true, // user must tap button!
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) => AlertDialog(
-            title: Text(AppLocalizations.of(context).title_export),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(AppLocalizations.of(context).save_the_doc),
-                  ListTile(
-                      title: const Text('PDF'),
-                      isThreeLine: false,
-                      onTap: () {
-                        setState(() {
-                          isSelected = [
-                            for (var i = 0; i < isSelected.length; i++) false
-                          ];
-                          isSelected[0] = true;
-                        });
-                      },
-                      trailing: isSelected[0]
-                          ? const Icon(Icons.check, color: Colors.green)
-                          : const SizedBox()),
-                  ListTile(
-                      title: const Text('DOCX'),
-                      isThreeLine: false,
-                      onTap: () {
-                        setState(() {
-                          isSelected = [
-                            for (var i = 0; i < isSelected.length; i++) false
-                          ];
-                          isSelected[1] = true;
-                        });
-                      },
-                      trailing: isSelected[1]
-                          ? const Icon(Icons.check, color: Colors.green)
-                          : const SizedBox()),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                  child: Text(AppLocalizations.of(context).text_button_cancel),
-                  onPressed: () => Navigator.of(context).pop()),
-              ElevatedButton(
-                child: Text(AppLocalizations.of(context).text_button_export),
-                onPressed: () {
-                  exportDoc();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (context, setState) => AlertDialog(
+                      title: Text(AppLocalizations.of(context).title_export),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text(AppLocalizations.of(context).save_the_doc),
+                            ListTile(
+                                title: const Text('PDF'),
+                                isThreeLine: false,
+                                onTap: () {
+                                  setState(() {
+                                    isSelected = [
+                                      for (var i = 0;
+                                          i < isSelected.length;
+                                          i++)
+                                        false
+                                    ];
+                                    isSelected[0] = true;
+                                  });
+                                },
+                                trailing: isSelected[0]
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : const SizedBox()),
+                            ListTile(
+                                title: const Text('DOCX'),
+                                isThreeLine: false,
+                                onTap: () {
+                                  setState(() {
+                                    isSelected = [
+                                      for (var i = 0;
+                                          i < isSelected.length;
+                                          i++)
+                                        false
+                                    ];
+                                    isSelected[1] = true;
+                                  });
+                                },
+                                trailing: isSelected[1]
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : const SizedBox()),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            child: Text(AppLocalizations.of(context)
+                                .text_button_cancel),
+                            onPressed: () => Navigator.of(context).pop()),
+                        ElevatedButton(
+                            child: Text(AppLocalizations.of(context)
+                                .text_button_export),
+                            onPressed: () {
+                              exportDoc();
+                              Navigator.of(context).pop();
+                            })
+                      ]));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).appbar_result),
-          actions: [
-            TextButton(
-                onPressed: () async => _showAlertDialog(),
-                child: Text(AppLocalizations.of(context).appbar_export))
-          ],
-        ),
-        body: Column(
-          children: [
-            fq.QuillToolbar.basic(controller: _controller),
-            Expanded(
+            title: Text(AppLocalizations.of(context).appbar_result),
+            actions: [
+              TextButton(
+                  onPressed: () async => _showAlertDialog(),
+                  child: Text(AppLocalizations.of(context).appbar_export))
+            ]),
+        body: Column(children: [
+          fq.QuillToolbar.basic(controller: _controller),
+          Expanded(
               child: fq.QuillEditor.basic(
-                controller: _controller,
-                readOnly: false,
-              ),
-            )
-          ],
-        ));
+            controller: _controller,
+            readOnly: false,
+          ))
+        ]));
   }
 }
