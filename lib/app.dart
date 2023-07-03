@@ -5,24 +5,41 @@ import 'package:htr/routes/route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+///
+/// [MyApp.]
+///
+/// [@author	Sabeerali]
+/// [ @since	v0.0.1 ]
+/// [@version	v1.0.0	Monday, March 1st, 2023]
+/// [@see		StatelessWidget]
+/// [@args key]
+/// [@description parent app of the application]
+///
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); // A Flutter app's root widget.
 
   @override
   Widget build(BuildContext context) {
+    // Builds the UI representation of the widget.
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => LocaleProvider()),
-        ],
+        providers: [ChangeNotifierProvider(create: (_) => LocaleProvider())],
+        // Provides a LocaleProvider instance to descendants.
         child: Consumer<LocaleProvider>(
+            // Listens to changes in the LocaleProvider.
             builder: (context, provider, snapshot) => MaterialApp(
-                title: 'HTR',
-                theme: htrLightThemeData(context),
-                initialRoute: RouteProvider.home,
-                onGenerateRoute: RouteProvider.generateRoute,
-                debugShowCheckedModeBanner: false,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                locale: provider.locale)));
+                title: 'HTR', // The title of the application.
+                theme: htrLightThemeData(context), // The app's theme data.
+                initialRoute: RouteProvider.home, // The initial route.
+                onGenerateRoute: RouteProvider
+                    .generateRoute, // Generates routes dynamically.
+                debugShowCheckedModeBanner:
+                    false, // Hides debug banner in release mode.
+                localizationsDelegates: AppLocalizations
+                    .localizationsDelegates, // Delegates for app localization.
+                supportedLocales: AppLocalizations
+                    .supportedLocales, // List of supported locales for the app.
+                locale:
+                    provider.locale // Uses the locale from the LocaleProvider.
+                )));
   }
 }
