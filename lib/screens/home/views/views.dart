@@ -1,9 +1,24 @@
 import 'dart:developer';
-
 import 'package:htr/screens/home/widgets/widgets.dart';
 
+/// An enumeration representing different types of segmentation.
+///
+/// The [Segmentation] enum defines two values: [manual] and [auto].
+/// - [manual]: Represents manual segmentation.
+/// - [auto]: Represents automatic segmentation.
 enum Segmentation { manual, auto }
 
+///
+/// [Home]
+///
+/// [author] sabeerali
+/// [since]	v0.0.1
+/// [version]	v1.0.0	March 1st, 2023 1:14 PM
+/// [see]		StatefulWidget
+///
+/// The home screen widget that manages the state.
+///
+/// Returns a widget representing the home screen.
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -17,6 +32,18 @@ class _HomeState extends State<Home> {
   bool isUploading = false;
   FilePickerResult? result;
   Segmentation selectedSegment = Segmentation.auto;
+
+  /// Handles the file upload process.
+  ///
+  /// This method is an asynchronous function that allows the user to select
+  /// a file using the file picker. It sets the `result` variable to the picked file,
+  /// sets `isUploading` to true, and updates the UI using [setState].
+  /// If the platform is web, it extracts the file bytes and file name,
+  /// and uploads the file using the `uploadHTRWeb` function.
+  /// If the platform is not web, it assigns the picked file to the `file` variable
+  /// and uploads the file using the `uploadHTR` function.
+  ///
+  /// Returns void.
 
   Future<void> uploadFile() async {
     result = await FilePicker.platform.pickFiles(
@@ -45,12 +72,33 @@ class _HomeState extends State<Home> {
     }
   }
 
+  /// Navigates to the result screen.
+  ///
+  /// This method is called to navigate to the result screen
+  /// if [htr] is not null. It sets the [segment] property of [htr]
+  /// to the name of the selected segment and pushes the result screen
+  /// route using the [Navigator] with the [RouteProvider.segment] route name
+  /// and [htr] as the arguments.
+  ///
+  /// Returns void.
   void navigateToResult() {
     if (htr != null) {
       htr!.segment = selectedSegment.name;
       Navigator.of(context).pushNamed(RouteProvider.segment, arguments: htr);
     }
   }
+
+  /// Retrieves an image from the camera and performs the HTR process.
+  ///
+  /// This asynchronous method is called to capture an image using the device's camera.
+  /// If the widget is mounted, it uses the [ImagePicker] to pick an image from the camera
+  /// and assigns it to [capturedImage]. If [capturedImage] is null, the method returns.
+  /// The picked image is assigned to the [file] variable as a [File] object.
+  /// If [file] is not null, the [uploadHTR] function is called to perform the HTR process,
+  /// assigning the result to [htr]. [isUploading] is set to false, and the UI is updated using [setState].
+  /// If any exception occurs during the process, an error message is logged.
+  ///
+  /// Returns void.
 
   getCameraImage() async {
     if (mounted) {
@@ -70,17 +118,41 @@ class _HomeState extends State<Home> {
     }
   }
 
+  /// Removes the HTR result.
+  ///
+  /// This method is called to remove the HTR result by setting [htr] to null.
+  /// The UI is updated using [setState].
+  ///
+  /// Returns void.
+
   void removeHTR() {
     setState(() {
       htr = null;
     });
   }
 
+  /// Updates the selected segment.
+  ///
+  /// This method is called when a segment is clicked in the segmented button.
+  /// It takes a [Set] of [Segmentation] as [newSelection], extracts the first segment
+  /// from the set, and updates the [selectedSegment] with the extracted segment.
+  /// The UI is updated using [setState].
+  ///
+  /// Returns void.
   void segmentOnClick(Set<Segmentation> newSelection) {
     setState(() {
       selectedSegment = newSelection.first;
     });
   }
+
+  /// Builds the home screen widget.
+  ///
+  /// This method overrides the [build] method from the [StatefulWidget] class.
+  /// It constructs and returns the home screen widget, which includes the app bar,
+  /// the body content (either an uploading indicator, upload file body, or the result),
+  /// and the floating action button (either the upload and camera buttons or an empty container).
+  ///
+  /// Returns a [Scaffold] widget.
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +228,15 @@ class _HomeState extends State<Home> {
                                                       .segmentation_button_cont)))
                                         ]))
                               ]))),
+
+        /// Builds the floating action button.
+        ///
+        /// This code block conditionally renders the floating action button based on the value of [htr].
+        /// If [htr] is null, it displays a row with an extended floating action button for uploading a file,
+        /// and a small gap, followed by a floating action button for capturing an image from the camera
+        /// (if the platform is Android or iOS). If [htr] is not null, an empty [SizedBox] is displayed.
+        ///
+        /// Returns a [Row] widget containing the floating action buttons, or a [SizedBox] widget if [htr] is not null.
         floatingActionButton: htr == null
             ? Row(mainAxisSize: MainAxisSize.min, children: [
                 FloatingActionButton.extended(
@@ -169,6 +250,10 @@ class _HomeState extends State<Home> {
                       onPressed: getCameraImage, child: iCamera)
               ])
             : const SizedBox(),
+
+        /// Specifies the position of the floating action button.
+        ///
+        /// The floating action button is positioned at the center bottom of the screen.
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }
