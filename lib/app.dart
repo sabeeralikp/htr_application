@@ -6,14 +6,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 ///
-/// [MyApp.]
+/// [MyApp]
 ///
-/// [@author	Sabeerali]
-/// [ @since	v0.0.1 ]
-/// [@version	v1.0.0	Monday, March 1st, 2023]
-/// [@see		StatelessWidget]
-/// [@args key]
-/// [@description parent app of the application]
+/// [author]	Sabeerali
+/// [since]	v0.0.1 
+/// [version]	v1.0.0	March 1st, 2023 1:14 PM 
+/// [see]		StatelessWidget]
+/// [args] key
 ///
 class MyApp extends StatelessWidget {
   const MyApp({super.key}); // A Flutter app's root widget.
