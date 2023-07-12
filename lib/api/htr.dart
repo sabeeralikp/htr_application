@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:htr/api/api.dart';
 import 'package:htr/models/cordinates.dart';
+import 'package:htr/models/feedback_model.dart';
 import 'package:htr/models/save_data.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:http_parser/http_parser.dart';
@@ -139,6 +140,24 @@ Future<String?> exportAsDOC(File file) async {
   });
   try {
     final response = await dio.post("/api/document/exportDoc", data: formData);
+    if (response.statusCode == 200) {
+      return response.data["file"];
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return null;
+}
+
+Future<FeedbackModel?> postFeedBack(
+    int uploadHTR, double? raiting, String remarks) async {
+  FormData formData = FormData.fromMap(
+      {'upload_htr': uploadHTR, 'raiting': raiting, 'remarks': remarks});
+  try {
+    final response = await dio.post("/api/document/feedback", data: formData);
     if (response.statusCode == 200) {
       return response.data["file"];
     } else {

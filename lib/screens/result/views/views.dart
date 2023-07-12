@@ -2,6 +2,8 @@ import 'dart:developer';
 //import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:htr/screens/segment/widgets/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:htr/screens/result/widgets/widgets.dart';
 
@@ -53,6 +55,9 @@ class _ResulPageState extends State<ResulPage> {
 
       /// Insert the processed words into the Quill editor
       _controller.document.insert(0, words.replaceFirst(" ", ""));
+    }
+    if (mounted) {
+      _showFeedbackDialog();
     }
   }
 
@@ -254,6 +259,109 @@ class _ResulPageState extends State<ResulPage> {
                             })
                       ]));
         });
+  }
+
+  double? userRating;
+  final TextEditingController _remarkController = TextEditingController();
+  sendFeedback() async {
+    if (userRating != null) {
+      await postFeedBack(1, userRating, _remarkController.text);
+    }
+  }
+
+  Future<void> _showFeedbackDialog() async {
+    Future.delayed(
+        const Duration(seconds: 5),
+        () => showDialog<void>(
+            context: context,
+            barrierDismissible: true, // user must tap button!
+            builder: (BuildContext context) {
+              return StatefulBuilder(
+                  builder: (context, setState) => AlertDialog(
+                          title: const Text("Have a minute to spare",
+                              textAlign: TextAlign.start),
+                          content: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                const Text('Are you happy with the app ?'),
+                                h8,
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      RatingBar.builder(
+                                          itemCount: 5,
+                                          itemSize: 36,
+                                          itemBuilder: (context, index) {
+                                            switch (index) {
+                                              case 0:
+                                                return const Icon(
+                                                  Icons
+                                                      .sentiment_very_dissatisfied,
+                                                  color: Colors.red,
+                                                );
+                                              case 1:
+                                                return const Icon(
+                                                  Icons.sentiment_dissatisfied,
+                                                  color: Colors.redAccent,
+                                                );
+                                              case 2:
+                                                return const Icon(
+                                                  Icons.sentiment_neutral,
+                                                  color: Colors.amber,
+                                                );
+                                              case 3:
+                                                return const Icon(
+                                                  Icons.sentiment_satisfied,
+                                                  color: Colors.lightGreen,
+                                                );
+                                              case 4:
+                                                return const Icon(
+                                                  Icons
+                                                      .sentiment_very_satisfied,
+                                                  color: Colors.green,
+                                                );
+                                              default:
+                                                return const Icon(
+                                                  Icons.sentiment_satisfied,
+                                                  color: Colors.lightGreen,
+                                                );
+                                            }
+                                          },
+                                          onRatingUpdate: (rating) {
+                                            log(rating.toString());
+                                            setState(() {
+                                              userRating = rating;
+                                            });
+                                          })
+                                    ]),
+                                h16,
+                                if (userRating != null) ...[
+                                  const Text('Your message to developer',
+                                      textAlign: TextAlign.start),
+                                  h8,
+                                  TextFormField(
+                                      minLines: 2,
+                                      maxLines: 2,
+                                      controller: _remarkController,
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder()))
+                                ]
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                                child: Text(AppLocalizations.of(context)
+                                    .text_button_cancel),
+                                onPressed: () => Navigator.of(context).pop()),
+                            ElevatedButton(
+                                child: const Text('Send'),
+                                onPressed: () {
+                                  sendFeedback();
+                                  Navigator.of(context).pop();
+                                })
+                          ]));
+            }));
   }
 
   ///Builds the UI for the ResulPage widget.
