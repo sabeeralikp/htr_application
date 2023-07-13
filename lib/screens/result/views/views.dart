@@ -278,14 +278,14 @@ class _ResulPageState extends State<ResulPage> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (context, setState) => AlertDialog(
-                          title: const Text("Have a minute to spare",
-                              textAlign: TextAlign.start),
+                          title: Text(AppLocalizations.of(context).feedback_title,
+                          textAlign: TextAlign.start),
                           content: SingleChildScrollView(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                const Text('Are you happy with the app ?'),
+                                 Text(AppLocalizations.of(context).feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -338,7 +338,7 @@ class _ResulPageState extends State<ResulPage> {
                                     ]),
                                 h16,
                                 if (userRating != null) ...[
-                                  const Text('Your message to developer',
+                                  Text(AppLocalizations.of(context).rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -355,7 +355,7 @@ class _ResulPageState extends State<ResulPage> {
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             ElevatedButton(
-                                child: const Text('Send'),
+                                child:Text(AppLocalizations.of(context).rating_button_send),
                                 onPressed: () {
                                   sendFeedback();
                                   Navigator.of(context).pop();
