@@ -245,9 +245,10 @@ class _HomeState extends State<Home> {
                     icon: cloudUploadIcon,
                     onPressed: uploadFile),
                 w8,
-                if (Platform.isAndroid || Platform.isIOS)
-                  FloatingActionButton(
-                      onPressed: getCameraImage, child: iCamera)
+                if (!kIsWeb)
+                  if (Platform.isAndroid || Platform.isIOS)
+                    FloatingActionButton(
+                        onPressed: getCameraImage, child: iCamera)
               ])
             : const SizedBox(),
 

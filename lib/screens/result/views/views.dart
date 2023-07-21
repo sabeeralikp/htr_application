@@ -1,5 +1,5 @@
 import 'dart:developer';
-//import 'dart:html' as html;
+import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -75,17 +75,17 @@ class _ResulPageState extends State<ResulPage> {
       showSavedSnackbar(output.path, 'document.pdf');
     } else {
       /// Save the PDF on the web by creating a Blob object and generating a download link
-      // final bytes = await pdf.save();
-      // final blob = html.Blob([bytes], 'application/pdf');
-      // final url = html.Url.createObjectUrlFromBlob(blob);
-      // final anchor = html.AnchorElement()
-      //   ..href = url
-      //   ..style.display = 'none'
-      //   ..download = 'document.pdf';
-      // html.document.body?.children.add(anchor);
-      // anchor.click();
-      // html.document.body?.children.remove(anchor);
-      // html.Url.revokeObjectUrl(url);
+      final bytes = await pdf.save();
+      final blob = html.Blob([bytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement()
+        ..href = url
+        ..style.display = 'none'
+        ..download = 'document.pdf';
+      html.document.body?.children.add(anchor);
+      anchor.click();
+      html.document.body?.children.remove(anchor);
+      html.Url.revokeObjectUrl(url);
     }
   }
 
@@ -278,14 +278,16 @@ class _ResulPageState extends State<ResulPage> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (context, setState) => AlertDialog(
-                          title: Text(AppLocalizations.of(context).feedback_title,
-                          textAlign: TextAlign.start),
+                          title: Text(
+                              AppLocalizations.of(context).feedback_title,
+                              textAlign: TextAlign.start),
                           content: SingleChildScrollView(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                 Text(AppLocalizations.of(context).feedback_body),
+                                Text(
+                                    AppLocalizations.of(context).feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -338,7 +340,8 @@ class _ResulPageState extends State<ResulPage> {
                                     ]),
                                 h16,
                                 if (userRating != null) ...[
-                                  Text(AppLocalizations.of(context).rating_title,
+                                  Text(
+                                      AppLocalizations.of(context).rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -355,7 +358,8 @@ class _ResulPageState extends State<ResulPage> {
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             ElevatedButton(
-                                child:Text(AppLocalizations.of(context).rating_button_send),
+                                child: Text(AppLocalizations.of(context)
+                                    .rating_button_send),
                                 onPressed: () {
                                   sendFeedback();
                                   Navigator.of(context).pop();
