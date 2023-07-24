@@ -381,10 +381,10 @@ class _ResulPageState extends State<ResulPage> {
     return Scaffold(
         appBar: AppBar(
             title: Text(AppLocalizations.of(context).appbar_result),
-            actions: [
-              TextButton(
-                  onPressed: () async => _showAlertDialog(),
-                  child: Text(AppLocalizations.of(context).appbar_export))
+            actions: const [
+              // TextButton(
+              //     onPressed: () async => _showAlertDialog(),
+              //     child: Text(AppLocalizations.of(context).appbar_export))
             ]),
         body: Column(children: [
           fq.QuillToolbar.basic(controller: _controller),

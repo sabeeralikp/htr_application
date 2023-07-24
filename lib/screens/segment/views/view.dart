@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:htr/screens/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
@@ -178,11 +179,11 @@ class _SegmentState extends State<Segment> {
         appBar: AppBar(
             title: Text(AppLocalizations.of(context).appbar_title),
             actions: [
-              TextButton(
-                  onPressed: selectAllOnClick,
-                  child:
-                      Text(AppLocalizations.of(context).text_button_selectall)),
-              w8,
+              // TextButton(
+              //     onPressed: selectAllOnClick,
+              //     child:
+              //         Text(AppLocalizations.of(context).text_button_selectall)),
+              // w8,
               Padding(
                   padding: pR8,
                   child: ElevatedButton(
@@ -200,7 +201,7 @@ class _SegmentState extends State<Segment> {
                     Column(children: [
                       Stack(children: [
                         Image.network(
-                            '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
+                            '${baseURL}media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
                             loadingBuilder: imageLoadingBuilder),
                         _cordinates.isNotEmpty
                             ? SizedBox(
@@ -268,7 +269,7 @@ class _SegmentState extends State<Segment> {
                 if (widget.args!.segment != "auto")
                   LayoutBuilder(
                       builder: (context, constraint) =>
-                          (constraint.maxWidth < 700)
+                          (constraint.maxWidth < 700 && !kIsWeb)
                               ? DraggableScrollableSheetForThresholding(
                                   getBottomSheetComponents:
                                       getBottomSheetComponents)

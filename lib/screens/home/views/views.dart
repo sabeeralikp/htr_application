@@ -158,11 +158,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(actions: [
-          IconButton(
+          TextButton(
               onPressed: () =>
                   Provider.of<LocaleProvider>(context, listen: false)
                       .changeLocale(),
-              icon: const Icon(Icons.translate_rounded))
+              child: Row(children: [
+                const Icon(Icons.translate_rounded),
+                w8,
+                Text(Provider.of<LocaleProvider>(context, listen: false)
+                            .locale ==
+                        AppLocalizations.supportedLocales[0]
+                    ? 'മലയാളം'
+                    : 'English')
+              ]))
         ]),
         body: Padding(
             padding: pX32,
