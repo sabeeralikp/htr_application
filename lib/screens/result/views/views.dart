@@ -34,7 +34,7 @@ class _ResulPageState extends State<ResulPage> {
   final fq.QuillController _controller = fq.QuillController.basic();
   List<SaveDataModel> saveDatas = [];
   int selectedIndex = -1;
-  List<bool> isSelected = [false, false];
+  List<bool> isSelected = [false, true];
   @override
   void initState() {
     super.initState();
@@ -105,7 +105,10 @@ class _ResulPageState extends State<ResulPage> {
 
     /// Download the converted DOCX file
     final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
+        filePath!
+            .replaceFirst(".pdf", ".docx")
+            .replaceFirst("PDF", "Doc")
+            .replaceFirst('/', '')));
     final response = await request.close();
     final docfile = File("${output.path}/document.docx");
     response.pipe(docfile.openWrite());
@@ -206,24 +209,24 @@ class _ResulPageState extends State<ResulPage> {
                         child: ListBody(
                           children: <Widget>[
                             Text(AppLocalizations.of(context).save_the_doc),
-                            ListTile(
-                                title: const Text('PDF'),
-                                isThreeLine: false,
-                                onTap: () {
-                                  setState(() {
-                                    isSelected = [
-                                      for (var i = 0;
-                                          i < isSelected.length;
-                                          i++)
-                                        false
-                                    ];
-                                    isSelected[0] = true;
-                                  });
-                                },
-                                trailing: isSelected[0]
-                                    ? const Icon(Icons.check,
-                                        color: Colors.green)
-                                    : const SizedBox()),
+                            // ListTile(
+                            //     title: const Text('PDF'),
+                            //     isThreeLine: false,
+                            //     onTap: () {
+                            //       setState(() {
+                            //         isSelected = [
+                            //           for (var i = 0;
+                            //               i < isSelected.length;
+                            //               i++)
+                            //             false
+                            //         ];
+                            //         isSelected[0] = true;
+                            //       });
+                            //     },
+                            //     trailing: isSelected[0]
+                            //         ? const Icon(Icons.check,
+                            //             color: Colors.green)
+                            //         : const SizedBox()),
                             ListTile(
                                 title: const Text('DOCX'),
                                 isThreeLine: false,
@@ -278,14 +281,16 @@ class _ResulPageState extends State<ResulPage> {
             builder: (BuildContext context) {
               return StatefulBuilder(
                   builder: (context, setState) => AlertDialog(
-                          title: Text(AppLocalizations.of(context).feedback_title,
-                          textAlign: TextAlign.start),
+                          title: Text(
+                              AppLocalizations.of(context).feedback_title,
+                              textAlign: TextAlign.start),
                           content: SingleChildScrollView(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                 Text(AppLocalizations.of(context).feedback_body),
+                                Text(
+                                    AppLocalizations.of(context).feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -338,7 +343,8 @@ class _ResulPageState extends State<ResulPage> {
                                     ]),
                                 h16,
                                 if (userRating != null) ...[
-                                  Text(AppLocalizations.of(context).rating_title,
+                                  Text(
+                                      AppLocalizations.of(context).rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -355,7 +361,8 @@ class _ResulPageState extends State<ResulPage> {
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             ElevatedButton(
-                                child:Text(AppLocalizations.of(context).rating_button_send),
+                                child: Text(AppLocalizations.of(context)
+                                    .rating_button_send),
                                 onPressed: () {
                                   sendFeedback();
                                   Navigator.of(context).pop();
