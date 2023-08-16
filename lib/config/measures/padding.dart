@@ -33,7 +33,6 @@ const EdgeInsets pX16Y32 = EdgeInsets.symmetric(horizontal: 16, vertical: 32);
 const EdgeInsets pL8 = EdgeInsets.only(left: 8);
 const EdgeInsets pL32 = EdgeInsets.only(left: 32);
 
-
 // Only Right Padding
 const EdgeInsets pR8 = EdgeInsets.only(right: 8);
 
@@ -43,3 +42,5 @@ const EdgeInsets pX16T32B64 =
 const EdgeInsets pX16T32B80 =
     EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 80);
 const EdgeInsets pT16B64 = EdgeInsets.only(top: 16, bottom: 32);
+const EdgeInsets pL8T8B4R8 =
+    EdgeInsets.only(left: 8, top: 8, bottom: 4, right: 8);

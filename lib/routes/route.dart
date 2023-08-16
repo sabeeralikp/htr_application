@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:htr/models/upload_htr.dart';
-import 'package:htr/screens/result/result.dart';
-import 'package:htr/screens/segment/segment.dart';
+import 'package:htr/screens/home/home.dart';
+import 'package:htr/screens/htr/result/result.dart';
+import 'package:htr/screens/htr/segment/segment.dart';
 
-import '../screens/home/home.dart';
+import '../screens/htr/home/home.dart';
 
 ///
 /// [RouteProvider.]
@@ -16,6 +17,7 @@ import '../screens/home/home.dart';
 ///
 class RouteProvider {
   // Route Paths
+  static const String htrHome = "/htr_home";
   static const String home = "";
   static const String result = "/result";
   static const String segment = "/segment";
@@ -24,8 +26,11 @@ class RouteProvider {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
-        // If the route name is 'home', returns a MaterialPageRoute that builds a Home widget.
+        // If the route name is 'menu', returns a MaterialPageRoute that builds a Menu widget.
         return MaterialPageRoute(builder: (_) => const Home());
+      case htrHome:
+        // If the route name is 'home', returns a MaterialPageRoute that builds a Home widget.
+        return MaterialPageRoute(builder: (_) => const HTRHome());
       case result:
         // If the route name is 'result', returns a MaterialPageRoute that builds a ResulPage widget, passing the arguments.
         return MaterialPageRoute(

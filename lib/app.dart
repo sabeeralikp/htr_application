@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 /// [MyApp]
 ///
 /// [author]	Sabeerali
-/// [since]	v0.0.1 
-/// [version]	v1.0.0	March 1st, 2023 1:14 PM 
+/// [since]	v0.0.1
+/// [version]	v1.0.0	March 1st, 2023 1:14 PM
 /// [see]		StatelessWidget]
 /// [args] key
 ///

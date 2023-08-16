@@ -44,6 +44,7 @@ ThemeData htrDarkThemeData(BuildContext context) => ThemeData.dark().copyWith(
 /// Returns a [ThemeData] object with the configured button and visual density settings.
 ThemeData htrLightThemeData(BuildContext context) => ThemeData(
     useMaterial3: true,
+    appBarTheme: AppBarTheme(titleTextStyle: fP16M),
     floatingActionButtonTheme: fabTheme,
     sliderTheme: SliderThemeData(
         trackShape: CustomTrackShape(),

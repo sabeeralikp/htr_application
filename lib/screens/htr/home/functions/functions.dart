@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/routes/route.dart';
-import 'package:htr/screens/home/home.dart';
+import 'package:htr/screens/htr/home/home.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeFunctions {

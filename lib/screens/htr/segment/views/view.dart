@@ -1,4 +1,4 @@
-import 'package:htr/screens/segment/widgets/widgets.dart';
+import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
   final UploadHTRModel? args;

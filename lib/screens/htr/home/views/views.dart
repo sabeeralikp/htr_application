@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:htr/screens/home/widgets/widgets.dart';
+import 'package:htr/screens/htr/home/widgets/widgets.dart';
 
 /// An enumeration representing different types of segmentation.
 ///
@@ -9,7 +9,7 @@ import 'package:htr/screens/home/widgets/widgets.dart';
 enum Segmentation { manual, auto }
 
 ///
-/// [Home]
+/// [HTRHome]
 ///
 /// [author] sabeerali
 /// [since]	v0.0.1
@@ -19,14 +19,14 @@ enum Segmentation { manual, auto }
 /// The home screen widget that manages the state.
 ///
 /// Returns a widget representing the home screen.
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HTRHome extends StatefulWidget {
+  const HTRHome({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HTRHome> createState() => _HTRHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HTRHomeState extends State<HTRHome> {
   File? file;
   UploadHTRModel? htr;
   bool isUploading = false;
@@ -157,21 +157,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(actions: [
-          TextButton(
-              onPressed: () =>
-                  Provider.of<LocaleProvider>(context, listen: false)
-                      .changeLocale(),
-              child: Row(children: [
-                const Icon(Icons.translate_rounded),
-                w8,
-                Text(Provider.of<LocaleProvider>(context, listen: false)
-                            .locale ==
-                        AppLocalizations.supportedLocales[0]
-                    ? 'മലയാളം'
-                    : 'English')
-              ]))
-        ]),
+        appBar: AppBar(
+          title: const Text('Handwritten'),
+          // actions: [
+          //   TextButton(
+          //       onPressed: () => {
+          //             Provider.of<LocaleProvider>(context, listen: false)
+          //                 .changeLocale()
+          //           },
+          //       child: Row(children: [
+          //         const Icon(Icons.translate_rounded),
+          //         w8,
+          //         Text(Provider.of<LocaleProvider>(context, listen: false)
+          //                     .locale ==
+          //                 AppLocalizations.supportedLocales[0]
+          //             ? 'മലയാളം'
+          //             : 'English')
+          //       ]))
+          // ],
+        ),
         body: Padding(
             padding: pX32,
             child: Center(
@@ -248,6 +252,7 @@ class _HomeState extends State<Home> {
         floatingActionButton: htr == null
             ? Row(mainAxisSize: MainAxisSize.min, children: [
                 FloatingActionButton.extended(
+                    heroTag: "Upload File",
                     label: Text(AppLocalizations.of(context).upload_fab,
                         style: fW16M),
                     icon: cloudUploadIcon,
@@ -255,7 +260,9 @@ class _HomeState extends State<Home> {
                 w8,
                 if (Platform.isAndroid || Platform.isIOS)
                   FloatingActionButton(
-                      onPressed: getCameraImage, child: iCamera)
+                      heroTag: "Camera Image",
+                      onPressed: getCameraImage,
+                      child: iCamera)
               ])
             : const SizedBox(),
 
