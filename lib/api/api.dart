@@ -1,4 +1,4 @@
 import 'package:dio/dio.dart';
 
-const String baseURL = 'http://192.168.8.110/';
+const String baseURL = 'https://htrbackend.icfoss.org/';
 final baseOptions = BaseOptions(baseUrl: baseURL);
