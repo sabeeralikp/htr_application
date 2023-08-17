@@ -1,11 +1,7 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:htr/api/ocr.dart';
-import 'package:htr/config/assets/assets.dart';
+import 'package:htr/models/ocr_result.dart';
 import 'package:htr/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:htr/screens/htr/home/widgets/widgets.dart';
@@ -53,9 +49,10 @@ class _OCRHomeState extends State<OCRHome> {
         _quillController.clear();
         _quillController.document
             .insert(0, ocr != null ? ocr!.predictedText : '');
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) =>
-        //         EditingPage(ocr: ocr, quillController: _quillController)));
+        OCRResultModel ocrResult =
+            OCRResultModel(ocr: ocr, quillController: _quillController);
+        Navigator.of(context)
+            .pushNamed(RouteProvider.ocrresult, arguments: ocrResult);
       });
     }
   }
@@ -84,7 +81,7 @@ class _OCRHomeState extends State<OCRHome> {
         appBar: AppBar(
           title: const Text('Printed'),
         ),
-        body:   isUploading
+        body: isUploading
             ? const UploadingIndicator()
             : const UploadFileBody(isOCR: true),
         floatingActionButton: Row(mainAxisSize: MainAxisSize.min, children: [
@@ -101,7 +98,6 @@ class _OCRHomeState extends State<OCRHome> {
                 onPressed: getCameraImage,
                 child: iCamera)
         ]),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerFloat);
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 }

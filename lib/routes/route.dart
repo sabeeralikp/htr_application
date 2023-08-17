@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:htr/models/ocr_result.dart';
 import 'package:htr/models/upload_htr.dart';
 import 'package:htr/screens/home/home.dart';
 import 'package:htr/screens/htr/result/result.dart';
 import 'package:htr/screens/htr/segment/segment.dart';
 import 'package:htr/screens/ocr/home/views/view.dart';
+import 'package:htr/screens/ocr/result/views/view.dart';
 
 import '../screens/htr/home/home.dart';
 
@@ -22,6 +24,7 @@ class RouteProvider {
   static const String ocrHome = "/ocr_home";
   static const String home = "";
   static const String result = "/result";
+  static const String ocrresult = "/ocr_result";
   static const String segment = "/segment";
 
   /// Generates the appropriate route based on the given RouteSettings.
@@ -40,6 +43,10 @@ class RouteProvider {
         return MaterialPageRoute(
             builder: (_) =>
                 ResulPage(args: settings.arguments as List<dynamic>));
+      case ocrresult:
+        return MaterialPageRoute(
+            builder: (_) =>
+                OCRResult(ocrResult: settings.arguments as OCRResultModel));
       case segment:
         // If the route name is 'segment', returns a MaterialPageRoute that builds a Segment widget, passing the arguments.
         return MaterialPageRoute(
