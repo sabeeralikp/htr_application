@@ -1,6 +1,6 @@
 import 'dart:developer';
-//import 'dart:html' as html;
-import 'dart:io';
+import 'dart:html' as html;
+// import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:htr/screens/htr/segment/widgets/widgets.dart';
@@ -66,27 +66,27 @@ class _ResulPageState extends State<ResulPage> {
   ///If the platform is not web (i.e., mobile or desktop), the PDF document is saved locally on the device.
   ///Otherwise, on the web, the PDF is saved by creating a Blob object and generating a download link for the user.
   savePDf(pdf) async {
-    if (!kIsWeb) {
-      /// Save the PDF locally on the device
-      final output = await getApplicationDocumentsDirectory();
-      final file = File("${output.path}/document.pdf");
-      await file.writeAsBytes(await pdf.save());
-      log(output.path);
-      showSavedSnackbar(output.path, 'document.pdf');
-    } else {
-      /// Save the PDF on the web by creating a Blob object and generating a download link
-      // final bytes = await pdf.save();
-      // final blob = html.Blob([bytes], 'application/pdf');
-      // final url = html.Url.createObjectUrlFromBlob(blob);
-      // final anchor = html.AnchorElement()
-      //   ..href = url
-      //   ..style.display = 'none'
-      //   ..download = 'document.pdf';
-      // html.document.body?.children.add(anchor);
-      // anchor.click();
-      // html.document.body?.children.remove(anchor);
-      // html.Url.revokeObjectUrl(url);
-    }
+    // if (!kIsWeb) {
+    //   /// Save the PDF locally on the device
+    //   final output = await getApplicationDocumentsDirectory();
+    //   final file = File("${output.path}/document.pdf");
+    //   await file.writeAsBytes(await pdf.save());
+    //   log(output.path);
+    //   showSavedSnackbar(output.path, 'document.pdf');
+    // } else {
+    /// Save the PDF on the web by creating a Blob object and generating a download link
+    // final bytes = await pdf.save();
+    // final blob = html.Blob([bytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // final anchor = html.AnchorElement()
+    //   ..href = url
+    //   ..style.display = 'none'
+    //   ..download = 'document.pdf';
+    // html.document.body?.children.add(anchor);
+    // anchor.click();
+    // html.document.body?.children.remove(anchor);
+    // html.Url.revokeObjectUrl(url);
+    // }
   }
 
   ///Saves the PDF document as a DOCX file.
@@ -94,25 +94,32 @@ class _ResulPageState extends State<ResulPage> {
   ///The function saves the PDF as a temporary file, converts it to DOCX format, and then downloads the resulting DOCX file.
   saveDOCX(pdf) async {
     /// Save the PDF as a temporary file
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/document.pdf");
-    await file.writeAsBytes(await pdf.save());
+
+    final bytes = await pdf.save();
+    // final output = await getApplicationDocumentsDirectory();
+    // final file = File("${output.path}/document.pdf");
+    // await file.writeAsBytes(await pdf.save());
 
     /// Convert the PDF to DOCX format
-    String? filePath = await exportAsDOC(file);
-    log(output.path);
-    log(filePath ?? 'Hello');
+    String? filePath = await exportAsDOCWeb(bytes, 'document.pdf');
 
     /// Download the converted DOCX file
-    final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!
-            .replaceFirst(".pdf", ".docx")
-            .replaceFirst("PDF", "Doc")
-            .replaceFirst('/', '')));
-    final response = await request.close();
-    final docfile = File("${output.path}/document.docx");
-    response.pipe(docfile.openWrite());
-    showSavedSnackbar(output.path, 'document.docx');
+    final anchor = html.AnchorElement()
+      ..href = baseURL +
+          filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")
+      ..style.display = 'none'
+      ..download = 'document.docx';
+    html.document.body?.children.add(anchor);
+    anchor.click();
+    html.document.body?.children.remove(anchor);
+    html.Url.revokeObjectUrl(baseURL +
+        filePath.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc"));
+    // final request = await HttpClient().getUrl(Uri.parse(baseURL +
+    //     filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
+    // final response = await request.close();
+    // final docfile = File("${output.path}/document.docx");
+    // response.pipe(docfile.openWrite());
+    // showSavedSnackbar(output.path, 'document.docx');
   }
 
   ///Displays a snackbar to notify the user about the saved document location.

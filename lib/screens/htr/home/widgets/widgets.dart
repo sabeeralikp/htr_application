@@ -1,4 +1,3 @@
-export 'dart:io';
 export 'package:file_picker/file_picker.dart';
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';

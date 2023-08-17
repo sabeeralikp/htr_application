@@ -1,10 +1,18 @@
-import 'dart:developer';
+import 'dart:html';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:htr/api/ocr.dart';
+import 'package:htr/config/assets/assets.dart';
+import 'package:htr/config/fonts/fonts.dart';
+import 'package:htr/config/widgets/upload.dart';
+import 'package:htr/config/widgets/upload_file_body.dart';
 import 'package:htr/models/ocr_result.dart';
 import 'package:htr/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
-import 'package:htr/screens/htr/home/widgets/widgets.dart';
+import 'package:htr/routes/route.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OCRHome extends StatefulWidget {
   const OCRHome({super.key});
@@ -36,11 +44,6 @@ class _OCRHomeState extends State<OCRHome> {
           isUploading = false;
           setState(() {});
         }
-      } else {
-        file = File(result!.files.single.path!);
-        if (file != null) {
-          ocr = await uploadOCR(file!);
-        }
       }
       setState(() {
         isUploading = false;
@@ -54,24 +57,6 @@ class _OCRHomeState extends State<OCRHome> {
         Navigator.of(context)
             .pushNamed(RouteProvider.ocrresult, arguments: ocrResult);
       });
-    }
-  }
-
-  getCameraImage() async {
-    if (mounted) {
-      try {
-        final XFile? capturedImage =
-            await ImagePicker().pickImage(source: ImageSource.camera);
-        if (capturedImage == null) return;
-        file = File(capturedImage.path);
-        if (file != null) {
-          ocr = await uploadOCR(file!);
-          isUploading = false;
-          setState(() {});
-        }
-      } on Exception catch (e) {
-        log('Failed to pick image: $e');
-      }
     }
   }
 
@@ -91,12 +76,6 @@ class _OCRHomeState extends State<OCRHome> {
                   Text(AppLocalizations.of(context).upload_fab, style: fW16M),
               icon: cloudUploadIcon,
               onPressed: uploadFile),
-          w8,
-          if (Platform.isAndroid || Platform.isIOS)
-            FloatingActionButton(
-                heroTag: "Camera Image",
-                onPressed: getCameraImage,
-                child: iCamera)
         ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }

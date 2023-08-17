@@ -39,7 +39,10 @@ Future<UploadOCRModel?> uploadOCRWeb(
   FormData formData = FormData.fromMap({
     "filename": fileName,
     "file": MultipartFile.fromBytes(fileBytes,
-        filename: fileName, contentType: MediaType('application', 'pdf')),
+        filename: fileName,
+        contentType: fileName.split('.').last == 'pdf'
+            ? MediaType('application', 'pdf')
+            : MediaType('image', fileName.split('.').last)),
   });
   try {
     log(formData.fields.toString());

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:html';
 import 'package:htr/screens/htr/home/widgets/widgets.dart';
 
 /// An enumeration representing different types of segmentation.
@@ -61,13 +61,6 @@ class _HTRHomeState extends State<HTRHome> {
           isUploading = false;
           setState(() {});
         }
-      } else {
-        file = File(result!.files.single.path!);
-        if (file != null) {
-          htr = await uploadHTR(file!);
-          isUploading = false;
-          setState(() {});
-        }
       }
     }
   }
@@ -99,24 +92,6 @@ class _HTRHomeState extends State<HTRHome> {
   /// If any exception occurs during the process, an error message is logged.
   ///
   /// Returns void.
-
-  getCameraImage() async {
-    if (mounted) {
-      try {
-        final XFile? capturedImage =
-            await ImagePicker().pickImage(source: ImageSource.camera);
-        if (capturedImage == null) return;
-        file = File(capturedImage.path);
-        if (file != null) {
-          htr = await uploadHTR(file!);
-          isUploading = false;
-          setState(() {});
-        }
-      } on Exception catch (e) {
-        log('Failed to pick image: $e');
-      }
-    }
-  }
 
   /// Removes the HTR result.
   ///
@@ -258,11 +233,6 @@ class _HTRHomeState extends State<HTRHome> {
                     icon: cloudUploadIcon,
                     onPressed: uploadFile),
                 w8,
-                if (Platform.isAndroid || Platform.isIOS)
-                  FloatingActionButton(
-                      heroTag: "Camera Image",
-                      onPressed: getCameraImage,
-                      child: iCamera)
               ])
             : const SizedBox(),
 

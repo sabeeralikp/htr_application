@@ -1,4 +1,6 @@
-import 'dart:io';
+// import 'dart:io';
+import 'dart:developer';
+import 'dart:html' as html;
 
 import 'package:delta_to_pdf/delta_to_pdf.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:htr/api/htr.dart';
 import 'package:htr/api/ocr.dart';
 import 'package:htr/models/ocr_result.dart';
 import 'package:open_app_file/open_app_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -47,20 +48,32 @@ class _OCRResultState extends State<OCRResult> {
 
   saveDOCX(pdf) async {
     /// Save the PDF as a temporary file
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/document.pdf");
-    await file.writeAsBytes(await pdf.save());
+
+    final bytes = await pdf.save();
+    // final output = await getApplicationDocumentsDirectory();
+    // final file = File("${output.path}/document.pdf");
+    // await file.writeAsBytes(await pdf.save());
 
     /// Convert the PDF to DOCX format
-    String? filePath = await exportAsDOC(file);
+    String? filePath = await exportAsDOCWeb(bytes, 'document.pdf');
 
     /// Download the converted DOCX file
-    final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
-    final response = await request.close();
-    final docfile = File("${output.path}/document.docx");
-    response.pipe(docfile.openWrite());
-    showSavedSnackbar(output.path, 'document.docx');
+    final anchor = html.AnchorElement()
+      ..href = baseURL +
+          filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")
+      ..style.display = 'none'
+      ..download = 'document.docx';
+    html.document.body?.children.add(anchor);
+    anchor.click();
+    html.document.body?.children.remove(anchor);
+    html.Url.revokeObjectUrl(baseURL +
+        filePath.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc"));
+    // final request = await HttpClient().getUrl(Uri.parse(baseURL +
+    //     filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
+    // final response = await request.close();
+    // final docfile = File("${output.path}/document.docx");
+    // response.pipe(docfile.openWrite());
+    // showSavedSnackbar(output.path, 'document.docx');
   }
 
   getTheme() async {
@@ -77,9 +90,8 @@ class _OCRResultState extends State<OCRResult> {
   }
 
   exportDoc() async {
-    final pdf = pw.Document(
-      theme: await getTheme(),
-    );
+    log(widget.ocrResult!.quillController!.document.toDelta().toString());
+    final pdf = pw.Document(theme: await getTheme());
     var delta = widget.ocrResult!.quillController!.document.toDelta().toList();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,

@@ -44,7 +44,10 @@ Future<UploadHTRModel?> uploadHTRWeb(
   FormData formData = FormData.fromMap({
     "filename": fileName,
     "file": MultipartFile.fromBytes(fileBytes,
-        filename: fileName, contentType: MediaType('application', 'pdf')),
+        filename: fileName,
+        contentType: fileName.split('.').last == 'pdf'
+            ? MediaType('application', 'pdf')
+            : MediaType('image', fileName.split('.').last)),
   });
   try {
     log(formData.fields.toString());
@@ -137,6 +140,25 @@ Future<List<dynamic>> postSaveData(List<SaveDataModel> saveDatas) async {
 Future<String?> exportAsDOC(File file) async {
   FormData formData = FormData.fromMap({
     "file": await MultipartFile.fromFile(file.path),
+  });
+  try {
+    final response = await dio.post("/api/document/exportDoc", data: formData);
+    if (response.statusCode == 200) {
+      return response.data["file"];
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return null;
+}
+
+Future<String?> exportAsDOCWeb(fileBytes, fileName) async {
+  FormData formData = FormData.fromMap({
+    "file": MultipartFile.fromBytes(fileBytes,
+        filename: fileName, contentType: MediaType('application', 'pdf')),
   });
   try {
     final response = await dio.post("/api/document/exportDoc", data: formData);
