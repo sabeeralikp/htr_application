@@ -3,6 +3,7 @@ import 'package:htr/models/upload_htr.dart';
 import 'package:htr/screens/home/home.dart';
 import 'package:htr/screens/htr/result/result.dart';
 import 'package:htr/screens/htr/segment/segment.dart';
+import 'package:htr/screens/ocr/home/views/view.dart';
 
 import '../screens/htr/home/home.dart';
 
@@ -18,6 +19,7 @@ import '../screens/htr/home/home.dart';
 class RouteProvider {
   // Route Paths
   static const String htrHome = "/htr_home";
+  static const String ocrHome = "/ocr_home";
   static const String home = "";
   static const String result = "/result";
   static const String segment = "/segment";
@@ -31,6 +33,8 @@ class RouteProvider {
       case htrHome:
         // If the route name is 'home', returns a MaterialPageRoute that builds a Home widget.
         return MaterialPageRoute(builder: (_) => const HTRHome());
+      case ocrHome:
+        return MaterialPageRoute(builder: (_) => const OCRHome());
       case result:
         // If the route name is 'result', returns a MaterialPageRoute that builds a ResulPage widget, passing the arguments.
         return MaterialPageRoute(

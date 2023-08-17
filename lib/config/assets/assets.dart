@@ -2,6 +2,7 @@ import 'package:flutter_svg/svg.dart';
 
 // Background
 const String fileUploadPath = 'assets/background/file_upload.svg';
+const String fileUploadOCRPath = 'assets/background/file_upload_ocr.svg';
 
 // Custom Icons
 const String cloudUploadPath = 'assets/icons/cloud_upload.svg';
@@ -11,6 +12,9 @@ const String pdfFilePath = 'assets/icons/pdf.svg';
 // Background
 final SvgPicture fileUploadSVG =
     SvgPicture.asset(fileUploadPath, semanticsLabel: 'File Upload SVG');
+
+final SvgPicture fileUploadOCRSVG =
+    SvgPicture.asset(fileUploadOCRPath, semanticsLabel: 'File Upload SVG');
 
 // Custom Icons
 final SvgPicture cloudUploadIcon =

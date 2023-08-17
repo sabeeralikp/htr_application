@@ -42,6 +42,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/background/file_upload.svg
+    - assets/background/file_upload_ocr.svg
     - assets/icons/cloud_upload.svg
     - assets/icons/pdf.svg
     - assets/font/mandharam/mandharam_regular.ttf

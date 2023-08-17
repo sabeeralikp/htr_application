@@ -21,11 +21,15 @@ class _HomeState extends State<Home> {
     Navigator.of(context).pushNamed(RouteProvider.htrHome);
   }
 
+  navigateToOCR(context) {
+    Navigator.of(context).pushNamed(RouteProvider.ocrHome);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xfff8f8f8),
-        appBar: AppBar(title: const Text('Dhriti OCR'), actions: [
+        appBar: AppBar(title: const Text('ധൃതി OCR'), actions: [
           TextButton(
               onPressed: () {
                 Provider.of<LocaleProvider>(context, listen: false)
@@ -55,7 +59,7 @@ class _HomeState extends State<Home> {
                       title: 'Printed',
                       description:
                           'Extract and transcribe text from Malayalam - English documents',
-                      onTap: () {}),
+                      onTap: () => navigateToOCR(context)),
                   MenuChild(
                       icon: Icons.document_scanner_rounded,
                       title: 'Handwritten',
@@ -76,7 +80,7 @@ class _HomeState extends State<Home> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       MenuChildLarge(
-                        onTap: () {},
+                        onTap: () => navigateToOCR(context),
                         icon: Icons.description_rounded,
                         title: 'Printed Document',
                         description:
