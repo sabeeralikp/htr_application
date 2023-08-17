@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +8,7 @@ import 'package:htr/api/ocr.dart';
 import 'package:htr/config/assets/assets.dart';
 import 'package:htr/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
+import 'package:htr/screens/htr/home/widgets/widgets.dart';
 
 class OCRHome extends StatefulWidget {
   const OCRHome({super.key});
@@ -26,11 +28,10 @@ class _OCRHomeState extends State<OCRHome> {
     result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['jpg', 'pdf', 'jpeg', 'png']);
-
-    setState(() {
-      isUploading = true;
-    });
     if (result != null) {
+      setState(() {
+        isUploading = true;
+      });
       if (kIsWeb) {
         Uint8List? fileBytes = result!.files.first.bytes;
         String fileName = result!.files.first.name;
@@ -59,29 +60,48 @@ class _OCRHomeState extends State<OCRHome> {
     }
   }
 
+  getCameraImage() async {
+    if (mounted) {
+      try {
+        final XFile? capturedImage =
+            await ImagePicker().pickImage(source: ImageSource.camera);
+        if (capturedImage == null) return;
+        file = File(capturedImage.path);
+        if (file != null) {
+          ocr = await uploadOCR(file!);
+          isUploading = false;
+          setState(() {});
+        }
+      } on Exception catch (e) {
+        log('Failed to pick image: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Printed'),
         ),
-        body: isUploading
-            ? const Center(child: CircularProgressIndicator())
-            : Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                    fileUploadOCRSVG,
-                    const Text('Upload PDF or Image')
-                  ])),
-        floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: FloatingActionButton.extended(
-                label: const Text('Upload File'),
-                icon: const Icon(Icons.upload_outlined),
-                onPressed: () => uploadFile())),
+        body:   isUploading
+            ? const UploadingIndicator()
+            : const UploadFileBody(isOCR: true),
+        floatingActionButton: Row(mainAxisSize: MainAxisSize.min, children: [
+          FloatingActionButton.extended(
+              heroTag: "Upload File",
+              label:
+                  Text(AppLocalizations.of(context).upload_fab, style: fW16M),
+              icon: cloudUploadIcon,
+              onPressed: uploadFile),
+          w8,
+          if (Platform.isAndroid || Platform.isIOS)
+            FloatingActionButton(
+                heroTag: "Camera Image",
+                onPressed: getCameraImage,
+                child: iCamera)
+        ]),
         floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerDocked);
+            FloatingActionButtonLocation.centerFloat);
   }
 }

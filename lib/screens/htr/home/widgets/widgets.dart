@@ -13,7 +13,7 @@ export 'package:htr/config/measures/padding.dart';
 export 'package:htr/config/widgets/upload.dart';
 export 'package:htr/models/upload_htr.dart';
 export 'package:htr/routes/route.dart';
-export 'package:htr/screens/htr/home/widgets/upload_file_body.dart';
+export 'package:htr/config/widgets/upload_file_body.dart';
 export 'package:htr/screens/htr/home/widgets/uploaded_file.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';

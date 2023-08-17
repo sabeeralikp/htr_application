@@ -18,8 +18,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 ///
 /// Returns a widget that displays the upload file screen body.
 class UploadFileBody extends StatelessWidget {
+  final bool isOCR;
   const UploadFileBody({
     super.key,
+    this.isOCR = false
   });
 
   /// Builds the widget tree for the upload file screen body.
@@ -41,7 +43,9 @@ class UploadFileBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-          fileUploadSVG,
+          isOCR?
+          fileUploadOCRSVG:
+           fileUploadSVG,
           Text(AppLocalizations.of(context).home_body_title,
               style: fP16SB, textAlign: TextAlign.center),
           h4,
