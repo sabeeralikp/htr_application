@@ -46,8 +46,6 @@ flutter:
     - assets/icons/cloud_upload.svg
     - assets/icons/pdf.svg
     - assets/logo/ICFOSS_Logo.png
-    - assets/font/noto/NotoSansMalayalam-Bold.ttf
-    - assets/font/noto/NotoSansMalayalam-Regular.ttf
     - assets/font/mandharam/mandharam_regular.ttf
     - assets/font/mandharam/mandharam_bold.ttf
     - assets/font/mandharam/mandharam_italic.ttf
