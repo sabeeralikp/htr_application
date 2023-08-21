@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xfff8f8f8),
-        appBar: AppBar(title: const Text('ധൃതി OCR'), actions: [
+        appBar: AppBar(title: Text('ധൃതി OCR', style: fP16SB), actions: [
           TextButton(
               onPressed: () {
                 Provider.of<LocaleProvider>(context, listen: false)
@@ -49,8 +49,9 @@ class _HomeState extends State<Home> {
         body: LayoutBuilder(builder: (context, contraint) {
           if (contraint.maxWidth < 700) {
             return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Padding(
                       padding: pA8,
                       child: Text('Text Extractor', style: fP16SB)),
@@ -65,46 +66,69 @@ class _HomeState extends State<Home> {
                       title: 'Handwritten',
                       description:
                           'Capture and convert handwritten content in Malayalam',
-                      onTap: () => navigateToHTR(context))
-                ]);
+                      onTap: () => navigateToHTR(context)),
+                ]),
+                const IcfossLogo(),
+              ],
+            );
           } else {
-            return Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                      padding:
-                          const EdgeInsets.only(top: 16, bottom: 8, left: 16),
-                      child: Text('Text Extractor', style: fP16SB)),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      MenuChildLarge(
-                        onTap: () => navigateToOCR(context),
-                        icon: Icons.description_rounded,
-                        title: 'Printed Document',
-                        description:
-                            'Specialized software tool designed to accurately extract and transcribe text content from printed documents written in the Malayalam language. It employs advanced optical character recognition (OCR) technology to convert scanned or photographed documents into editable and searchable digital text',
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Center(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              top: 16, bottom: 8, left: 16),
+                          child: Text('Text Extractor', style: fP16SB)),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          MenuChildLarge(
+                            onTap: () => navigateToOCR(context),
+                            icon: Icons.description_rounded,
+                            title: 'Printed Document',
+                            description:
+                                'Specialized software tool designed to accurately extract and transcribe text content from printed documents written in the Malayalam language. It employs advanced optical character recognition (OCR) technology to convert scanned or photographed documents into editable and searchable digital text',
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      MenuChildLarge(
-                        onTap: () => navigateToHTR(context),
-                        icon: Icons.document_scanner_rounded,
-                        title: 'Handwritten Document',
-                        description:
-                            'Innovative software solution designed to capture and convert handwritten content in the Malayalam language into digital text. Utilizing advanced handwriting recognition technology, this tool enables the transformation of handwritten documents, notes, or texts into editable and searchable formats.',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      Row(mainAxisSize: MainAxisSize.min, children: [
+                        MenuChildLarge(
+                          onTap: () => navigateToHTR(context),
+                          icon: Icons.document_scanner_rounded,
+                          title: 'Handwritten Document',
+                          description:
+                              'Innovative software solution designed to capture and convert handwritten content in the Malayalam language into digital text. Utilizing advanced handwriting recognition technology, this tool enables the transformation of handwritten documents, notes, or texts into editable and searchable formats.',
+                        )
+                      ])
+                    ])),
+                const IcfossLogo(),
+              ],
             );
           }
         }));
+  }
+}
+
+class IcfossLogo extends StatelessWidget {
+  const IcfossLogo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text('Powered by', style: fP16SB),
+        SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+            child: Image.asset('assets/logo/ICFOSS_Logo.png'))
+      ],
+    );
   }
 }
 
