@@ -49,8 +49,9 @@ class _HomeState extends State<Home> {
         body: LayoutBuilder(builder: (context, contraint) {
           if (contraint.maxWidth < 700) {
             return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Padding(
                       padding: pA8,
                       child: Text('Text Extractor', style: fP16SB)),
@@ -66,7 +67,10 @@ class _HomeState extends State<Home> {
                       description:
                           'Capture and convert handwritten content in Malayalam',
                       onTap: () => navigateToHTR(context)),
-                ]);
+                ]),
+                const IcfossLogo(),
+              ],
+            );
           } else {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,19 +105,30 @@ class _HomeState extends State<Home> {
                         )
                       ])
                     ])),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Powered by', style: fP16SB),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        child: Image.asset('assets/logo/ICFOSS_Logo.png'))
-                  ],
-                ),
+                const IcfossLogo(),
               ],
             );
           }
         }));
+  }
+}
+
+class IcfossLogo extends StatelessWidget {
+  const IcfossLogo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text('Powered by', style: fP16SB),
+        SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+            child: Image.asset('assets/logo/ICFOSS_Logo.png'))
+      ],
+    );
   }
 }
 
