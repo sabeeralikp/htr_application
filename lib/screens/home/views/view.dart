@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/colors/colors.dart';
+import 'package:htr/config/assets/assets.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/config/measures/padding.dart';
@@ -28,8 +28,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xfff8f8f8),
-        appBar: AppBar(title: Text('ധൃതി OCR', style: fP16SB), actions: [
+        appBar:
+            AppBar(title: Image.asset('assets/logo/dhrithiLogo.png'), actions: [
           TextButton(
               onPressed: () {
                 Provider.of<LocaleProvider>(context, listen: false)
@@ -39,77 +39,77 @@ class _HomeState extends State<Home> {
               child: Row(children: [
                 const Icon(Icons.translate_rounded),
                 w8,
-                Text(Provider.of<LocaleProvider>(context, listen: false)
-                            .locale ==
-                        AppLocalizations.supportedLocales[0]
-                    ? 'മലയാളം'
-                    : 'English')
+                Text(
+                    Provider.of<LocaleProvider>(context, listen: false)
+                                .locale ==
+                            AppLocalizations.supportedLocales[0]
+                        ? 'മലയാളം'
+                        : 'English',
+                    style: fP20SB)
               ]))
         ]),
-        body: LayoutBuilder(builder: (context, contraint) {
-          if (contraint.maxWidth < 700) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Padding(
-                      padding: pA8,
-                      child: Text('Text Extractor', style: fP16SB)),
-                  MenuChild(
-                      icon: Icons.description_rounded,
-                      title: 'Printed',
-                      description:
-                          'Extract and transcribe text from Malayalam - English documents',
-                      onTap: () => navigateToOCR(context)),
-                  MenuChild(
-                      icon: Icons.document_scanner_rounded,
-                      title: 'Handwritten',
-                      description:
-                          'Capture and convert handwritten content in Malayalam',
-                      onTap: () => navigateToHTR(context)),
-                ]),
-                const IcfossLogo(),
-              ],
-            );
-          } else {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 16, bottom: 8, left: 16),
-                          child: Text('Text Extractor', style: fP16SB)),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          MenuChildLarge(
-                            onTap: () => navigateToOCR(context),
-                            icon: Icons.description_rounded,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: LayoutBuilder(builder: (context, contraint) {
+            if (contraint.maxWidth < 700) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MenuChild(
+                            icon: ocrIcon,
                             title: 'Printed Document',
                             description:
-                                'Specialized software tool designed to accurately extract and transcribe text content from printed documents written in the Malayalam language. It employs advanced optical character recognition (OCR) technology to convert scanned or photographed documents into editable and searchable digital text',
-                          ),
-                        ],
-                      ),
-                      Row(mainAxisSize: MainAxisSize.min, children: [
-                        MenuChildLarge(
-                          onTap: () => navigateToHTR(context),
-                          icon: Icons.document_scanner_rounded,
-                          title: 'Handwritten Document',
-                          description:
-                              'Innovative software solution designed to capture and convert handwritten content in the Malayalam language into digital text. Utilizing advanced handwriting recognition technology, this tool enables the transformation of handwritten documents, notes, or texts into editable and searchable formats.',
-                        )
-                      ])
-                    ])),
-                const IcfossLogo(),
-              ],
-            );
-          }
-        }));
+                                'Extract and transcribe text from Malayalam - English documents',
+                            onTap: () => navigateToOCR(context)),
+                        MenuChild(
+                            icon: htrIcon,
+                            title: 'Handwritten Document',
+                            description:
+                                'Capture and convert handwritten content in Malayalam',
+                            onTap: () => navigateToHTR(context)),
+                      ]),
+                  const IcfossLogo(),
+                ],
+              );
+            } else {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            MenuChildLarge(
+                              onTap: () => navigateToOCR(context),
+                              icon: ocrIcon,
+                              title: 'Printed Document',
+                              description:
+                                  'Specialized software tool designed to accurately extract and transcribe text content from printed documents written in the Malayalam language. It employs advanced optical character recognition (OCR) technology to convert scanned or photographed documents into editable and searchable digital text',
+                            ),
+                          ],
+                        ),
+                        Row(mainAxisSize: MainAxisSize.min, children: [
+                          MenuChildLarge(
+                            onTap: () => navigateToHTR(context),
+                            icon: htrIcon,
+                            title: 'Handwritten Document',
+                            description:
+                                'Innovative software solution designed to capture and convert handwritten content in the Malayalam language into digital text. Utilizing advanced handwriting recognition technology, this tool enables the transformation of handwritten documents, notes, or texts into editable and searchable formats.',
+                          )
+                        ])
+                      ])),
+                  const IcfossLogo(),
+                ],
+              );
+            }
+          }),
+        ));
   }
 }
 
@@ -133,7 +133,7 @@ class IcfossLogo extends StatelessWidget {
 }
 
 class MenuChildLarge extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String title;
   final String description;
   final VoidCallback onTap;
@@ -162,10 +162,10 @@ class MenuChildLarge extends StatelessWidget {
         child: InkWell(
             onTap: onTap,
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Icon(icon, size: 108, color: kPrimaryColor),
+              icon,
               w8,
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(title, style: fP16M),
+                Text(title, style: fP16SB),
                 h4,
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.38,
@@ -177,7 +177,7 @@ class MenuChildLarge extends StatelessWidget {
 }
 
 class MenuChild extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String title;
   final String description;
   final VoidCallback onTap;
@@ -205,13 +205,13 @@ class MenuChild extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Icon(icon, size: 48, color: kPrimaryColor),
+            SizedBox(height: 90, child: icon),
             w8,
             Flexible(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Text(title, style: fP16M),
+                  Text(title, style: fP16SB),
                   h4,
                   Text(description, style: fG14N)
                 ]))

@@ -35,7 +35,7 @@ ThemeData htrDarkThemeData(BuildContext context) => ThemeData.dark().copyWith(
 ///     for all button states.
 ///
 /// [textButtonTheme] defines the style for text buttons.
-///   - [textStyle] sets the text style of the button to [fP16N] (Font Weight 16, Normal)
+///   - [textStyle] sets the text style of the button to [fP14N] (Font Weight 16, Normal)
 ///     for all button states.
 ///
 /// [visualDensity] sets the visual density of the theme to
@@ -44,7 +44,13 @@ ThemeData htrDarkThemeData(BuildContext context) => ThemeData.dark().copyWith(
 /// Returns a [ThemeData] object with the configured button and visual density settings.
 ThemeData htrLightThemeData(BuildContext context) => ThemeData(
     useMaterial3: true,
-    appBarTheme: AppBarTheme(titleTextStyle: fP16M),
+    appBarTheme: AppBarTheme(
+      titleTextStyle: fP16M,
+      backgroundColor: const Color(0xfff8f8f8),
+      toolbarHeight: 70,
+      shape: Border(
+          bottom: BorderSide(color: kGreyColor.withOpacity(0.1), width: 1)),
+    ),
     floatingActionButtonTheme: fabTheme,
     sliderTheme: SliderThemeData(
         trackShape: CustomTrackShape(),
@@ -58,7 +64,7 @@ ThemeData htrLightThemeData(BuildContext context) => ThemeData(
             textStyle: MaterialStateProperty.all<TextStyle>(fW16M))),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            textStyle: MaterialStateProperty.all<TextStyle>(fP16N))),
+            textStyle: MaterialStateProperty.all<TextStyle>(fP14N))),
     visualDensity: VisualDensity.adaptivePlatformDensity);
 
 /// A custom track shape for a slider that extends the [RoundedRectSliderTrackShape].

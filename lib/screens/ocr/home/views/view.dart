@@ -65,9 +65,22 @@ class _OCRHomeState extends State<OCRHome> {
         if (capturedImage == null) return;
         file = File(capturedImage.path);
         if (file != null) {
+          isUploading = true;
           ocr = await uploadOCR(file!);
-          isUploading = false;
-          setState(() {});
+          setState(() {
+            extractedTextController.text =
+                ocr != null ? ocr!.predictedText!.replaceAll('\n', ' ') : '';
+            _quillController.clear();
+            _quillController.document
+                .insert(0, ocr != null ? ocr!.predictedText : '');
+            OCRResultModel ocrResult =
+                OCRResultModel(ocr: ocr, quillController: _quillController);
+            Navigator.of(context)
+                .pushNamed(RouteProvider.ocrresult, arguments: ocrResult)
+                .whenComplete(() => setState(() {
+                      isUploading = false;
+                    }));
+          });
         }
       } on Exception catch (e) {
         log('Failed to pick image: $e');

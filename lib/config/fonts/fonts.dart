@@ -28,8 +28,10 @@ TextStyle fP16SB = GoogleFonts.inter(
     color: kPrimaryColor, fontSize: 18, fontWeight: FontWeight.w600);
 TextStyle fP16M = GoogleFonts.inter(
     color: kPrimaryColor, fontSize: 16, fontWeight: FontWeight.w500);
-TextStyle fP16N = GoogleFonts.inter(
+TextStyle fP14N = GoogleFonts.inter(
     color: kPrimaryColor, fontSize: 14, fontWeight: FontWeight.w400);
+TextStyle fP14M = GoogleFonts.inter(
+    color: kPrimaryColor, fontSize: 14, fontWeight: FontWeight.w500);
 
 // Primary Color with Opacity
 TextStyle fP7014L = GoogleFonts.inter(

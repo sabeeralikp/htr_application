@@ -8,6 +8,8 @@ const String fileUploadOCRPath = 'assets/background/file_upload_ocr.svg';
 const String cloudUploadPath = 'assets/icons/cloud_upload.svg';
 
 const String pdfFilePath = 'assets/icons/pdf.svg';
+const String htrFilePath = 'assets/icons/HTR.svg';
+const String ocrFilePath = 'assets/icons/OCR.svg';
 
 // Background
 final SvgPicture fileUploadSVG =
@@ -22,3 +24,7 @@ final SvgPicture cloudUploadIcon =
 
 final SvgPicture pdfFileIcon =
     SvgPicture.asset(pdfFilePath, semanticsLabel: 'PDF File SVG');
+final SvgPicture htrIcon =
+    SvgPicture.asset(htrFilePath, semanticsLabel: 'HTR SVG');
+final SvgPicture ocrIcon =
+    SvgPicture.asset(ocrFilePath, semanticsLabel: 'OCR SVG');
