@@ -567,125 +567,96 @@ class _HomeState extends State<Home> {
                                                                 ])),
                                                       ],
                                                     )
-                                                  : Column(
-                                                      children: [
-                                                        Container(
-                                                            padding:
-                                                                const EdgeInsets.all(
-                                                                    7),
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.35,
-                                                            decoration: BoxDecoration(
-                                                                color:
-                                                                    kWhiteColor,
-                                                                border: Border.all(
-                                                                    color: kTextGreyColor
-                                                                        .withOpacity(
-                                                                            0.2)),
-                                                                borderRadius:
-                                                                    const BorderRadius.all(
-                                                                        Radius.circular(
-                                                                            12))),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                if (width < 675)
+                                                  : Center(
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(7),
+                                                              width: MediaQuery.of(context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.35,
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                      kWhiteColor,
+                                                                  border: Border.all(
+                                                                      color: kTextGreyColor
+                                                                          .withOpacity(
+                                                                              0.2)),
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          12))),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  if (width <
+                                                                      675)
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        IconButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              setState(() {
+                                                                                isHTR = false;
+                                                                                result = null;
+                                                                              });
+                                                                            },
+                                                                            icon:
+                                                                                const Icon(Ionicons.close)),
+                                                                      ],
+                                                                    ),
+                                                                  h16,
                                                                   Row(
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .end,
+                                                                            .spaceBetween,
                                                                     children: [
-                                                                      IconButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            setState(() {
-                                                                              isHTR = false;
-                                                                              result = null;
-                                                                            });
-                                                                          },
-                                                                          icon:
-                                                                              const Icon(Ionicons.close)),
+                                                                      Row(
+                                                                          children: [
+                                                                            width > 400
+                                                                                ? w16
+                                                                                : w4,
+                                                                            Icon(Ionicons.document_outline,
+                                                                                size: width > 400 ? 32 : 24),
+                                                                            width > 400
+                                                                                ? w16
+                                                                                : w4,
+                                                                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                              SizedBox(
+                                                                                width: MediaQuery.of(context).size.width * 0.16,
+                                                                                child: Text(result!.files.first.name, style: fB16M),
+                                                                              ),
+                                                                              SizedBox(width: MediaQuery.of(context).size.width * 0.16, child: Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
+                                                                            ])
+                                                                          ]),
+                                                                      if (width >=
+                                                                          675)
+                                                                        IconButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              setState(() {
+                                                                                isHTR = false;
+                                                                                result = null;
+                                                                              });
+                                                                            },
+                                                                            icon:
+                                                                                const Icon(Ionicons.close)),
                                                                     ],
                                                                   ),
-                                                                h16,
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Row(
-                                                                        children: [
-                                                                          width > 400
-                                                                              ? w16
-                                                                              : w4,
-                                                                          Icon(
-                                                                              Ionicons.document_outline,
-                                                                              size: width > 400 ? 32 : 24),
-                                                                          width > 400
-                                                                              ? w16
-                                                                              : w4,
-                                                                          Column(
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                SizedBox(
-                                                                                  width: MediaQuery.of(context).size.width * 0.16,
-                                                                                  child: Text(result!.files.first.name, style: fB16M),
-                                                                                ),
-                                                                                SizedBox(width: MediaQuery.of(context).size.width * 0.16, child: Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
-                                                                              ])
-                                                                        ]),
-                                                                    if (width >=
-                                                                        675)
-                                                                      IconButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            setState(() {
-                                                                              isHTR = false;
-                                                                              result = null;
-                                                                            });
-                                                                          },
-                                                                          icon:
-                                                                              const Icon(Ionicons.close)),
-                                                                  ],
-                                                                ),
-                                                                h8,
-                                                                width > 675
-                                                                    ? Row(
-                                                                        children: [
-                                                                          if (isHTR) ...[
-                                                                            w16,
-                                                                            const Text('Segment as'),
-                                                                            w8,
-                                                                            SizedBox(
-                                                                              width: 112,
-                                                                              child: DropdownButtonFormField(
-                                                                                value: 'Automatic',
-                                                                                decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
-                                                                                items: [
-                                                                                  'Automatic',
-                                                                                  'Manual'
-                                                                                ]
-                                                                                    .map((e) => DropdownMenuItem(
-                                                                                          value: e,
-                                                                                          child: Text(e),
-                                                                                        ))
-                                                                                    .toList(),
-                                                                                onChanged: (e) {
-                                                                                  isAuto = e == 'Automatic';
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ],
-                                                                      )
-                                                                    : isHTR
-                                                                        ? Column(
-                                                                            children: [
+                                                                  h8,
+                                                                  width > 675
+                                                                      ? Row(
+                                                                          children: [
+                                                                            if (isHTR) ...[
+                                                                              w16,
                                                                               const Text('Segment as'),
                                                                               w8,
                                                                               SizedBox(
@@ -708,26 +679,54 @@ class _HomeState extends State<Home> {
                                                                                 ),
                                                                               ),
                                                                             ],
-                                                                          )
-                                                                        : const SizedBox()
-                                                              ],
-                                                            )),
-                                                        h16,
-                                                        CustomElevatedButton(
-                                                            onPressed:
-                                                                uploadFile,
-                                                            child: const Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Text(
-                                                                      'Extract'),
-                                                                  w12,
-                                                                  Icon(Icons
-                                                                      .arrow_forward_rounded)
-                                                                ])),
-                                                      ],
+                                                                          ],
+                                                                        )
+                                                                      : isHTR
+                                                                          ? Column(
+                                                                              children: [
+                                                                                const Text('Segment as'),
+                                                                                w8,
+                                                                                SizedBox(
+                                                                                  width: 112,
+                                                                                  child: DropdownButtonFormField(
+                                                                                    value: 'Automatic',
+                                                                                    decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
+                                                                                    items: [
+                                                                                      'Automatic',
+                                                                                      'Manual'
+                                                                                    ]
+                                                                                        .map((e) => DropdownMenuItem(
+                                                                                              value: e,
+                                                                                              child: Text(e),
+                                                                                            ))
+                                                                                        .toList(),
+                                                                                    onChanged: (e) {
+                                                                                      isAuto = e == 'Automatic';
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            )
+                                                                          : const SizedBox()
+                                                                ],
+                                                              )),
+                                                          h16,
+                                                          CustomElevatedButton(
+                                                              onPressed:
+                                                                  uploadFile,
+                                                              child: const Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    Text(
+                                                                        'Extract'),
+                                                                    w12,
+                                                                    Icon(Icons
+                                                                        .arrow_forward_rounded)
+                                                                  ])),
+                                                        ],
+                                                      ),
                                                     ),
                                       h64,
                                       if (androidSelected)
