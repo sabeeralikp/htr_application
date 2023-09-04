@@ -1,5 +1,5 @@
-import 'dart:io';
-
+// import 'dart:io';
+import 'dart:html' as html;
 import 'package:delta_to_pdf/delta_to_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,9 +7,11 @@ import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:htr/api/api.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/api/ocr.dart';
+import 'package:htr/config/buttons/custom_elevated_button.dart';
+import 'package:htr/config/fonts/fonts.dart';
+import 'package:htr/config/measures/gap.dart';
 import 'package:htr/models/ocr_result.dart';
 import 'package:open_app_file/open_app_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -47,20 +49,32 @@ class _OCRResultState extends State<OCRResult> {
 
   saveDOCX(pdf) async {
     /// Save the PDF as a temporary file
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/document.pdf");
-    await file.writeAsBytes(await pdf.save());
+
+    final bytes = await pdf.save();
+    // final output = await getApplicationDocumentsDirectory();
+    // final file = File("${output.path}/document.pdf");
+    // await file.writeAsBytes(await pdf.save());
 
     /// Convert the PDF to DOCX format
-    String? filePath = await exportAsDOC(file);
+    String? filePath = await exportAsDOCWeb(bytes, 'document.pdf');
 
     /// Download the converted DOCX file
-    final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
-    final response = await request.close();
-    final docfile = File("${output.path}/document.docx");
-    response.pipe(docfile.openWrite());
-    showSavedSnackbar(output.path, 'document.docx');
+    final anchor = html.AnchorElement()
+      ..href = baseURL +
+          filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")
+      ..style.display = 'none'
+      ..download = 'document.docx';
+    html.document.body?.children.add(anchor);
+    anchor.click();
+    html.document.body?.children.remove(anchor);
+    html.Url.revokeObjectUrl(baseURL +
+        filePath.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc"));
+    // final request = await HttpClient().getUrl(Uri.parse(baseURL +
+    //     filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")));
+    // final response = await request.close();
+    // final docfile = File("${output.path}/document.docx");
+    // response.pipe(docfile.openWrite());
+    // showSavedSnackbar(output.path, 'document.docx');
   }
 
   getTheme() async {
@@ -74,6 +88,17 @@ class _OCRResultState extends State<OCRResult> {
         boldItalic: pw.Font.ttf(await rootBundle
             .load("assets/font/mandharam/mandharam_bold_italic.ttf")));
     return myTheme;
+  }
+
+  copyText() async {
+    await Clipboard.setData(ClipboardData(
+        text: widget.ocrResult!.quillController!.document.toPlainText()));
+    SnackBar snackBar = const SnackBar(
+      content: Text('The text has been copied to clipboard'),
+    );
+    setState(() {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
   }
 
   exportDoc() async {
@@ -101,10 +126,34 @@ class _OCRResultState extends State<OCRResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Result'), actions: [
-          TextButton(
-              onPressed: () async => exportDoc(),
-              child: const Text('Export As DOCX'))
+        appBar: AppBar(title: Text('Result', style: fB20N), actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 48.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomWhiteElevatedButton(
+                    onPressed: () async => copyText(),
+                    child: const Row(
+                      children: [
+                        Text('Copy All'),
+                        w8,
+                        Icon(Icons.copy_all_rounded),
+                      ],
+                    )),
+                w16,
+                CustomWhiteElevatedButton(
+                    onPressed: () async => exportDoc(),
+                    child: const Row(
+                      children: [
+                        Text('Export As DOCX'),
+                        w8,
+                        Icon(Icons.file_download_outlined),
+                      ],
+                    )),
+              ],
+            ),
+          )
         ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),

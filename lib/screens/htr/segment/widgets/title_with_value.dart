@@ -8,8 +8,8 @@ import 'package:htr/config/measures/padding.dart';
 /// [TitleWithValue]
 ///
 /// [author] Sabeerali
-/// [since]	v0.0.1 
-/// [version]	v1.0.0	May 29th, 2023 1:32 PM 
+/// [since]	v0.0.1
+/// [version]	v1.0.0	May 29th, 2023 1:32 PM
 /// [see]		StatelessWidget
 ///
 ///A widget that displays a title and a corresponding numeric value horizontally.
@@ -29,12 +29,12 @@ class TitleWithValue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Text(title, style: fP16M),
+      Text(title, style: fB16M),
       w8,
       Container(
           decoration: bDW8,
           padding: pA8,
-          child: Text(_horizontalValue.toStringAsFixed(1), style: fP16M))
+          child: Text(_horizontalValue.toStringAsFixed(1), style: fB16M))
     ]);
   }
 }

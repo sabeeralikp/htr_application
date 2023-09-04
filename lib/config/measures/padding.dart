@@ -17,6 +17,7 @@ const EdgeInsets pA4 = EdgeInsets.all(4);
 const EdgeInsets pA8 = EdgeInsets.all(8);
 const EdgeInsets pA16 = EdgeInsets.all(16);
 const EdgeInsets pA32 = EdgeInsets.all(32);
+const EdgeInsets pA64 = EdgeInsets.all(64);
 
 // X-Directional Padding
 const EdgeInsets pX16 = EdgeInsets.symmetric(horizontal: 16);

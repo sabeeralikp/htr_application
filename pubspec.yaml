@@ -31,6 +31,9 @@ dependencies:
   provider: ^6.0.5
   dartdoc: ^6.2.2
   flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.1.12
+  ionicons: ^0.2.2
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -46,13 +49,16 @@ flutter:
     - assets/icons/cloud_upload.svg
     - assets/icons/pdf.svg
     - assets/icons/HTR.svg
+    - assets/icons/htr_small.svg
     - assets/icons/OCR.svg
+    - assets/icons/ocr_small.svg
     - assets/logo/ICFOSS_Logo.png
     - assets/logo/dhrithiLogo.png
     - assets/font/mandharam/mandharam_regular.ttf
     - assets/font/mandharam/mandharam_bold.ttf
     - assets/font/mandharam/mandharam_italic.ttf
     - assets/font/mandharam/mandharam_bold_italic.ttf
+    - assets/font/noto/NotoSansMalayalam-Regular.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

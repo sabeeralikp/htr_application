@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/colors/colors.dart';
 import 'package:htr/config/decorations/box.dart';
 import 'package:htr/config/measures/padding.dart';
 
@@ -42,18 +41,15 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
   final ScrollController controller = ScrollController();
   void sideSheetWidthonPanUpdate(details) {
     _drawerLeft += details.delta.dx;
-    if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
-      _drawerLeft = MediaQuery.of(context).size.width * 3 / 4;
+    if (_drawerLeft <= MediaQuery.of(context).size.width * 0.8) {
+      _drawerLeft = MediaQuery.of(context).size.width * 0.8;
+      _drawerIcon = Icons.arrow_forward_ios;
     }
     if (_drawerLeft >= MediaQuery.of(context).size.width - _offset) {
       _drawerLeft = MediaQuery.of(context).size.width - _offset;
-    }
-    if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
-      _drawerIcon = Icons.arrow_forward_ios;
-    }
-    if (_drawerLeft >= MediaQuery.of(context).size.width - 2 * _offset) {
       _drawerIcon = Icons.arrow_back_ios;
     }
+
     setState(() {});
   }
 
@@ -67,11 +63,11 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
   /// Finally, the function triggers a state update to reflect the changes.
 
   void thresholdSheetExpandCollapse() {
-    if (_drawerLeft <= MediaQuery.of(context).size.width * 3 / 4) {
+    if (_drawerLeft <= MediaQuery.of(context).size.width * 0.8) {
       _drawerLeft = MediaQuery.of(context).size.width - 2 * _offset;
       _drawerIcon = Icons.arrow_back_ios;
     } else {
-      _drawerLeft = MediaQuery.of(context).size.width * 3 / 4;
+      _drawerLeft = MediaQuery.of(context).size.width * 0.8;
       _drawerIcon = Icons.arrow_forward_ios;
     }
     setState(() {});
@@ -81,7 +77,7 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
   Widget build(BuildContext context) {
     /// Initialize the _drawerLeft property if it's the first build
     if (_init) {
-      _drawerLeft = (MediaQuery.of(context).size.width * 3 / 4);
+      _drawerLeft = (MediaQuery.of(context).size.width * 0.8);
       _init = false;
     }
 
@@ -102,7 +98,7 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
 
     return Stack(children: <Widget>[
       Positioned(
-          width: MediaQuery.of(context).size.width / 4,
+          width: MediaQuery.of(context).size.width / 5,
           top: 0,
           height: MediaQuery.of(context).size.height,
           left: _drawerLeft,
@@ -117,12 +113,11 @@ class _ThresholdSideSheetState extends State<ThresholdSideSheet> {
                           onTap: thresholdSheetExpandCollapse,
                           child: Padding(
                             padding: pL8,
-                            child: Center(
-                                child: Icon(_drawerIcon, color: kWhiteColor)),
+                            child: Center(child: Icon(_drawerIcon)),
                           ),
                         ),
                         Padding(
-                            padding: pL32,
+                            padding: pX16,
                             child: Column(
                                 // mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,

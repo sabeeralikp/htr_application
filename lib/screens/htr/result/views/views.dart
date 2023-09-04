@@ -1,8 +1,9 @@
 import 'dart:developer';
-//import 'dart:html' as html;
+import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:htr/config/buttons/custom_elevated_button.dart';
 import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:htr/screens/htr/result/widgets/widgets.dart';
@@ -94,25 +95,25 @@ class _ResulPageState extends State<ResulPage> {
   ///The function saves the PDF as a temporary file, converts it to DOCX format, and then downloads the resulting DOCX file.
   saveDOCX(pdf) async {
     /// Save the PDF as a temporary file
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/document.pdf");
-    await file.writeAsBytes(await pdf.save());
+    final bytes = await pdf.save();
+    // final output = await getApplicationDocumentsDirectory();
+    // final file = File("${output.path}/document.pdf");
+    // await file.writeAsBytes(await pdf.save());
 
     /// Convert the PDF to DOCX format
-    String? filePath = await exportAsDOC(file);
-    log(output.path);
-    log(filePath ?? 'Hello');
+    String? filePath = await exportAsDOCWeb(bytes, 'document.pdf');
 
     /// Download the converted DOCX file
-    final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!
-            .replaceFirst(".pdf", ".docx")
-            .replaceFirst("PDF", "Doc")
-            .replaceFirst('/', '')));
-    final response = await request.close();
-    final docfile = File("${output.path}/document.docx");
-    response.pipe(docfile.openWrite());
-    showSavedSnackbar(output.path, 'document.docx');
+    final anchor = html.AnchorElement()
+      ..href = baseURL +
+          filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc")
+      ..style.display = 'none'
+      ..download = 'document.docx';
+    html.document.body?.children.add(anchor);
+    anchor.click();
+    html.document.body?.children.remove(anchor);
+    html.Url.revokeObjectUrl(baseURL +
+        filePath.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc"));
   }
 
   ///Displays a snackbar to notify the user about the saved document location.
@@ -272,6 +273,17 @@ class _ResulPageState extends State<ResulPage> {
     }
   }
 
+  copyText() async {
+    await Clipboard.setData(
+        ClipboardData(text: _controller.document.toPlainText()));
+    SnackBar snackBar = const SnackBar(
+      content: Text('The text has been copied to clipboard'),
+    );
+    setState(() {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
+
   Future<void> _showFeedbackDialog() async {
     Future.delayed(
         const Duration(seconds: 5),
@@ -383,11 +395,35 @@ class _ResulPageState extends State<ResulPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).appbar_result),
+            title:
+                Text(AppLocalizations.of(context).appbar_result, style: fB20N),
             actions: [
-              TextButton(
-                  onPressed: () async => _showAlertDialog(),
-                  child: Text(AppLocalizations.of(context).appbar_export))
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    CustomWhiteElevatedButton(
+                        onPressed: () async => copyText(),
+                        child: const Row(
+                          children: [
+                            Text('Copy All'),
+                            w8,
+                            Icon(Icons.copy_all_rounded),
+                          ],
+                        )),
+                    w16,
+                    CustomWhiteElevatedButton(
+                        onPressed: () async => _showAlertDialog(),
+                        child: Row(
+                          children: [
+                            Text(AppLocalizations.of(context).appbar_export),
+                            w8,
+                            const Icon(Icons.file_download_outlined),
+                          ],
+                        )),
+                  ],
+                ),
+              )
             ]),
         body: Column(children: [
           fq.QuillToolbar.basic(controller: _controller),

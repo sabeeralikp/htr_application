@@ -1,3 +1,4 @@
+import 'package:htr/config/buttons/custom_elevated_button.dart';
 import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
@@ -73,7 +74,7 @@ class _SegmentState extends State<Segment> {
   List<Widget> getBottomSheetComponents(context) => [
         Container(width: 48, height: 4, margin: pT16B64, decoration: bDW32),
         Text(AppLocalizations.of(context).sheet_components_adjust,
-            style: fP20SB, textAlign: TextAlign.center),
+            style: fB20SB, textAlign: TextAlign.center),
         h20,
         TitleWithValue(
             title:
@@ -103,12 +104,10 @@ class _SegmentState extends State<Segment> {
             max: 100,
             onChanged: verticalSliderOnChanged),
         h16,
-        ElevatedButton(
+        CustomElevatedButton(
             onPressed: _getCordinates,
-            child: Padding(
-                padding: pA16,
-                child: Text(
-                    AppLocalizations.of(context).eleveted_button_threshold))),
+            child:
+                Text(AppLocalizations.of(context).eleveted_button_threshold)),
       ];
 
   void initFunction() {
@@ -176,7 +175,8 @@ class _SegmentState extends State<Segment> {
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).appbar_title),
+            title:
+                Text(AppLocalizations.of(context).appbar_title, style: fB20N),
             actions: [
               // TextButton(
               //     onPressed: selectAllOnClick,
@@ -185,12 +185,10 @@ class _SegmentState extends State<Segment> {
               // w8,
               Padding(
                   padding: pR8,
-                  child: ElevatedButton(
+                  child: CustomElevatedButton(
                       onPressed: nextOnClick,
-                      child: Padding(
-                          padding: pY8,
-                          child: Text(AppLocalizations.of(context)
-                              .elevated_button_next))))
+                      child: Text(
+                          AppLocalizations.of(context).elevated_button_next)))
             ]),
         body: isLoading
             ? const Center(child: LoadingIndicator())

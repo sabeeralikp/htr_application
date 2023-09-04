@@ -46,11 +46,13 @@ ThemeData htrLightThemeData(BuildContext context) => ThemeData(
     useMaterial3: true,
     appBarTheme: AppBarTheme(
       titleTextStyle: fP16M,
-      backgroundColor: const Color(0xfff8f8f8),
-      toolbarHeight: 70,
+      backgroundColor: kWhiteColor,
+      toolbarHeight: 100,
       shape: Border(
           bottom: BorderSide(color: kGreyColor.withOpacity(0.1), width: 1)),
     ),
+    dialogBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
     floatingActionButtonTheme: fabTheme,
     sliderTheme: SliderThemeData(
         trackShape: CustomTrackShape(),
