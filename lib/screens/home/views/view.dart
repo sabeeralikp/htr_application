@@ -124,184 +124,148 @@ class _HomeState extends State<Home> {
         context: context,
         builder: (BuildContext context) {
           return StatefulBuilder(
-              builder: (context, setState) => Dialog(
-                  backgroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: SizedBox(
-                      width: isDownload
-                          ? MediaQuery.of(context).size.width * 0.6
-                          : MediaQuery.of(context).size.width * 0.5,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                            padding: const EdgeInsets.all(48.0),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: width > 480
-                                    ? CrossAxisAlignment.start
-                                    : CrossAxisAlignment.center,
-                                children: [
-                                  Text(
+              builder: (context, setState) => Expanded(
+                  child: Dialog(
+                      backgroundColor: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: SizedBox(
+                          width: isDownload
+                              ? MediaQuery.of(context).size.width * 0.6
+                              : MediaQuery.of(context).size.width * 0.5,
+                          child: SingleChildScrollView(
+                            child: Padding(
+                                padding: const EdgeInsets.all(48.0),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: width > 480
+                                        ? CrossAxisAlignment.start
+                                        : CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          isDownload
+                                              ? AppLocalizations.of(context).platform_heading
+                                              : AppLocalizations.of(context).document_upload_heading,
+                                          style: width > 480 ? fB32SB : fB20SB,
+                                          textAlign: width > 480
+                                              ? TextAlign.start
+                                              : TextAlign.center),
+                                      h12,
+                                      Text(
+                                          isDownload
+                                              ? AppLocalizations.of(context).platform_subheading
+                                              : 'Choose the desired document type from the options below to extract text using Dhriti OCR. ${isHTR ? "Also specify the segment type as automatic or manual." : ""}',
+                                          style: width > 480 ? fTG20N : fTG16N,
+                                          textAlign: width > 480
+                                              ? TextAlign.start
+                                              : TextAlign.center),
+                                      h48,
                                       isDownload
-                                          ? 'Select the platform of your choice'
-                                          : 'Select your document type',
-                                      style: width > 480 ? fB32SB : fB20SB,
-                                      textAlign: width > 480
-                                          ? TextAlign.start
-                                          : TextAlign.center),
-                                  h12,
-                                  Text(
-                                      isDownload
-                                          ? "Choose the device of your preference from the platforms below to ensure that you always have Dhriti OCR at your fingertips."
-                                          : 'Choose the desired document type from the options below to extract text using Dhriti OCR. ${isHTR ? "Also specify the segment type as automatic or manual." : ""}',
-                                      style: width > 480 ? fTG20N : fTG16N,
-                                      textAlign: width > 480
-                                          ? TextAlign.start
-                                          : TextAlign.center),
-                                  h48,
-                                  isDownload
-                                      ? width > 480
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                  PlatformItemButton(
-                                                      onTap: () => setState(() {
-                                                            downloadAPK();
-                                                            linuxSelected =
-                                                                false;
-                                                            androidSelected =
-                                                                true;
-                                                          }),
-                                                      icon: Icons
-                                                          .phone_android_rounded,
-                                                      borderColor: kBlackColor,
-                                                      style: fB16M,
-                                                      title: 'Android'),
-                                                  PlatformItemButton(
-                                                      onTap: () => setState(() {
-                                                            downloadDEB();
-                                                            androidSelected =
-                                                                false;
-                                                            linuxSelected =
-                                                                true;
-                                                          }),
-                                                      icon: Ionicons.logo_tux,
-                                                      borderColor: kBlackColor,
-                                                      style: fB16M,
-                                                      title: 'Linux'),
-                                                  if (width > 1200) ...[
-                                                    const PlatformItemButton(
-                                                        icon: Ionicons
-                                                            .phone_portrait_outline,
-                                                        iconColor:
-                                                            kTextGreyColor,
-                                                        title: 'iOS'),
-                                                    const PlatformItemButton(
-                                                        icon: Ionicons
-                                                            .logo_windows,
-                                                        iconColor:
-                                                            kTextGreyColor,
-                                                        title: 'Windows'),
-                                                    const PlatformItemButton(
-                                                        icon:
-                                                            Ionicons.logo_apple,
-                                                        iconColor:
-                                                            kTextGreyColor,
-                                                        title: 'MacOS')
-                                                  ]
-                                                ])
-                                          : Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                PlatformItemButton(
-                                                    onTap: () => setState(() {
-                                                          downloadAPK();
-                                                          linuxSelected = false;
-                                                          androidSelected =
-                                                              true;
-                                                        }),
-                                                    icon: Icons
-                                                        .phone_android_rounded,
-                                                    borderColor: kBlackColor,
-                                                    style: fB16M,
-                                                    title: 'Android'),
-                                                h16,
-                                                PlatformItemButton(
-                                                    onTap: () => setState(() {
-                                                          downloadDEB();
-                                                          androidSelected =
-                                                              false;
-                                                          linuxSelected = true;
-                                                        }),
-                                                    icon: Ionicons.logo_tux,
-                                                    borderColor: kBlackColor,
-                                                    style: fB16M,
-                                                    title: 'Linux')
-                                              ],
-                                            )
-                                      : result == null
-                                          ? width >= 1680
+                                          ? width > 480
                                               ? Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceEvenly,
                                                   children: [
-                                                    InkWell(
-                                                        onTap: () {
-                                                          isHTR = false;
-                                                          setState(() {});
-                                                          chooseFile(setState);
-                                                        },
-                                                        borderRadius:
-                                                            const BorderRadius.all(
-                                                                Radius.circular(
-                                                                    32)),
-                                                        child: FeatureMenuItem(
-                                                            containerColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            border: Border.all(
-                                                                color: kTextGreyColor
-                                                                    .withOpacity(
-                                                                        0.4)),
-                                                            icon: Icons
-                                                                .description_outlined,
+                                                      PlatformItemButton(
+                                                          onTap: () =>
+                                                              setState(() {
+                                                                downloadAPK();
+                                                                linuxSelected =
+                                                                    false;
+                                                                androidSelected =
+                                                                    true;
+                                                              }),
+                                                          icon: Icons
+                                                              .phone_android_rounded,
+                                                          borderColor:
+                                                              kBlackColor,
+                                                          style: fB16M,
+                                                          title: AppLocalizations.of(context).platform_item_android),
+                                                      PlatformItemButton(
+                                                          onTap: () =>
+                                                              setState(() {
+                                                                downloadDEB();
+                                                                androidSelected =
+                                                                    false;
+                                                                linuxSelected =
+                                                                    true;
+                                                              }),
+                                                          icon:
+                                                              Ionicons.logo_tux,
+                                                          borderColor:
+                                                              kBlackColor,
+                                                          style: fB16M,
+                                                          title: AppLocalizations.of(context).platform_item_linux),
+                                                      if (width > 1200) ...[
+                                                         PlatformItemButton(
+                                                            icon: Ionicons
+                                                                .phone_portrait_outline,
                                                             iconColor:
-                                                                kBlueColor,
-                                                            iconBackgroundColor:
-                                                                kBlueColor
-                                                                    .withOpacity(
-                                                                        0.1),
-                                                            title: 'Printed',
-                                                            description:
-                                                                'Capture Malayalam and English text from books, articles, and more')),
-                                                    Stack(
+                                                                kTextGreyColor,
+                                                            title: AppLocalizations.of(context).platform_item_ios),
+                                                         PlatformItemButton(
+                                                            icon: Ionicons
+                                                                .logo_windows,
+                                                            iconColor:
+                                                                kTextGreyColor,
+                                                            title: AppLocalizations.of(context).platform_item_windows),
+                                                         PlatformItemButton(
+                                                            icon: Ionicons
+                                                                .logo_apple,
+                                                            iconColor:
+                                                                kTextGreyColor,
+                                                            title: AppLocalizations.of(context).platform_item_macos)
+                                                      ]
+                                                    ])
+                                              : Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    PlatformItemButton(
+                                                        onTap: () =>
+                                                            setState(() {
+                                                              downloadAPK();
+                                                              linuxSelected =
+                                                                  false;
+                                                              androidSelected =
+                                                                  true;
+                                                            }),
+                                                        icon: Icons
+                                                            .phone_android_rounded,
+                                                        borderColor:
+                                                            kBlackColor,
+                                                        style: fB16M,
+                                                        title: 'Android'),
+                                                    h16,
+                                                    PlatformItemButton(
+                                                        onTap: () =>
+                                                            setState(() {
+                                                              downloadDEB();
+                                                              androidSelected =
+                                                                  false;
+                                                              linuxSelected =
+                                                                  true;
+                                                            }),
+                                                        icon: Ionicons.logo_tux,
+                                                        borderColor:
+                                                            kBlackColor,
+                                                        style: fB16M,
+                                                        title: 'Linux')
+                                                  ],
+                                                )
+                                          : result == null
+                                              ? width >= 1680
+                                                  ? Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
                                                       children: [
-                                                        Positioned(
-                                                            top: 0,
-                                                            right: 0,
-                                                            child: Container(
-                                                                padding: pA8,
-                                                                decoration: const BoxDecoration(
-                                                                    color:
-                                                                        kPrimaryColor,
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topRight:
-                                                                            Radius.circular(
-                                                                                32),
-                                                                        bottomLeft:
-                                                                            Radius.circular(
-                                                                                16))),
-                                                                child: Text(
-                                                                    'Beta',
-                                                                    style:
-                                                                        fW16N))),
                                                         InkWell(
                                                             onTap: () {
-                                                              isHTR = true;
+                                                              isHTR = false;
                                                               setState(() {});
                                                               chooseFile(
                                                                   setState);
@@ -315,84 +279,84 @@ class _HomeState extends State<Home> {
                                                                     Colors
                                                                         .transparent,
                                                                 border: Border.all(
-                                                                    color: kTextGreyColor
-                                                                        .withOpacity(
+                                                                    color:
+                                                                        kTextGreyColor.withOpacity(
                                                                             0.4)),
                                                                 icon: Icons
-                                                                    .document_scanner_outlined,
+                                                                    .description_outlined,
                                                                 iconColor:
-                                                                    kPrimaryColor,
+                                                                    kBlueColor,
                                                                 iconBackgroundColor:
-                                                                    kPrimaryColor
+                                                                    kBlueColor
                                                                         .withOpacity(
                                                                             0.1),
                                                                 title:
-                                                                    'Handwritten',
+                                                                    AppLocalizations.of(context).feature_menu_printed,
                                                                 description:
-                                                                    'Transform your Malayalam handwritten notes, letters, and more.')),
+                                                                    AppLocalizations.of(context).feature_menu_printed_description)),
+                                                        Stack(
+                                                          children: [
+                                                            Positioned(
+                                                                top: 0,
+                                                                right: 0,
+                                                                child: Container(
+                                                                    padding:
+                                                                        pA8,
+                                                                    decoration: const BoxDecoration(
+                                                                        color:
+                                                                            kPrimaryColor,
+                                                                        borderRadius: BorderRadius.only(
+                                                                            topRight: Radius.circular(
+                                                                                32),
+                                                                            bottomLeft: Radius.circular(
+                                                                                16))),
+                                                                    child: Text(
+                                                                        'Beta',
+                                                                        style:
+                                                                            fW16N))),
+                                                            InkWell(
+                                                                onTap: () {
+                                                                  isHTR = true;
+                                                                  setState(
+                                                                      () {});
+                                                                  chooseFile(
+                                                                      setState);
+                                                                },
+                                                                borderRadius:
+                                                                    const BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            32)),
+                                                                child: FeatureMenuItem(
+                                                                    containerColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    border: Border.all(
+                                                                        color: kTextGreyColor.withOpacity(
+                                                                            0.4)),
+                                                                    icon: Icons
+                                                                        .document_scanner_outlined,
+                                                                    iconColor:
+                                                                        kPrimaryColor,
+                                                                    iconBackgroundColor:
+                                                                        kPrimaryColor.withOpacity(
+                                                                            0.1),
+                                                                    title:
+                                                                        AppLocalizations.of(context).feature_menu_handwritten,
+                                                                    description:
+                                                                        AppLocalizations.of(context).feature_menu_handwritten_description)),
+                                                          ],
+                                                        ),
                                                       ],
-                                                    ),
-                                                  ],
-                                                )
-                                              : Center(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      InkWell(
-                                                          onTap: () {
-                                                            isHTR = false;
-                                                            setState(() {});
-                                                            chooseFile(
-                                                                setState);
-                                                          },
-                                                          borderRadius:
-                                                              const BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      32)),
-                                                          child: FeatureMenuItem(
-                                                              containerColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              border: Border.all(
-                                                                  color: kTextGreyColor
-                                                                      .withOpacity(
-                                                                          0.4)),
-                                                              icon: Icons
-                                                                  .description_outlined,
-                                                              iconColor:
-                                                                  kBlueColor,
-                                                              iconBackgroundColor:
-                                                                  kBlueColor
-                                                                      .withOpacity(
-                                                                          0.1),
-                                                              title: 'Printed',
-                                                              description:
-                                                                  'Capture Malayalam and English text from books, articles, and more')),
-                                                      h16,
-                                                      Stack(
+                                                    )
+                                                  : Center(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         children: [
-                                                          Positioned(
-                                                              top: 0,
-                                                              right: 0,
-                                                              child: Container(
-                                                                  padding: pA8,
-                                                                  decoration: const BoxDecoration(
-                                                                      color:
-                                                                          kPrimaryColor,
-                                                                      borderRadius: BorderRadius.only(
-                                                                          topRight: Radius.circular(
-                                                                              32),
-                                                                          bottomLeft: Radius.circular(
-                                                                              16))),
-                                                                  child: Text(
-                                                                      'Beta',
-                                                                      style:
-                                                                          fW16N))),
                                                           InkWell(
                                                               onTap: () {
-                                                                isHTR = true;
+                                                                isHTR = false;
                                                                 setState(() {});
                                                                 chooseFile(
                                                                     setState);
@@ -410,193 +374,165 @@ class _HomeState extends State<Home> {
                                                                           .withOpacity(
                                                                               0.4)),
                                                                   icon: Icons
-                                                                      .document_scanner_outlined,
+                                                                      .description_outlined,
                                                                   iconColor:
-                                                                      kPrimaryColor,
+                                                                      kBlueColor,
                                                                   iconBackgroundColor:
-                                                                      kPrimaryColor.withOpacity(
+                                                                      kBlueColor.withOpacity(
                                                                           0.1),
                                                                   title:
-                                                                      'Handwritten',
+                                                                      AppLocalizations.of(context).feature_menu_printed,
                                                                   description:
-                                                                      'Transform your Malayalam handwritten notes, letters, and more.')),
+                                                                      AppLocalizations.of(context).feature_menu_printed_description)),
+                                                          h16,
+                                                          Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                  top: 0,
+                                                                  right: 0,
+                                                                  child: Container(
+                                                                      padding:
+                                                                          pA8,
+                                                                      decoration: const BoxDecoration(
+                                                                          color:
+                                                                              kPrimaryColor,
+                                                                          borderRadius: BorderRadius.only(
+                                                                              topRight: Radius.circular(
+                                                                                  32),
+                                                                              bottomLeft: Radius.circular(
+                                                                                  16))),
+                                                                      child: Text(
+                                                                          'Beta',
+                                                                          style:
+                                                                              fW16N))),
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    isHTR =
+                                                                        true;
+                                                                    setState(
+                                                                        () {});
+                                                                    chooseFile(
+                                                                        setState);
+                                                                  },
+                                                                  borderRadius:
+                                                                      const BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              32)),
+                                                                  child: FeatureMenuItem(
+                                                                      containerColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      border: Border.all(
+                                                                          color: kTextGreyColor.withOpacity(
+                                                                              0.4)),
+                                                                      icon: Icons
+                                                                          .document_scanner_outlined,
+                                                                      iconColor:
+                                                                          kPrimaryColor,
+                                                                      iconBackgroundColor:
+                                                                          kPrimaryColor.withOpacity(
+                                                                              0.1),
+                                                                      title:
+                                                                          AppLocalizations.of(context).feature_menu_handwritten,
+                                                                      description:
+                                                                          AppLocalizations.of(context).feature_menu_handwritten_description)),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                )
-                                          : width >= 1680
-                                              ? Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets.all(
-                                                                7),
-                                                        width:
-                                                            MediaQuery.of(context)
+                                                    )
+                                              : width >= 1680
+                                                  ? Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                            padding:
+                                                                const EdgeInsets.all(
+                                                                    7),
+                                                            width: MediaQuery.of(
+                                                                        context)
                                                                     .size
                                                                     .width *
                                                                 0.35,
-                                                        decoration: BoxDecoration(
-                                                            color: kWhiteColor,
-                                                            border: Border.all(
-                                                                color: kTextGreyColor
-                                                                    .withOpacity(
-                                                                        0.2)),
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .all(
-                                                                    Radius.circular(
-                                                                        12))),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(children: [
-                                                              w16,
-                                                              const Icon(
-                                                                  Ionicons
-                                                                      .document_outline,
-                                                                  size: 32),
-                                                              w16,
-                                                              Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.16,
-                                                                      child: Text(
-                                                                          result!
-                                                                              .files
-                                                                              .first
-                                                                              .name,
-                                                                          style:
-                                                                              fB16M),
-                                                                    ),
-                                                                    Text(
-                                                                        '${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB',
-                                                                        style:
-                                                                            fTG16N)
-                                                                  ])
-                                                            ]),
-                                                            Row(
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    kWhiteColor,
+                                                                border: Border.all(
+                                                                    color: kTextGreyColor
+                                                                        .withOpacity(
+                                                                            0.2)),
+                                                                borderRadius:
+                                                                    const BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            12))),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
-                                                                if (isHTR) ...[
-                                                                  const Text(
-                                                                      'as'),
-                                                                  w8,
-                                                                  SizedBox(
-                                                                    width: 112,
-                                                                    child:
-                                                                        DropdownButtonFormField(
-                                                                      value:
-                                                                          'Automatic',
-                                                                      decoration: InputDecoration(
-                                                                          contentPadding: const EdgeInsets
-                                                                              .only(
-                                                                              left:
-                                                                                  12),
-                                                                          border: OutlineInputBorder(
-                                                                              borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)),
-                                                                              borderRadius: const BorderRadius.all(Radius.circular(8)))),
-                                                                      items: [
-                                                                        'Automatic',
-                                                                        'Manual'
-                                                                      ]
-                                                                          .map((e) =>
-                                                                              DropdownMenuItem(
-                                                                                value: e,
-                                                                                child: Text(e),
-                                                                              ))
-                                                                          .toList(),
-                                                                      onChanged:
-                                                                          (e) {
-                                                                        isAuto =
-                                                                            e ==
-                                                                                'Automatic';
-                                                                      },
-                                                                    ),
-                                                                  ),
+                                                                Row(children: [
                                                                   w16,
-                                                                ],
-                                                                IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      setState(
-                                                                          () {
-                                                                        isHTR =
-                                                                            false;
-                                                                        result =
-                                                                            null;
-                                                                      });
-                                                                    },
-                                                                    icon: const Icon(
-                                                                        Ionicons
-                                                                            .close)),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        )),
-                                                    w32,
-                                                    CustomElevatedButton(
-                                                        onPressed: uploadFile,
-                                                        child: const Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text('Extract'),
-                                                              w12,
-                                                              Icon(Icons
-                                                                  .arrow_forward_rounded)
-                                                            ])),
-                                                  ],
-                                                )
-                                              : Center(
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                          padding:
-                                                              const EdgeInsets.all(
-                                                                  7),
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.35,
-                                                          decoration: BoxDecoration(
-                                                              color:
-                                                                  kWhiteColor,
-                                                              border: Border.all(
-                                                                  color: kTextGreyColor
-                                                                      .withOpacity(
-                                                                          0.2)),
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .all(
-                                                                      Radius.circular(
-                                                                          12))),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              if (width < 675)
+                                                                  const Icon(
+                                                                      Ionicons
+                                                                          .document_outline,
+                                                                      size: 32),
+                                                                  w16,
+                                                                  Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              MediaQuery.of(context).size.width * 0.16,
+                                                                          child: Text(
+                                                                              result!.files.first.name,
+                                                                              style: fB16M),
+                                                                        ),
+                                                                        Text(
+                                                                            '${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB',
+                                                                            style:
+                                                                                fTG16N)
+                                                                      ])
+                                                                ]),
                                                                 Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
                                                                   children: [
+                                                                    if (isHTR) ...[
+                                                                      const Text(
+                                                                          'as'),
+                                                                      w8,
+                                                                      SizedBox(
+                                                                        width:
+                                                                            112,
+                                                                        child:
+                                                                            DropdownButtonFormField(
+                                                                          value:
+                                                                              AppLocalizations.of(context).segmentation_button_auto,
+                                                                          decoration: InputDecoration(
+                                                                              contentPadding: const EdgeInsets.only(left: 12),
+                                                                              border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
+                                                                          items: [
+                                                                            AppLocalizations.of(context).segmentation_button_auto,
+                                                                            AppLocalizations.of(context).segmentation_button_manual
+                                                                          ]
+                                                                              .map((e) => DropdownMenuItem(
+                                                                                    value: e,
+                                                                                    child: Text(e),
+                                                                                  ))
+                                                                              .toList(),
+                                                                          onChanged:
+                                                                              (e) {
+                                                                            isAuto =
+                                                                                e == AppLocalizations.of(context).segmentation_button_auto;
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      w16,
+                                                                    ],
                                                                     IconButton(
                                                                         onPressed:
                                                                             () {
@@ -611,91 +547,118 @@ class _HomeState extends State<Home> {
                                                                         icon: const Icon(
                                                                             Ionicons.close)),
                                                                   ],
-                                                                ),
-                                                              h16,
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
+                                                                )
+                                                              ],
+                                                            )),
+                                                        w32,
+                                                        CustomElevatedButton(
+                                                            onPressed:
+                                                                uploadFile,
+                                                            child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
                                                                 children: [
+                                                                  Text(
+                                                                      AppLocalizations.of(context).elevated_button_ext),
+                                                                  w12,
+                                                                  const Icon(Icons
+                                                                      .arrow_forward_rounded)
+                                                                ])),
+                                                      ],
+                                                    )
+                                                  : Column(
+                                                      children: [
+                                                        Container(
+                                                            padding:
+                                                                const EdgeInsets.all(
+                                                                    7),
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.35,
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    kWhiteColor,
+                                                                border: Border.all(
+                                                                    color: kTextGreyColor
+                                                                        .withOpacity(
+                                                                            0.2)),
+                                                                borderRadius:
+                                                                    const BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            12))),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                if (width < 675)
                                                                   Row(
-                                                                      children: [
-                                                                        width > 400
-                                                                            ? w16
-                                                                            : w4,
-                                                                        Icon(
-                                                                            Ionicons
-                                                                                .document_outline,
-                                                                            size: width > 400
-                                                                                ? 32
-                                                                                : 24),
-                                                                        width > 400
-                                                                            ? w16
-                                                                            : w4,
-                                                                        Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: MediaQuery.of(context).size.width * 0.16,
-                                                                                child: Text(result!.files.first.name, style: fB16M),
-                                                                              ),
-                                                                              SizedBox(width: MediaQuery.of(context).size.width * 0.16, child: Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
-                                                                            ])
-                                                                      ]),
-                                                                  if (width >=
-                                                                      675)
-                                                                    IconButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          setState(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
+                                                                    children: [
+                                                                      IconButton(
+                                                                          onPressed:
                                                                               () {
-                                                                            isHTR =
-                                                                                false;
-                                                                            result =
-                                                                                null;
-                                                                          });
-                                                                        },
-                                                                        icon: const Icon(
-                                                                            Ionicons.close)),
-                                                                ],
-                                                              ),
-                                                              h8,
-                                                              width > 675
-                                                                  ? Row(
-                                                                      children: [
-                                                                        if (isHTR) ...[
-                                                                          w16,
-                                                                          const Text(
-                                                                              'Segment as'),
-                                                                          w8,
-                                                                          SizedBox(
-                                                                            width:
-                                                                                112,
-                                                                            child:
-                                                                                DropdownButtonFormField(
-                                                                              value: 'Automatic',
-                                                                              decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
-                                                                              items: [
-                                                                                'Automatic',
-                                                                                'Manual'
-                                                                              ]
-                                                                                  .map((e) => DropdownMenuItem(
-                                                                                        value: e,
-                                                                                        child: Text(e),
-                                                                                      ))
-                                                                                  .toList(),
-                                                                              onChanged: (e) {
-                                                                                isAuto = e == 'Automatic';
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ],
-                                                                    )
-                                                                  : isHTR
-                                                                      ? Column(
-                                                                          children: [
+                                                                            setState(() {
+                                                                              isHTR = false;
+                                                                              result = null;
+                                                                            });
+                                                                          },
+                                                                          icon:
+                                                                              const Icon(Ionicons.close)),
+                                                                    ],
+                                                                  ),
+                                                                h16,
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                        children: [
+                                                                          width > 400
+                                                                              ? w16
+                                                                              : w4,
+                                                                          Icon(
+                                                                              Ionicons.document_outline,
+                                                                              size: width > 400 ? 32 : 24),
+                                                                          width > 400
+                                                                              ? w16
+                                                                              : w4,
+                                                                          Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: MediaQuery.of(context).size.width * 0.16,
+                                                                                  child: Text(result!.files.first.name, style: fB16M),
+                                                                                ),
+                                                                                SizedBox(width: MediaQuery.of(context).size.width * 0.16, child: Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
+                                                                              ])
+                                                                        ]),
+                                                                    if (width >=
+                                                                        675)
+                                                                      IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            setState(() {
+                                                                              isHTR = false;
+                                                                              result = null;
+                                                                            });
+                                                                          },
+                                                                          icon:
+                                                                              const Icon(Ionicons.close)),
+                                                                  ],
+                                                                ),
+                                                                h8,
+                                                                width > 675
+                                                                    ? Row(
+                                                                        children: [
+                                                                          if (isHTR) ...[
+                                                                            w16,
                                                                             const Text('Segment as'),
                                                                             w8,
                                                                             SizedBox(
@@ -718,87 +681,115 @@ class _HomeState extends State<Home> {
                                                                               ),
                                                                             ),
                                                                           ],
-                                                                        )
-                                                                      : const SizedBox()
-                                                            ],
-                                                          )),
-                                                      h16,
-                                                      CustomElevatedButton(
-                                                          onPressed: uploadFile,
-                                                          child: const Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Text('Extract'),
-                                                                w12,
-                                                                Icon(Icons
-                                                                    .arrow_forward_rounded)
-                                                              ])),
-                                                    ],
-                                                  ),
-                                                ),
-                                  h64,
-                                  if (androidSelected)
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Divider(),
-                                        h16,
-                                        Text('Installation Instructions:',
-                                            style: fB20N),
-                                        h16,
-                                        Text(
-                                            '1. After downloading, Go to Settings > Security',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '2. Enable the Unknown sources option to allow installation from sources other than the Play Store.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '3. Open the file manager and navigate to the downloaded APK file.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '4. Tap on the APK file to begin the installation process.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '5. Follow the on-screen prompts to complete the installation.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '6. Once installed, you can find and use the app from your device\'s app drawer.',
-                                            style: fTG20N),
-                                      ],
-                                    ),
-                                  if (linuxSelected)
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Divider(),
-                                        h16,
-                                        Text('Installation Instructions:',
-                                            style: fB20N),
-                                        h16,
-                                        Text(
-                                            '1. After downloading, Open terminal.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '2. Navigate to the directory containing the downloaded DEB file.',
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            '3. Run "sudo dpkg -i malayalam_ocr_app.deb".',
-                                            style: fTG20N),
-                                      ],
-                                    ),
-                                ])),
-                      ))));
+                                                                        ],
+                                                                      )
+                                                                    : isHTR
+                                                                        ? Column(
+                                                                            children: [
+                                                                              const Text('Segment as'),
+                                                                              w8,
+                                                                              SizedBox(
+                                                                                width: 112,
+                                                                                child: DropdownButtonFormField(
+                                                                                  value: 'Automatic',
+                                                                                  decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
+                                                                                  items: [
+                                                                                    'Automatic',
+                                                                                    'Manual'
+                                                                                  ]
+                                                                                      .map((e) => DropdownMenuItem(
+                                                                                            value: e,
+                                                                                            child: Text(e),
+                                                                                          ))
+                                                                                      .toList(),
+                                                                                  onChanged: (e) {
+                                                                                    isAuto = e == 'Automatic';
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        : const SizedBox()
+                                                              ],
+                                                            )),
+                                                        h16,
+                                                        CustomElevatedButton(
+                                                            onPressed:
+                                                                uploadFile,
+                                                            child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Text(
+                                                                      AppLocalizations.of(context).elevated_button_ext),
+                                                                  w12,
+                                                                  const Icon(Icons
+                                                                      .arrow_forward_rounded)
+                                                                ])),
+                                                      ],
+                                                    ),
+                                      h64,
+                                      if (androidSelected)
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Divider(),
+                                            h16,
+                                            Text(AppLocalizations.of(context).android_install,
+                                                style: fB20N),
+                                            h16,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_1,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_2,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_3,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_4,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_5,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).android_install_6,
+                                                style: fTG20N),
+                                          ],
+                                        ),
+                                      if (linuxSelected)
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Divider(),
+                                            h16,
+                                            Text(AppLocalizations.of(context).linux_install,
+                                                style: fB20N),
+                                            h16,
+                                            Text(
+                                                AppLocalizations.of(context).linux_install_1,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).linux_install_2,
+                                                style: fTG20N),
+                                            h4,
+                                            Text(
+                                                AppLocalizations.of(context).linux_install_3,
+                                                style: fTG20N),
+                                          ],
+                                        ),
+                                    ])),
+                          )))));
         });
   }
 
@@ -813,12 +804,12 @@ class _HomeState extends State<Home> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text('ധൃതി',
-                          style: MediaQuery.of(context).size.width > 1400
+                          style: MediaQuery.of(context).size.width > 400
                               ? fMTG32SB
-                              : fMTG24SB),
+                              : fMP24SB),
                       w4,
                       Text('OCR',
-                          style: MediaQuery.of(context).size.width > 1400
+                          style: MediaQuery.of(context).size.width > 400
                               ? fTG30SB
                               : fTG24SB)
                     ])),
@@ -829,9 +820,6 @@ class _HomeState extends State<Home> {
                         .changeLocale();
                     setState(() {});
                   },
-                  padding: MediaQuery.of(context).size.width > 1400
-                      ? null
-                      : const EdgeInsets.only(top: 8, bottom: 8),
                   child: Row(children: [
                     Provider.of<LocaleProvider>(context, listen: false)
                                 .locale ==
@@ -854,18 +842,14 @@ class _HomeState extends State<Home> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Empowering Efficient',
+                                Text(AppLocalizations.of(context).home_main_title1,
                                     style: contraint.maxWidth > 1000
-                                        ? contraint.maxWidth > 1400
-                                            ? fB72B
-                                            : fB56B
+                                        ? fB72B
                                         : fB32SB,
                                     textAlign: TextAlign.center),
-                                Text('Document Digitalisation',
+                                Text(AppLocalizations.of(context).home_main_title2,
                                     style: contraint.maxWidth > 1000
-                                        ? contraint.maxWidth > 1400
-                                            ? fB72B
-                                            : fB56B
+                                        ? fB72B
                                         : fB32SB,
                                     textAlign: TextAlign.center),
                                 h18,
@@ -876,10 +860,8 @@ class _HomeState extends State<Home> {
                                         : MediaQuery.of(context).size.width *
                                             0.8,
                                     child: Text(
-                                        "An open source solution to effortlessly convert printed and handwritten Malyalam content into editable text, Transform your documents with ease.",
-                                        style: contraint.maxWidth > 1400
-                                            ? fTG20N
-                                            : fTG18N,
+                                        AppLocalizations.of(context).home_sub_title,
+                                        style: fTG20N,
                                         textAlign: TextAlign.center)),
                                 h32,
                                 Row(
@@ -888,17 +870,17 @@ class _HomeState extends State<Home> {
                                       CustomWhiteElevatedButton(
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth),
-                                          child: const Row(
+                                          child: Row(
                                             children: [
-                                              Text('Download Solution'),
+                                              Text(AppLocalizations.of(context).home_button_1),
                                               w8,
-                                              Icon(
+                                              const Icon(
                                                   Icons.file_download_outlined),
                                             ],
                                           )),
                                       w12,
                                       CustomElevatedButton(
-                                          child: const Text('Try Now'),
+                                          child: Text(AppLocalizations.of(context).home_button_2),
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth,
                                               isDownload: false))
@@ -907,12 +889,8 @@ class _HomeState extends State<Home> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Column(children: [
-                        Text('What we offer',
-                            style: contraint.maxWidth > 1000
-                                ? contraint.maxWidth > 1400
-                                    ? fB64SB
-                                    : fB48SB
-                                : fB32SB,
+                        Text(AppLocalizations.of(context).home_sub_heading,
+                            style: contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                             textAlign: TextAlign.center),
                         h8,
                         SizedBox(
@@ -920,9 +898,8 @@ class _HomeState extends State<Home> {
                                 ? MediaQuery.of(context).size.width * 0.4
                                 : MediaQuery.of(context).size.width * 0.8,
                             child: Text(
-                                'Unlimited access, transparent and open. Dhriti provides a easy text extraction tool exclusively for malayalam',
-                                style:
-                                    contraint.maxWidth > 1400 ? fTG20N : fTG18N,
+                                AppLocalizations.of(context).home_sub_description,
+                                style: fTG20N,
                                 textAlign: TextAlign.center)),
                         h64,
                         if (contraint.maxWidth > 1000)
@@ -931,18 +908,18 @@ class _HomeState extends State<Home> {
                               children: [
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: 'Open Source',
+                                      title: AppLocalizations.of(context).feature_title_1,
                                       description:
-                                          'The tool free to use and open to contribute.',
+                                          AppLocalizations.of(context).feature_title_desc_1,
                                       icon: Icons.lock_open_rounded,
                                       iconColor: kGreenColor,
                                       iconBackgroundColor:
                                           kGreenColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: 'Text Extraction',
+                                      title: AppLocalizations.of(context).feature_title_2,
                                       description:
-                                          'Instantly extract Malayalam text from documents and images.',
+                                          AppLocalizations.of(context).feature_title_desc_2,
                                       icon: Icons.text_fields_rounded,
                                       iconColor: kPinkColor,
                                       iconBackgroundColor:
@@ -951,18 +928,18 @@ class _HomeState extends State<Home> {
                                 w48,
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: 'Editable Output',
+                                      title: AppLocalizations.of(context).feature_title_3,
                                       description:
-                                          'Easily edit the extracted text within the tool\'s interface.',
+                                          AppLocalizations.of(context).feature_title_desc_3,
                                       icon: Icons.edit_document,
                                       iconColor: kBlueColor,
                                       iconBackgroundColor:
                                           kBlueColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: 'Export Feature',
+                                      title: AppLocalizations.of(context).feature_title_4,
                                       description:
-                                          'Seamlessly export the extracted and edited Malayalam text.',
+                                          AppLocalizations.of(context).feature_title_desc_4,
                                       icon: Icons.sim_card_download_outlined,
                                       iconColor: kPrimaryColor,
                                       iconBackgroundColor:
@@ -972,36 +949,36 @@ class _HomeState extends State<Home> {
                         if (contraint.maxWidth <= 1000)
                           Column(children: [
                             FeatureMenuItem(
-                                title: 'Open Source',
+                                title: AppLocalizations.of(context).feature_title_1,
                                 description:
-                                    'The tool free to use and open to contribute.',
+                                    AppLocalizations.of(context).feature_title_desc_1,
                                 icon: Icons.lock_open_rounded,
                                 iconColor: kGreenColor,
                                 iconBackgroundColor:
                                     kGreenColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Text Extraction',
+                                title: AppLocalizations.of(context).feature_title_2,
                                 description:
-                                    'Instantly extract Malayalam text from documents and images.',
+                                    AppLocalizations.of(context).feature_title_desc_2,
                                 icon: Icons.text_fields_rounded,
                                 iconColor: kPinkColor,
                                 iconBackgroundColor:
                                     kPinkColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Editable Output',
+                                title: AppLocalizations.of(context).feature_title_3,
                                 description:
-                                    'Easily edit the extracted text within the tool\'s interface.',
+                                    AppLocalizations.of(context).feature_title_desc_3,
                                 icon: Icons.edit_document,
                                 iconColor: kBlueColor,
                                 iconBackgroundColor:
                                     kBlueColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Export Feature',
+                                title: AppLocalizations.of(context).feature_title_4,
                                 description:
-                                    'Seamlessly export the extracted and edited Malayalam text.',
+                                    AppLocalizations.of(context).feature_title_desc_4,
                                 icon: Icons.sim_card_download_outlined,
                                 iconColor: kPrimaryColor,
                                 iconBackgroundColor:
@@ -1010,19 +987,13 @@ class _HomeState extends State<Home> {
                         h256,
                         SizedBox(
                             child: Column(children: [
-                          Text('We\'re not just shaping software',
-                              style: contraint.maxWidth > 1000
-                                  ? contraint.maxWidth > 1400
-                                      ? fTG64SB
-                                      : fTG48SB
-                                  : fTG32SB,
+                          Text(AppLocalizations.of(context).home_head_below_1,
+                              style:
+                                  contraint.maxWidth > 1000 ? fTG64SB : fTG32SB,
                               textAlign: TextAlign.center),
-                          Text('We\'re shaping the future.',
-                              style: contraint.maxWidth > 1000
-                                  ? contraint.maxWidth > 1400
-                                      ? fB64SB
-                                      : fB48SB
-                                  : fB32SB,
+                          Text(AppLocalizations.of(context).home_head_below_2,
+                              style:
+                                  contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                               textAlign: TextAlign.center),
                           h24,
                           SizedBox(
@@ -1030,15 +1001,13 @@ class _HomeState extends State<Home> {
                                   ? MediaQuery.of(context).size.width * 0.6
                                   : MediaQuery.of(context).size.width * 0.8,
                               child: Text(
-                                  'Dhriti is an open source tool crafted by Language Technology team at ICFOSS (International Centre for Free and Open Source Software), we embody the spirit of open source innovation and collaboration. Established as a pioneering institution, we are fervently dedicated to driving the widespread adoption of open-source technology. Our journey is one of fostering positive change through technology. Rooted in the principles of openness, transparency, and community, ICFOSS is a hub for individuals and organizations passionate about the transformative power of open source.',
-                                  style: contraint.maxWidth > 1400
-                                      ? fTG20N
-                                      : fTG18N,
+                                  AppLocalizations.of(context).home_below_description,
+                                  style: fB20N,
                                   textAlign: TextAlign.center)),
                           h32,
                           CustomElevatedButton(
                               onPressed: () => _launchUrl(_icfossURL),
-                              child: const Text('Learn More'))
+                              child: Text(AppLocalizations.of(context).home_below_button))
                         ])),
                         const SizedBox(height: 100),
                         const Divider(),
@@ -1049,14 +1018,8 @@ class _HomeState extends State<Home> {
                               Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Powered By',
-                                        style: contraint.maxWidth > 1400
-                                            ? fTG20N
-                                            : fTG18N),
-                                    Text('ICFOSS',
-                                        style: contraint.maxWidth > 1400
-                                            ? fB32SB
-                                            : fB24SB)
+                                    Text('Powered By', style: fTG20N),
+                                    Text('ICFOSS', style: fB32SB)
                                   ]),
                               contraint.maxWidth > 480
                                   ? Row(children: [
