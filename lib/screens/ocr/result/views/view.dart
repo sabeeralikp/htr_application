@@ -1,5 +1,4 @@
 // import 'dart:io';
-import 'dart:html' as html;
 import 'package:delta_to_pdf/delta_to_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,10 +10,11 @@ import 'package:htr/config/buttons/custom_elevated_button.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/models/ocr_result.dart';
-import 'package:htr/screens/htr/segment/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_app_file/open_app_file.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'dart:html' as html;
 
 class OCRResult extends StatefulWidget {
   const OCRResult({super.key, required this.ocrResult});
@@ -127,35 +127,38 @@ class _OCRResultState extends State<OCRResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context).appbar_result, style: fB20N), actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 48.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomWhiteElevatedButton(
-                    onPressed: () async => copyText(),
-                    child: Row(
-                      children: [
-                        Text(AppLocalizations.of(context).copy_button),
-                        w8,
-                        const Icon(Icons.copy_all_rounded),
-                      ],
-                    )),
-                w16,
-                CustomWhiteElevatedButton(
-                    onPressed: () async => exportDoc(),
-                    child: Row(
-                      children: [
-                        Text(AppLocalizations.of(context).appbar_export),
-                        w8,
-                        const Icon(Icons.file_download_outlined),
-                      ],
-                    )),
-              ],
-            ),
-          )
-        ]),
+        appBar: AppBar(
+            title:
+                Text(AppLocalizations.of(context)!.appbar_result, style: fB20N),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 48.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomWhiteElevatedButton(
+                        onPressed: () async => copyText(),
+                        child: Row(
+                          children: [
+                            Text(AppLocalizations.of(context)!.copy_button),
+                            w8,
+                            const Icon(Icons.copy_all_rounded),
+                          ],
+                        )),
+                    w16,
+                    CustomWhiteElevatedButton(
+                        onPressed: () async => exportDoc(),
+                        child: Row(
+                          children: [
+                            Text(AppLocalizations.of(context)!.appbar_export),
+                            w8,
+                            const Icon(Icons.file_download_outlined),
+                          ],
+                        )),
+                  ],
+                ),
+              )
+            ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [

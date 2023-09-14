@@ -198,7 +198,7 @@ class _HTRHomeState extends State<HTRHome> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                              AppLocalizations.of(context)
+                                              AppLocalizations.of(context)!
                                                   .file_uploaded_title,
                                               style: fW16N),
                                           h16,
@@ -212,14 +212,14 @@ class _HTRHomeState extends State<HTRHome> {
                                                 ButtonSegment<Segmentation>(
                                                     value: Segmentation.manual,
                                                     label: Text(AppLocalizations
-                                                            .of(context)
+                                                            .of(context)!
                                                         .segmentation_button_manual),
                                                     icon: const Icon(
                                                         Icons.tune_rounded)),
                                                 ButtonSegment<Segmentation>(
                                                     value: Segmentation.auto,
                                                     label: Text(AppLocalizations
-                                                            .of(context)
+                                                            .of(context)!
                                                         .segmentation_button_auto),
                                                     icon: const Icon(
                                                         Icons.auto_awesome))
@@ -236,7 +236,7 @@ class _HTRHomeState extends State<HTRHome> {
                                               child: Padding(
                                                   padding: pA16,
                                                   child: Text(AppLocalizations
-                                                          .of(context)
+                                                          .of(context)!
                                                       .segmentation_button_cont)))
                                         ]))
                               ]))),
@@ -253,7 +253,7 @@ class _HTRHomeState extends State<HTRHome> {
             ? Row(mainAxisSize: MainAxisSize.min, children: [
                 FloatingActionButton.extended(
                     heroTag: "Upload File",
-                    label: Text(AppLocalizations.of(context).upload_fab,
+                    label: Text(AppLocalizations.of(context)!.upload_fab,
                         style: fW16M),
                     icon: cloudUploadIcon,
                     onPressed: uploadFile),

@@ -122,10 +122,10 @@ class _ResulPageState extends State<ResulPage> {
   ///The snackbar contains a message displaying the download location and an action button to open the downloaded file.
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
-        content:
-            Text(AppLocalizations.of(context).snack_location(downloadLocation)),
+        content: Text(
+            AppLocalizations.of(context)!.snack_location(downloadLocation)),
         action: SnackBarAction(
-            label: AppLocalizations.of(context).snack_action,
+            label: AppLocalizations.of(context)!.snack_action,
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -205,11 +205,11 @@ class _ResulPageState extends State<ResulPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (context, setState) => AlertDialog(
-                      title: Text(AppLocalizations.of(context).title_export),
+                      title: Text(AppLocalizations.of(context)!.title_export),
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
-                            Text(AppLocalizations.of(context).save_the_doc),
+                            Text(AppLocalizations.of(context)!.save_the_doc),
                             // ListTile(
                             //     title: const Text('PDF'),
                             //     isThreeLine: false,
@@ -251,11 +251,11 @@ class _ResulPageState extends State<ResulPage> {
                       ),
                       actions: <Widget>[
                         TextButton(
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .text_button_cancel),
                             onPressed: () => Navigator.of(context).pop()),
                         ElevatedButton(
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .text_button_export),
                             onPressed: () {
                               exportDoc();
@@ -294,15 +294,15 @@ class _ResulPageState extends State<ResulPage> {
               return StatefulBuilder(
                   builder: (context, setState) => AlertDialog(
                           title: Text(
-                              AppLocalizations.of(context).feedback_title,
+                              AppLocalizations.of(context)!.feedback_title,
                               textAlign: TextAlign.start),
                           content: SingleChildScrollView(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                Text(
-                                    AppLocalizations.of(context).feedback_body),
+                                Text(AppLocalizations.of(context)!
+                                    .feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -356,7 +356,8 @@ class _ResulPageState extends State<ResulPage> {
                                 h16,
                                 if (userRating != null) ...[
                                   Text(
-                                      AppLocalizations.of(context).rating_title,
+                                      AppLocalizations.of(context)!
+                                          .rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -369,11 +370,11 @@ class _ResulPageState extends State<ResulPage> {
                               ])),
                           actions: <Widget>[
                             TextButton(
-                                child: Text(AppLocalizations.of(context)
+                                child: Text(AppLocalizations.of(context)!
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             ElevatedButton(
-                                child: Text(AppLocalizations.of(context)
+                                child: Text(AppLocalizations.of(context)!
                                     .rating_button_send),
                                 onPressed: () {
                                   sendFeedback();
@@ -396,7 +397,7 @@ class _ResulPageState extends State<ResulPage> {
     return Scaffold(
         appBar: AppBar(
             title:
-                Text(AppLocalizations.of(context).appbar_result, style: fB20N),
+                Text(AppLocalizations.of(context)!.appbar_result, style: fB20N),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -406,7 +407,7 @@ class _ResulPageState extends State<ResulPage> {
                         onPressed: () async => copyText(),
                         child: Row(
                           children: [
-                            Text(AppLocalizations.of(context).copy_button),
+                            Text(AppLocalizations.of(context)!.copy_button),
                             w8,
                             const Icon(Icons.copy_all_rounded),
                           ],
@@ -416,7 +417,7 @@ class _ResulPageState extends State<ResulPage> {
                         onPressed: () async => _showAlertDialog(),
                         child: Row(
                           children: [
-                            Text(AppLocalizations.of(context).appbar_export),
+                            Text(AppLocalizations.of(context)!.appbar_export),
                             w8,
                             const Icon(Icons.file_download_outlined),
                           ],

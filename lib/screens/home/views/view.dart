@@ -144,8 +144,8 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Text(
                                           isDownload
-                                              ? AppLocalizations.of(context).platform_heading
-                                              : AppLocalizations.of(context).document_upload_heading,
+                                              ? AppLocalizations.of(context)!.platform_heading
+                                              : AppLocalizations.of(context)!.document_upload_heading,
                                           style: width > 480 ? fB32SB : fB20SB,
                                           textAlign: width > 480
                                               ? TextAlign.start
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
                                       h12,
                                       Text(
                                           isDownload
-                                              ? AppLocalizations.of(context).platform_subheading
+                                              ? AppLocalizations.of(context)!.platform_subheading
                                               : 'Choose the desired document type from the options below to extract text using Dhriti OCR. ${isHTR ? "Also specify the segment type as automatic or manual." : ""}',
                                           style: width > 480 ? fTG20N : fTG16N,
                                           textAlign: width > 480
@@ -181,7 +181,7 @@ class _HomeState extends State<Home> {
                                                           borderColor:
                                                               kBlackColor,
                                                           style: fB16M,
-                                                          title: AppLocalizations.of(context).platform_item_android),
+                                                          title: AppLocalizations.of(context)!.platform_item_android),
                                                       PlatformItemButton(
                                                           onTap: () =>
                                                               setState(() {
@@ -196,26 +196,26 @@ class _HomeState extends State<Home> {
                                                           borderColor:
                                                               kBlackColor,
                                                           style: fB16M,
-                                                          title: AppLocalizations.of(context).platform_item_linux),
+                                                          title: AppLocalizations.of(context)!.platform_item_linux),
                                                       if (width > 1200) ...[
                                                          PlatformItemButton(
                                                             icon: Ionicons
                                                                 .phone_portrait_outline,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: AppLocalizations.of(context).platform_item_ios),
+                                                            title: AppLocalizations.of(context)!.platform_item_ios),
                                                          PlatformItemButton(
                                                             icon: Ionicons
                                                                 .logo_windows,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: AppLocalizations.of(context).platform_item_windows),
+                                                            title: AppLocalizations.of(context)!.platform_item_windows),
                                                          PlatformItemButton(
                                                             icon: Ionicons
                                                                 .logo_apple,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: AppLocalizations.of(context).platform_item_macos)
+                                                            title: AppLocalizations.of(context)!.platform_item_macos)
                                                       ]
                                                     ])
                                               : Column(
@@ -291,9 +291,9 @@ class _HomeState extends State<Home> {
                                                                         .withOpacity(
                                                                             0.1),
                                                                 title:
-                                                                    AppLocalizations.of(context).feature_menu_printed,
+                                                                    AppLocalizations.of(context)!.feature_menu_printed,
                                                                 description:
-                                                                    AppLocalizations.of(context).feature_menu_printed_description)),
+                                                                    AppLocalizations.of(context)!.feature_menu_printed_description)),
                                                         Stack(
                                                           children: [
                                                             Positioned(
@@ -341,9 +341,9 @@ class _HomeState extends State<Home> {
                                                                         kPrimaryColor.withOpacity(
                                                                             0.1),
                                                                     title:
-                                                                        AppLocalizations.of(context).feature_menu_handwritten,
+                                                                        AppLocalizations.of(context)!.feature_menu_handwritten,
                                                                     description:
-                                                                        AppLocalizations.of(context).feature_menu_handwritten_description)),
+                                                                        AppLocalizations.of(context)!.feature_menu_handwritten_description)),
                                                           ],
                                                         ),
                                                       ],
@@ -381,9 +381,9 @@ class _HomeState extends State<Home> {
                                                                       kBlueColor.withOpacity(
                                                                           0.1),
                                                                   title:
-                                                                      AppLocalizations.of(context).feature_menu_printed,
+                                                                      AppLocalizations.of(context)!.feature_menu_printed,
                                                                   description:
-                                                                      AppLocalizations.of(context).feature_menu_printed_description)),
+                                                                      AppLocalizations.of(context)!.feature_menu_printed_description)),
                                                           h16,
                                                           Stack(
                                                             children: [
@@ -433,9 +433,9 @@ class _HomeState extends State<Home> {
                                                                           kPrimaryColor.withOpacity(
                                                                               0.1),
                                                                       title:
-                                                                          AppLocalizations.of(context).feature_menu_handwritten,
+                                                                          AppLocalizations.of(context)!.feature_menu_handwritten,
                                                                       description:
-                                                                          AppLocalizations.of(context).feature_menu_handwritten_description)),
+                                                                          AppLocalizations.of(context)!.feature_menu_handwritten_description)),
                                                             ],
                                                           ),
                                                         ],
@@ -511,13 +511,13 @@ class _HomeState extends State<Home> {
                                                                         child:
                                                                             DropdownButtonFormField(
                                                                           value:
-                                                                              AppLocalizations.of(context).segmentation_button_auto,
+                                                                              AppLocalizations.of(context)!.segmentation_button_auto,
                                                                           decoration: InputDecoration(
                                                                               contentPadding: const EdgeInsets.only(left: 12),
                                                                               border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
                                                                           items: [
-                                                                            AppLocalizations.of(context).segmentation_button_auto,
-                                                                            AppLocalizations.of(context).segmentation_button_manual
+                                                                            AppLocalizations.of(context)!.segmentation_button_auto,
+                                                                            AppLocalizations.of(context)!.segmentation_button_manual
                                                                           ]
                                                                               .map((e) => DropdownMenuItem(
                                                                                     value: e,
@@ -527,7 +527,7 @@ class _HomeState extends State<Home> {
                                                                           onChanged:
                                                                               (e) {
                                                                             isAuto =
-                                                                                e == AppLocalizations.of(context).segmentation_button_auto;
+                                                                                e == AppLocalizations.of(context)!.segmentation_button_auto;
                                                                           },
                                                                         ),
                                                                       ),
@@ -560,7 +560,7 @@ class _HomeState extends State<Home> {
                                                                         .min,
                                                                 children: [
                                                                   Text(
-                                                                      AppLocalizations.of(context).elevated_button_ext),
+                                                                      AppLocalizations.of(context)!.elevated_button_ext),
                                                                   w12,
                                                                   const Icon(Icons
                                                                       .arrow_forward_rounded)
@@ -722,7 +722,7 @@ class _HomeState extends State<Home> {
                                                                         .min,
                                                                 children: [
                                                                   Text(
-                                                                      AppLocalizations.of(context).elevated_button_ext),
+                                                                      AppLocalizations.of(context)!.elevated_button_ext),
                                                                   w12,
                                                                   const Icon(Icons
                                                                       .arrow_forward_rounded)
@@ -737,31 +737,31 @@ class _HomeState extends State<Home> {
                                           children: [
                                             const Divider(),
                                             h16,
-                                            Text(AppLocalizations.of(context).android_install,
+                                            Text(AppLocalizations.of(context)!.android_install,
                                                 style: fB20N),
                                             h16,
                                             Text(
-                                                AppLocalizations.of(context).android_install_1,
+                                                AppLocalizations.of(context)!.android_install_1,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).android_install_2,
+                                                AppLocalizations.of(context)!.android_install_2,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).android_install_3,
+                                                AppLocalizations.of(context)!.android_install_3,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).android_install_4,
+                                                AppLocalizations.of(context)!.android_install_4,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).android_install_5,
+                                                AppLocalizations.of(context)!.android_install_5,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).android_install_6,
+                                                AppLocalizations.of(context)!.android_install_6,
                                                 style: fTG20N),
                                           ],
                                         ),
@@ -772,19 +772,19 @@ class _HomeState extends State<Home> {
                                           children: [
                                             const Divider(),
                                             h16,
-                                            Text(AppLocalizations.of(context).linux_install,
+                                            Text(AppLocalizations.of(context)!.linux_install,
                                                 style: fB20N),
                                             h16,
                                             Text(
-                                                AppLocalizations.of(context).linux_install_1,
+                                                AppLocalizations.of(context)!.linux_install_1,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).linux_install_2,
+                                                AppLocalizations.of(context)!.linux_install_2,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                AppLocalizations.of(context).linux_install_3,
+                                                AppLocalizations.of(context)!.linux_install_3,
                                                 style: fTG20N),
                                           ],
                                         ),
@@ -842,12 +842,12 @@ class _HomeState extends State<Home> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(AppLocalizations.of(context).home_main_title1,
+                                Text(AppLocalizations.of(context)!.home_main_title1,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
                                     textAlign: TextAlign.center),
-                                Text(AppLocalizations.of(context).home_main_title2,
+                                Text(AppLocalizations.of(context)!.home_main_title2,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
@@ -860,7 +860,7 @@ class _HomeState extends State<Home> {
                                         : MediaQuery.of(context).size.width *
                                             0.8,
                                     child: Text(
-                                        AppLocalizations.of(context).home_sub_title,
+                                        AppLocalizations.of(context)!.home_sub_title,
                                         style: fTG20N,
                                         textAlign: TextAlign.center)),
                                 h32,
@@ -872,7 +872,7 @@ class _HomeState extends State<Home> {
                                               width: contraint.maxWidth),
                                           child: Row(
                                             children: [
-                                              Text(AppLocalizations.of(context).home_button_1),
+                                              Text(AppLocalizations.of(context)!.home_button_1),
                                               w8,
                                               const Icon(
                                                   Icons.file_download_outlined),
@@ -880,7 +880,7 @@ class _HomeState extends State<Home> {
                                           )),
                                       w12,
                                       CustomElevatedButton(
-                                          child: Text(AppLocalizations.of(context).home_button_2),
+                                          child: Text(AppLocalizations.of(context)!.home_button_2),
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth,
                                               isDownload: false))
@@ -889,7 +889,7 @@ class _HomeState extends State<Home> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Column(children: [
-                        Text(AppLocalizations.of(context).home_sub_heading,
+                        Text(AppLocalizations.of(context)!.home_sub_heading,
                             style: contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                             textAlign: TextAlign.center),
                         h8,
@@ -898,7 +898,7 @@ class _HomeState extends State<Home> {
                                 ? MediaQuery.of(context).size.width * 0.4
                                 : MediaQuery.of(context).size.width * 0.8,
                             child: Text(
-                                AppLocalizations.of(context).home_sub_description,
+                                AppLocalizations.of(context)!.home_sub_description,
                                 style: fTG20N,
                                 textAlign: TextAlign.center)),
                         h64,
@@ -908,18 +908,18 @@ class _HomeState extends State<Home> {
                               children: [
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: AppLocalizations.of(context).feature_title_1,
+                                      title: AppLocalizations.of(context)!.feature_title_1,
                                       description:
-                                          AppLocalizations.of(context).feature_title_desc_1,
+                                          AppLocalizations.of(context)!.feature_title_desc_1,
                                       icon: Icons.lock_open_rounded,
                                       iconColor: kGreenColor,
                                       iconBackgroundColor:
                                           kGreenColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: AppLocalizations.of(context).feature_title_2,
+                                      title: AppLocalizations.of(context)!.feature_title_2,
                                       description:
-                                          AppLocalizations.of(context).feature_title_desc_2,
+                                          AppLocalizations.of(context)!.feature_title_desc_2,
                                       icon: Icons.text_fields_rounded,
                                       iconColor: kPinkColor,
                                       iconBackgroundColor:
@@ -928,18 +928,18 @@ class _HomeState extends State<Home> {
                                 w48,
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: AppLocalizations.of(context).feature_title_3,
+                                      title: AppLocalizations.of(context)!.feature_title_3,
                                       description:
-                                          AppLocalizations.of(context).feature_title_desc_3,
+                                          AppLocalizations.of(context)!.feature_title_desc_3,
                                       icon: Icons.edit_document,
                                       iconColor: kBlueColor,
                                       iconBackgroundColor:
                                           kBlueColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: AppLocalizations.of(context).feature_title_4,
+                                      title: AppLocalizations.of(context)!.feature_title_4,
                                       description:
-                                          AppLocalizations.of(context).feature_title_desc_4,
+                                          AppLocalizations.of(context)!.feature_title_desc_4,
                                       icon: Icons.sim_card_download_outlined,
                                       iconColor: kPrimaryColor,
                                       iconBackgroundColor:
@@ -949,36 +949,36 @@ class _HomeState extends State<Home> {
                         if (contraint.maxWidth <= 1000)
                           Column(children: [
                             FeatureMenuItem(
-                                title: AppLocalizations.of(context).feature_title_1,
+                                title: AppLocalizations.of(context)!.feature_title_1,
                                 description:
-                                    AppLocalizations.of(context).feature_title_desc_1,
+                                    AppLocalizations.of(context)!.feature_title_desc_1,
                                 icon: Icons.lock_open_rounded,
                                 iconColor: kGreenColor,
                                 iconBackgroundColor:
                                     kGreenColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: AppLocalizations.of(context).feature_title_2,
+                                title: AppLocalizations.of(context)!.feature_title_2,
                                 description:
-                                    AppLocalizations.of(context).feature_title_desc_2,
+                                    AppLocalizations.of(context)!.feature_title_desc_2,
                                 icon: Icons.text_fields_rounded,
                                 iconColor: kPinkColor,
                                 iconBackgroundColor:
                                     kPinkColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: AppLocalizations.of(context).feature_title_3,
+                                title: AppLocalizations.of(context)!.feature_title_3,
                                 description:
-                                    AppLocalizations.of(context).feature_title_desc_3,
+                                    AppLocalizations.of(context)!.feature_title_desc_3,
                                 icon: Icons.edit_document,
                                 iconColor: kBlueColor,
                                 iconBackgroundColor:
                                     kBlueColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: AppLocalizations.of(context).feature_title_4,
+                                title: AppLocalizations.of(context)!.feature_title_4,
                                 description:
-                                    AppLocalizations.of(context).feature_title_desc_4,
+                                    AppLocalizations.of(context)!.feature_title_desc_4,
                                 icon: Icons.sim_card_download_outlined,
                                 iconColor: kPrimaryColor,
                                 iconBackgroundColor:
@@ -987,11 +987,11 @@ class _HomeState extends State<Home> {
                         h256,
                         SizedBox(
                             child: Column(children: [
-                          Text(AppLocalizations.of(context).home_head_below_1,
+                          Text(AppLocalizations.of(context)!.home_head_below_1,
                               style:
                                   contraint.maxWidth > 1000 ? fTG64SB : fTG32SB,
                               textAlign: TextAlign.center),
-                          Text(AppLocalizations.of(context).home_head_below_2,
+                          Text(AppLocalizations.of(context)!.home_head_below_2,
                               style:
                                   contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                               textAlign: TextAlign.center),
@@ -1001,13 +1001,13 @@ class _HomeState extends State<Home> {
                                   ? MediaQuery.of(context).size.width * 0.6
                                   : MediaQuery.of(context).size.width * 0.8,
                               child: Text(
-                                  AppLocalizations.of(context).home_below_description,
+                                  AppLocalizations.of(context)!.home_below_description,
                                   style: fB20N,
                                   textAlign: TextAlign.center)),
                           h32,
                           CustomElevatedButton(
                               onPressed: () => _launchUrl(_icfossURL),
-                              child: Text(AppLocalizations.of(context).home_below_button))
+                              child: Text(AppLocalizations.of(context)!.home_below_button))
                         ])),
                         const SizedBox(height: 100),
                         const Divider(),
