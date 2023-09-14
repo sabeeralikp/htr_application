@@ -11,6 +11,7 @@ import 'package:htr/config/buttons/custom_elevated_button.dart';
 import 'package:htr/config/fonts/fonts.dart';
 import 'package:htr/config/measures/gap.dart';
 import 'package:htr/models/ocr_result.dart';
+import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 import 'package:open_app_file/open_app_file.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -126,7 +127,7 @@ class _OCRResultState extends State<OCRResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Result', style: fB20N), actions: [
+        appBar: AppBar(title: Text(AppLocalizations.of(context).appbar_result, style: fB20N), actions: [
           Padding(
             padding: const EdgeInsets.only(right: 48.0),
             child: Row(
@@ -134,21 +135,21 @@ class _OCRResultState extends State<OCRResult> {
               children: [
                 CustomWhiteElevatedButton(
                     onPressed: () async => copyText(),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Text('Copy All'),
+                        Text(AppLocalizations.of(context).copy_button),
                         w8,
-                        Icon(Icons.copy_all_rounded),
+                        const Icon(Icons.copy_all_rounded),
                       ],
                     )),
                 w16,
                 CustomWhiteElevatedButton(
                     onPressed: () async => exportDoc(),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Text('Export As DOCX'),
+                        Text(AppLocalizations.of(context).appbar_export),
                         w8,
-                        Icon(Icons.file_download_outlined),
+                        const Icon(Icons.file_download_outlined),
                       ],
                     )),
               ],

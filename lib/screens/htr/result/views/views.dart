@@ -404,11 +404,11 @@ class _ResulPageState extends State<ResulPage> {
                   children: [
                     CustomWhiteElevatedButton(
                         onPressed: () async => copyText(),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Text('Copy All'),
+                            Text(AppLocalizations.of(context).copy_button),
                             w8,
-                            Icon(Icons.copy_all_rounded),
+                            const Icon(Icons.copy_all_rounded),
                           ],
                         )),
                     w16,

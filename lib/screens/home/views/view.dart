@@ -144,8 +144,8 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Text(
                                           isDownload
-                                              ? 'Select the platform of your choice'
-                                              : 'Select your document type',
+                                              ? AppLocalizations.of(context).platform_heading
+                                              : AppLocalizations.of(context).document_upload_heading,
                                           style: width > 480 ? fB32SB : fB20SB,
                                           textAlign: width > 480
                                               ? TextAlign.start
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
                                       h12,
                                       Text(
                                           isDownload
-                                              ? "Choose the device of your preference from the platforms below to ensure that you always have Dhriti OCR at your fingertips."
+                                              ? AppLocalizations.of(context).platform_subheading
                                               : 'Choose the desired document type from the options below to extract text using Dhriti OCR. ${isHTR ? "Also specify the segment type as automatic or manual." : ""}',
                                           style: width > 480 ? fTG20N : fTG16N,
                                           textAlign: width > 480
@@ -181,7 +181,7 @@ class _HomeState extends State<Home> {
                                                           borderColor:
                                                               kBlackColor,
                                                           style: fB16M,
-                                                          title: 'Android'),
+                                                          title: AppLocalizations.of(context).platform_item_android),
                                                       PlatformItemButton(
                                                           onTap: () =>
                                                               setState(() {
@@ -196,26 +196,26 @@ class _HomeState extends State<Home> {
                                                           borderColor:
                                                               kBlackColor,
                                                           style: fB16M,
-                                                          title: 'Linux'),
+                                                          title: AppLocalizations.of(context).platform_item_linux),
                                                       if (width > 1200) ...[
-                                                        const PlatformItemButton(
+                                                         PlatformItemButton(
                                                             icon: Ionicons
                                                                 .phone_portrait_outline,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: 'iOS'),
-                                                        const PlatformItemButton(
+                                                            title: AppLocalizations.of(context).platform_item_ios),
+                                                         PlatformItemButton(
                                                             icon: Ionicons
                                                                 .logo_windows,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: 'Windows'),
-                                                        const PlatformItemButton(
+                                                            title: AppLocalizations.of(context).platform_item_windows),
+                                                         PlatformItemButton(
                                                             icon: Ionicons
                                                                 .logo_apple,
                                                             iconColor:
                                                                 kTextGreyColor,
-                                                            title: 'MacOS')
+                                                            title: AppLocalizations.of(context).platform_item_macos)
                                                       ]
                                                     ])
                                               : Column(
@@ -291,9 +291,9 @@ class _HomeState extends State<Home> {
                                                                         .withOpacity(
                                                                             0.1),
                                                                 title:
-                                                                    'Printed',
+                                                                    AppLocalizations.of(context).feature_menu_printed,
                                                                 description:
-                                                                    'Capture Malayalam and English text from books, articles, and more')),
+                                                                    AppLocalizations.of(context).feature_menu_printed_description)),
                                                         Stack(
                                                           children: [
                                                             Positioned(
@@ -341,9 +341,9 @@ class _HomeState extends State<Home> {
                                                                         kPrimaryColor.withOpacity(
                                                                             0.1),
                                                                     title:
-                                                                        'Handwritten',
+                                                                        AppLocalizations.of(context).feature_menu_handwritten,
                                                                     description:
-                                                                        'Transform your Malayalam handwritten notes, letters, and more.')),
+                                                                        AppLocalizations.of(context).feature_menu_handwritten_description)),
                                                           ],
                                                         ),
                                                       ],
@@ -381,9 +381,9 @@ class _HomeState extends State<Home> {
                                                                       kBlueColor.withOpacity(
                                                                           0.1),
                                                                   title:
-                                                                      'Printed',
+                                                                      AppLocalizations.of(context).feature_menu_printed,
                                                                   description:
-                                                                      'Capture Malayalam and English text from books, articles, and more')),
+                                                                      AppLocalizations.of(context).feature_menu_printed_description)),
                                                           h16,
                                                           Stack(
                                                             children: [
@@ -433,9 +433,9 @@ class _HomeState extends State<Home> {
                                                                           kPrimaryColor.withOpacity(
                                                                               0.1),
                                                                       title:
-                                                                          'Handwritten',
+                                                                          AppLocalizations.of(context).feature_menu_handwritten,
                                                                       description:
-                                                                          'Transform your Malayalam handwritten notes, letters, and more.')),
+                                                                          AppLocalizations.of(context).feature_menu_handwritten_description)),
                                                             ],
                                                           ),
                                                         ],
@@ -511,13 +511,13 @@ class _HomeState extends State<Home> {
                                                                         child:
                                                                             DropdownButtonFormField(
                                                                           value:
-                                                                              'Automatic',
+                                                                              AppLocalizations.of(context).segmentation_button_auto,
                                                                           decoration: InputDecoration(
                                                                               contentPadding: const EdgeInsets.only(left: 12),
                                                                               border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
                                                                           items: [
-                                                                            'Automatic',
-                                                                            'Manual'
+                                                                            AppLocalizations.of(context).segmentation_button_auto,
+                                                                            AppLocalizations.of(context).segmentation_button_manual
                                                                           ]
                                                                               .map((e) => DropdownMenuItem(
                                                                                     value: e,
@@ -527,7 +527,7 @@ class _HomeState extends State<Home> {
                                                                           onChanged:
                                                                               (e) {
                                                                             isAuto =
-                                                                                e == 'Automatic';
+                                                                                e == AppLocalizations.of(context).segmentation_button_auto;
                                                                           },
                                                                         ),
                                                                       ),
@@ -554,15 +554,15 @@ class _HomeState extends State<Home> {
                                                         CustomElevatedButton(
                                                             onPressed:
                                                                 uploadFile,
-                                                            child: const Row(
+                                                            child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .min,
                                                                 children: [
                                                                   Text(
-                                                                      'Extract'),
+                                                                      AppLocalizations.of(context).elevated_button_ext),
                                                                   w12,
-                                                                  Icon(Icons
+                                                                  const Icon(Icons
                                                                       .arrow_forward_rounded)
                                                                 ])),
                                                       ],
@@ -716,15 +716,15 @@ class _HomeState extends State<Home> {
                                                         CustomElevatedButton(
                                                             onPressed:
                                                                 uploadFile,
-                                                            child: const Row(
+                                                            child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .min,
                                                                 children: [
                                                                   Text(
-                                                                      'Extract'),
+                                                                      AppLocalizations.of(context).elevated_button_ext),
                                                                   w12,
-                                                                  Icon(Icons
+                                                                  const Icon(Icons
                                                                       .arrow_forward_rounded)
                                                                 ])),
                                                       ],
@@ -737,31 +737,31 @@ class _HomeState extends State<Home> {
                                           children: [
                                             const Divider(),
                                             h16,
-                                            Text('Installation Instructions:',
+                                            Text(AppLocalizations.of(context).android_install,
                                                 style: fB20N),
                                             h16,
                                             Text(
-                                                '1. After downloading, Go to Settings > Security',
+                                                AppLocalizations.of(context).android_install_1,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '2. Enable the Unknown sources option to allow installation from sources other than the Play Store.',
+                                                AppLocalizations.of(context).android_install_2,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '3. Open the file manager and navigate to the downloaded APK file.',
+                                                AppLocalizations.of(context).android_install_3,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '4. Tap on the APK file to begin the installation process.',
+                                                AppLocalizations.of(context).android_install_4,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '5. Follow the on-screen prompts to complete the installation.',
+                                                AppLocalizations.of(context).android_install_5,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '6. Once installed, you can find and use the app from your device\'s app drawer.',
+                                                AppLocalizations.of(context).android_install_6,
                                                 style: fTG20N),
                                           ],
                                         ),
@@ -772,19 +772,19 @@ class _HomeState extends State<Home> {
                                           children: [
                                             const Divider(),
                                             h16,
-                                            Text('Installation Instructions:',
+                                            Text(AppLocalizations.of(context).linux_install,
                                                 style: fB20N),
                                             h16,
                                             Text(
-                                                '1. After downloading, Open terminal.',
+                                                AppLocalizations.of(context).linux_install_1,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '2. Navigate to the directory containing the downloaded DEB file.',
+                                                AppLocalizations.of(context).linux_install_2,
                                                 style: fTG20N),
                                             h4,
                                             Text(
-                                                '3. Run "sudo dpkg -i malayalam_ocr_app.deb".',
+                                                AppLocalizations.of(context).linux_install_3,
                                                 style: fTG20N),
                                           ],
                                         ),
@@ -842,12 +842,12 @@ class _HomeState extends State<Home> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Empowering Efficient',
+                                Text(AppLocalizations.of(context).home_main_title1,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
                                     textAlign: TextAlign.center),
-                                Text('Document Digitalisation',
+                                Text(AppLocalizations.of(context).home_main_title2,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
@@ -860,7 +860,7 @@ class _HomeState extends State<Home> {
                                         : MediaQuery.of(context).size.width *
                                             0.8,
                                     child: Text(
-                                        "An open source solution to effortlessly convert printed and handwritten Malyalam content into editable text, Transform your documents with ease.",
+                                        AppLocalizations.of(context).home_sub_title,
                                         style: fTG20N,
                                         textAlign: TextAlign.center)),
                                 h32,
@@ -870,17 +870,17 @@ class _HomeState extends State<Home> {
                                       CustomWhiteElevatedButton(
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth),
-                                          child: const Row(
+                                          child: Row(
                                             children: [
-                                              Text('Download Solution'),
+                                              Text(AppLocalizations.of(context).home_button_1),
                                               w8,
-                                              Icon(
+                                              const Icon(
                                                   Icons.file_download_outlined),
                                             ],
                                           )),
                                       w12,
                                       CustomElevatedButton(
-                                          child: const Text('Try Now'),
+                                          child: Text(AppLocalizations.of(context).home_button_2),
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth,
                                               isDownload: false))
@@ -889,7 +889,7 @@ class _HomeState extends State<Home> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Column(children: [
-                        Text('What we offer',
+                        Text(AppLocalizations.of(context).home_sub_heading,
                             style: contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                             textAlign: TextAlign.center),
                         h8,
@@ -898,7 +898,7 @@ class _HomeState extends State<Home> {
                                 ? MediaQuery.of(context).size.width * 0.4
                                 : MediaQuery.of(context).size.width * 0.8,
                             child: Text(
-                                'Unlimited access, transparent and open. Dhriti provides a easy text extraction tool exclusively for malayalam',
+                                AppLocalizations.of(context).home_sub_description,
                                 style: fTG20N,
                                 textAlign: TextAlign.center)),
                         h64,
@@ -908,18 +908,18 @@ class _HomeState extends State<Home> {
                               children: [
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: 'Open Source',
+                                      title: AppLocalizations.of(context).feature_title_1,
                                       description:
-                                          'The tool free to use and open to contribute.',
+                                          AppLocalizations.of(context).feature_title_desc_1,
                                       icon: Icons.lock_open_rounded,
                                       iconColor: kGreenColor,
                                       iconBackgroundColor:
                                           kGreenColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: 'Text Extraction',
+                                      title: AppLocalizations.of(context).feature_title_2,
                                       description:
-                                          'Instantly extract Malayalam text from documents and images.',
+                                          AppLocalizations.of(context).feature_title_desc_2,
                                       icon: Icons.text_fields_rounded,
                                       iconColor: kPinkColor,
                                       iconBackgroundColor:
@@ -928,18 +928,18 @@ class _HomeState extends State<Home> {
                                 w48,
                                 Column(children: [
                                   FeatureMenuItem(
-                                      title: 'Editable Output',
+                                      title: AppLocalizations.of(context).feature_title_3,
                                       description:
-                                          'Easily edit the extracted text within the tool\'s interface.',
+                                          AppLocalizations.of(context).feature_title_desc_3,
                                       icon: Icons.edit_document,
                                       iconColor: kBlueColor,
                                       iconBackgroundColor:
                                           kBlueColor.withOpacity(0.1)),
                                   h48,
                                   FeatureMenuItem(
-                                      title: 'Export Feature',
+                                      title: AppLocalizations.of(context).feature_title_4,
                                       description:
-                                          'Seamlessly export the extracted and edited Malayalam text.',
+                                          AppLocalizations.of(context).feature_title_desc_4,
                                       icon: Icons.sim_card_download_outlined,
                                       iconColor: kPrimaryColor,
                                       iconBackgroundColor:
@@ -949,36 +949,36 @@ class _HomeState extends State<Home> {
                         if (contraint.maxWidth <= 1000)
                           Column(children: [
                             FeatureMenuItem(
-                                title: 'Open Source',
+                                title: AppLocalizations.of(context).feature_title_1,
                                 description:
-                                    'The tool free to use and open to contribute.',
+                                    AppLocalizations.of(context).feature_title_desc_1,
                                 icon: Icons.lock_open_rounded,
                                 iconColor: kGreenColor,
                                 iconBackgroundColor:
                                     kGreenColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Text Extraction',
+                                title: AppLocalizations.of(context).feature_title_2,
                                 description:
-                                    'Instantly extract Malayalam text from documents and images.',
+                                    AppLocalizations.of(context).feature_title_desc_2,
                                 icon: Icons.text_fields_rounded,
                                 iconColor: kPinkColor,
                                 iconBackgroundColor:
                                     kPinkColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Editable Output',
+                                title: AppLocalizations.of(context).feature_title_3,
                                 description:
-                                    'Easily edit the extracted text within the tool\'s interface.',
+                                    AppLocalizations.of(context).feature_title_desc_3,
                                 icon: Icons.edit_document,
                                 iconColor: kBlueColor,
                                 iconBackgroundColor:
                                     kBlueColor.withOpacity(0.1)),
                             h48,
                             FeatureMenuItem(
-                                title: 'Export Feature',
+                                title: AppLocalizations.of(context).feature_title_4,
                                 description:
-                                    'Seamlessly export the extracted and edited Malayalam text.',
+                                    AppLocalizations.of(context).feature_title_desc_4,
                                 icon: Icons.sim_card_download_outlined,
                                 iconColor: kPrimaryColor,
                                 iconBackgroundColor:
@@ -987,11 +987,11 @@ class _HomeState extends State<Home> {
                         h256,
                         SizedBox(
                             child: Column(children: [
-                          Text('We\'re not just shaping software',
+                          Text(AppLocalizations.of(context).home_head_below_1,
                               style:
                                   contraint.maxWidth > 1000 ? fTG64SB : fTG32SB,
                               textAlign: TextAlign.center),
-                          Text('We\'re shaping the future.',
+                          Text(AppLocalizations.of(context).home_head_below_2,
                               style:
                                   contraint.maxWidth > 1000 ? fB64SB : fB32SB,
                               textAlign: TextAlign.center),
@@ -1001,13 +1001,13 @@ class _HomeState extends State<Home> {
                                   ? MediaQuery.of(context).size.width * 0.6
                                   : MediaQuery.of(context).size.width * 0.8,
                               child: Text(
-                                  'Dhriti is an open source tool crafted by Language Technology team at ICFOSS (International Centre for Free and Open Source Software), we embody the spirit of open source innovation and collaboration. Established as a pioneering institution, we are fervently dedicated to driving the widespread adoption of open-source technology. Our journey is one of fostering positive change through technology. Rooted in the principles of openness, transparency, and community, ICFOSS is a hub for individuals and organizations passionate about the transformative power of open source.',
+                                  AppLocalizations.of(context).home_below_description,
                                   style: fB20N,
                                   textAlign: TextAlign.center)),
                           h32,
                           CustomElevatedButton(
                               onPressed: () => _launchUrl(_icfossURL),
-                              child: const Text('Learn More'))
+                              child: Text(AppLocalizations.of(context).home_below_button))
                         ])),
                         const SizedBox(height: 100),
                         const Divider(),
