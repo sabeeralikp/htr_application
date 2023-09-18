@@ -94,10 +94,11 @@ class _OCRResultState extends State<OCRResult> {
   copyText() async {
     await Clipboard.setData(ClipboardData(
         text: widget.ocrResult!.quillController!.document.toPlainText()));
-    SnackBar snackBar = const SnackBar(
-      content: Text('The text has been copied to clipboard'),
-    );
     setState(() {
+      SnackBar snackBar = SnackBar(
+        content: Text(
+            AppLocalizations.of(context)!.copy_to_clipboard_success_message),
+      );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
