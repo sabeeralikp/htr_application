@@ -12,9 +12,9 @@ import '../screens/htr/home/home.dart';
 ///
 /// [RouteProvider.]
 ///
-/// [@author	Unknown]
-/// [ @since	v0.0.1 ]
-/// [@version	v1.0.0	March 1st, 2023]
+/// [@author]	Sabeerali
+/// [@since]	v0.0.1 
+/// [@version]	v1.0.0	March 1st, 2023
 /// [@global]
 /// [@descripttion Provides route to the application including navigation]
 ///

@@ -4,11 +4,10 @@ import 'package:htr/app.dart';
 ///
 /// [main Function]
 ///
-/// [@author	Sabeerali]
-/// [ @since	v0.0.1 ]
-/// [@version	v1.0.0	Monday, March 1st, 2023]
-/// [@see		function]
-/// [@args ]
+/// [@author]	Sabeerali
+/// [ @since]	v0.0.1 
+/// [@version]	v1.0.0	(Monday, March 1st, 2023)
+/// [@see]		function
 /// [@description parent main function of the application]
 ///
 void main() {
