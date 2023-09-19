@@ -15,63 +15,85 @@ import 'package:htr/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:htr/routes/route.dart';
 import 'package:ionicons/ionicons.dart';
-
+/// [integrating OCR to HTR]
+/// [author] sabeerali
+/// [since]	v0.0.1
+/// [version]	v1.0.0	(August 17th, 2023 10:18 AM) 
+///
+// Define a Flutter Stateful Widget for the OCR Home screen.
 class OCRHome extends StatefulWidget {
+  // Constructor for the OCRHome widget.
   const OCRHome({super.key});
-
+// Create and return the state for the OCRHome widget.
   @override
   State<OCRHome> createState() => _OCRHomeState();
 }
-
+// Define the state for the OCRHome widget.
 class _OCRHomeState extends State<OCRHome> {
-  FilePickerResult? result;
-  File? file;
-  UploadOCRModel? ocr;
-  bool isUploading = false;
+  // Variables for handling file upload and OCR processing.
+  FilePickerResult? result; // Stores the result of file picking.
+  File? file;               // Stores the selected file.
+  UploadOCRModel? ocr;      // Stores the OCR result.
+  bool isUploading = false; // Indicates if a file is being uploaded.
+  // A controller for handling extracted text input.
   TextEditingController extractedTextController = TextEditingController();
+  // Create a Quill controller for rich text editing.
   final fq.QuillController _quillController = fq.QuillController.basic();
+  // Function for uploading a selected file.
   Future<void> uploadFile() async {
+    // Pick a file with specific allowed extensions.
     result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['jpg', 'pdf', 'jpeg', 'png']);
     if (result != null) {
+      // Set isUploading to true to indicate file upload in progress.
       setState(() {
         isUploading = true;
       });
       if (kIsWeb) {
+        // If running on the web, extract file bytes and name.
         Uint8List? fileBytes = result!.files.first.bytes;
         String fileName = result!.files.first.name;
         if (fileBytes != null) {
+          // Upload the file for OCR processing.
           ocr = await uploadOCRWeb(fileBytes, fileName);
+          // File upload is complete, set isUploading to false and trigger UI update.
           isUploading = false;
           setState(() {});
         }
       }
+      // Handle the completion of file upload and navigation to OCR result screen.
       setState(() {
+        // Set isUploading to false to indicate file upload is complete.
         isUploading = false;
+        // Update the extracted text controller with OCR results (if available).
         extractedTextController.text =
             ocr != null ? ocr!.predictedText!.replaceAll('\n', ' ') : '';
+        // Clear the Quill controller and insert OCR text (if available).
         _quillController.clear();
         _quillController.document
             .insert(0, ocr != null ? ocr!.predictedText : '');
+        // Create an OCRResultModel with OCR and Quill controller for navigation arguments.    
         OCRResultModel ocrResult =
             OCRResultModel(ocr: ocr, quillController: _quillController);
+        // Navigate to the OCR result screen with the OCR result as arguments.
         Navigator.of(context)
             .pushNamed(RouteProvider.ocrresult, arguments: ocrResult);
       });
     }
   }
-
+// Build the widget tree for the OCR home screen.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Printed', style: fMTG32SB)),
+        appBar: AppBar(title: Text('Printed', style: fMTG32SB)),// Set the app bar title.
         body: isUploading
-            ? const UploadingIndicator()
+            ? const UploadingIndicator() // Show an uploading indicator if a file is being uploaded.
             : Center(
+              // Create an InkWell widget for the file upload action.
                 child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    onTap: uploadFile,
+                    onTap: uploadFile, // Trigger file upload on tap.
                     child: DottedBorder(
                         borderType: BorderType.RRect,
                         color: kTextGreyColor.withOpacity(0.4),
@@ -86,8 +108,9 @@ class _OCRHomeState extends State<OCRHome> {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  // Custom elevated button for file selection.
                                   CustomElevatedButton(
-                                      onPressed: uploadFile,
+                                      onPressed: uploadFile,// Trigger the file upload function on button press.
                                       child: const Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -95,14 +118,14 @@ class _OCRHomeState extends State<OCRHome> {
                                             w12,
                                             Icon(Ionicons.cloud_upload_outline)
                                           ])),
-                                  h24,
+                                  h24,// Vertical spacing.
                                   SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.2,
                                       child: Text(
                                           "Please upload the document in either PDF format or as an image.",
-                                          style: fTG16N,
-                                          textAlign: TextAlign.center))
+                                          style: fTG16N,// Apply a specific text style.
+                                          textAlign: TextAlign.center))// Center-align the text.
                                 ]))))));
   }
 }

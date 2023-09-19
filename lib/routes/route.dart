@@ -12,11 +12,11 @@ import '../screens/htr/home/home.dart';
 ///
 /// [RouteProvider.]
 ///
-/// [@author]	Sabeerali
-/// [@since]	v0.0.1 
-/// [@version]	v1.0.0	March 1st, 2023
-/// [@global]
-/// [@descripttion Provides route to the application including navigation]
+/// [author]	Sabeerali
+/// [since]	v0.0.1 
+/// [version]	v1.0.0	March 1st, 2023
+/// [global]
+/// [descripttion] Provides route to the application including navigation
 ///
 class RouteProvider {
   // Route Paths
