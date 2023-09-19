@@ -194,8 +194,12 @@ class _HomeState extends State<Home> {
                                 children: [
                                   Text(
                                       isDownload
-                                          ? AppLocalizations.of(context)!.platform_heading
-                                          : AppLocalizations.of(context)!.document_upload_heading,
+                                          ? AppLocalizations.of(context)!
+                                    
+                                              .platform_heading
+                                          : AppLocalizations.of(context)!
+                                              .document_upload_heading,
+
                                       style: width > 480 ? fB32SB : fB20SB,
                                       textAlign: width > 480
                                           ? TextAlign.start
@@ -203,8 +207,9 @@ class _HomeState extends State<Home> {
                                   h12,
                                   Text(
                                       isDownload
-                                          ? AppLocalizations.of(context)!.platform_subheading
-                                          : 'Choose the desired document type from the options below to extract text using Dhriti OCR. ${isHTR ? "Also specify the segment type as automatic or manual." : ""}',
+                                          ? AppLocalizations.of(context)!
+                                              .platform_subheading
+                                          : '${AppLocalizations.of(context)!.document_upload_subheading} ${isHTR ? AppLocalizations.of(context)!.handwritten_segment_type_subheading : ""}',
                                       style: width > 480 ? fTG20N : fTG16N,
                                       textAlign: width > 480
                                           ? TextAlign.start
@@ -966,7 +971,9 @@ class _HomeState extends State<Home> {
                                         ? fB72B
                                         : fB32SB,
                                     textAlign: TextAlign.center),
-                                Text(AppLocalizations.of(context)!.home_main_title2,
+                                Text(
+                                    AppLocalizations.of(context)!
+                                        .home_main_title2,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
@@ -980,7 +987,8 @@ class _HomeState extends State<Home> {
                                             0.8,
                                              // Subtitle text with font style
                                     child: Text(
-                                        AppLocalizations.of(context)!.home_sub_title,
+                                        AppLocalizations.of(context)!
+                                            .home_sub_title,
                                         style: fTG20N,
                                         textAlign: TextAlign.center)),
                                 h32,
@@ -993,7 +1001,8 @@ class _HomeState extends State<Home> {
                                               width: contraint.maxWidth),
                                           child: Row(
                                             children: [
-                                              Text(AppLocalizations.of(context)!.home_button_1),
+                                              Text(AppLocalizations.of(context)!
+                                                  .home_button_1),
                                               w8,
                                               const Icon(
                                                   Icons.file_download_outlined),
@@ -1002,7 +1011,9 @@ class _HomeState extends State<Home> {
                                       w12,
                                       // Button for another action with custom label
                                       CustomElevatedButton(
-                                          child: Text(AppLocalizations.of(context)!.home_button_2),
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .home_button_2),
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth,
                                               isDownload: false))
@@ -1035,9 +1046,10 @@ class _HomeState extends State<Home> {
                                 Column(children: [
                                   // FeatureMenuItem widget with custom title, description, and icon.
                                   FeatureMenuItem(
-                                      title: AppLocalizations.of(context)!.feature_title_1,
-                                      description:
-                                          AppLocalizations.of(context)!.feature_title_desc_1,
+                                      title: AppLocalizations.of(context)!
+                                          .feature_title_1,
+                                      description: AppLocalizations.of(context)!
+                                          .feature_title_desc_1,
                                       icon: Icons.lock_open_rounded,
                                       iconColor: kGreenColor,
                                       iconBackgroundColor:
@@ -1137,14 +1149,16 @@ class _HomeState extends State<Home> {
                                   ? MediaQuery.of(context).size.width * 0.6
                                   : MediaQuery.of(context).size.width * 0.8,
                               child: Text(
-                                  AppLocalizations.of(context)!.home_below_description,
+                                  AppLocalizations.of(context)!
+                                      .home_below_description,
                                   style: fB20N,
                                   textAlign: TextAlign.center)),
                           h32,
                           // CustomElevatedButton widget with onPressed action to launch a URL and a Text widget displaying a localized button label.
                           CustomElevatedButton(
                               onPressed: () => _launchUrl(_icfossURL),
-                              child: Text(AppLocalizations.of(context)!.home_below_button))
+                              child: Text(AppLocalizations.of(context)!
+                                  .home_below_button))
                         ])),
                         // Fixed vertical spacing.
                         const SizedBox(height: 100),
