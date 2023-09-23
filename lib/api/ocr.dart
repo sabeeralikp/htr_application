@@ -4,14 +4,16 @@ import 'package:dio/dio.dart';
 import 'package:htr/models/upload_ocr.dart';
 import 'package:http_parser/http_parser.dart';
 import 'api.dart';
-/// 
+
+///
 /// [integrating OCR to HTR]
 ///
 /// [author] Sabeerali
 /// [since]	v0.0.1
-/// [version]	v1.0.0	(August 17th, 2023 10:18 AM) 
+/// [version]	v1.0.0	(August 17th, 2023 10:18 AM)
 ///
 final dio = Dio(baseOptions);
+
 /// Uploads Optical Character Recognition (OCR) data to the Django backend.
 ///
 /// [file]: The File object representing the OCR data to be uploaded.
@@ -43,6 +45,7 @@ Future<UploadOCRModel?> uploadOCR(File file) async {
   }
   return null;
 }
+
 /// Uploads Optical Character Recognition (OCR) data to the Django backend (for web).
 ///
 /// [fileBytes]: The bytes representing the OCR data to be uploaded.
@@ -57,7 +60,10 @@ Future<UploadOCRModel?> uploadOCRWeb(
   FormData formData = FormData.fromMap({
     "filename": fileName,
     "file": MultipartFile.fromBytes(fileBytes,
-        filename: fileName, contentType: MediaType('application', 'pdf')),
+        filename: fileName,
+        contentType: fileName.split('.').last == 'pdf'
+            ? MediaType('application', 'pdf')
+            : MediaType('image', fileName.split('.').last)),
   });
   try {
     log(formData.fields.toString());
@@ -73,6 +79,7 @@ Future<UploadOCRModel?> uploadOCRWeb(
   }
   return null;
 }
+
 /// Extracts text from a PDF page using OCR data.
 ///
 /// [pageNumber]: The page number from which to extract text.
