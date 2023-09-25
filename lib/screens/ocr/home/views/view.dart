@@ -101,7 +101,7 @@ class _OCRHomeState extends State<OCRHome> {
           FloatingActionButton.extended(
               heroTag: "Upload File",
               label:
-                  Text(AppLocalizations.of(context).upload_fab, style: fW16M),
+                  Text(AppLocalizations.of(context)!.upload_fab, style: fW16M),
               icon: cloudUploadIcon,
               onPressed: uploadFile),
           w8,

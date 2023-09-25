@@ -72,12 +72,12 @@ class _SegmentState extends State<Segment> {
 
   List<Widget> getBottomSheetComponents(context) => [
         Container(width: 48, height: 4, margin: pT16B64, decoration: bDW32),
-        Text(AppLocalizations.of(context).sheet_components_adjust,
+        Text(AppLocalizations.of(context)!.sheet_components_adjust,
             style: fP20SB, textAlign: TextAlign.center),
         h20,
         TitleWithValue(
             title:
-                AppLocalizations.of(context).sheet_components_threshold_value,
+                AppLocalizations.of(context)!.sheet_components_threshold_value,
             value: _thresholdValue),
         Slider(
             value: _thresholdValue,
@@ -85,7 +85,7 @@ class _SegmentState extends State<Segment> {
             max: 300,
             onChanged: thresholdSliderOnChanged),
         TitleWithValue(
-            title: AppLocalizations.of(context)
+            title: AppLocalizations.of(context)!
                 .sheet_components_horizontal_spacing,
             value: _horizontalValue),
         Slider(
@@ -95,7 +95,7 @@ class _SegmentState extends State<Segment> {
             onChanged: horizontalSliderOnChanged),
         TitleWithValue(
             title:
-                AppLocalizations.of(context).sheet_components_vertical_spacing,
+                AppLocalizations.of(context)!.sheet_components_vertical_spacing,
             value: _verticalValue),
         Slider(
             value: _verticalValue,
@@ -108,7 +108,7 @@ class _SegmentState extends State<Segment> {
             child: Padding(
                 padding: pA16,
                 child: Text(
-                    AppLocalizations.of(context).eleveted_button_threshold))),
+                    AppLocalizations.of(context)!.eleveted_button_threshold))),
       ];
 
   void initFunction() {
@@ -176,7 +176,7 @@ class _SegmentState extends State<Segment> {
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).appbar_title),
+            title: Text(AppLocalizations.of(context)!.appbar_title),
             actions: [
               // TextButton(
               //     onPressed: selectAllOnClick,
@@ -189,7 +189,7 @@ class _SegmentState extends State<Segment> {
                       onPressed: nextOnClick,
                       child: Padding(
                           padding: pY8,
-                          child: Text(AppLocalizations.of(context)
+                          child: Text(AppLocalizations.of(context)!
                               .elevated_button_next))))
             ]),
         body: isLoading

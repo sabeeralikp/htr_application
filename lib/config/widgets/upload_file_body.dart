@@ -46,10 +46,10 @@ class UploadFileBody extends StatelessWidget {
           isOCR?
           fileUploadOCRSVG:
            fileUploadSVG,
-          Text(AppLocalizations.of(context).home_body_title,
+          Text(AppLocalizations.of(context)!.home_body_title,
               style: fP16SB, textAlign: TextAlign.center),
           h4,
-          Text(AppLocalizations.of(context).home_body_description,
+          Text(AppLocalizations.of(context)!.home_body_description,
               style: fP7014L, textAlign: TextAlign.center)
         ]));
   }

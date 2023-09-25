@@ -122,9 +122,9 @@ class _ResulPageState extends State<ResulPage> {
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
         content:
-            Text(AppLocalizations.of(context).snack_location(downloadLocation)),
+            Text(AppLocalizations.of(context)!.snack_location(downloadLocation)),
         action: SnackBarAction(
-            label: AppLocalizations.of(context).snack_action,
+            label: AppLocalizations.of(context)!.snack_action,
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -204,11 +204,11 @@ class _ResulPageState extends State<ResulPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (context, setState) => AlertDialog(
-                      title: Text(AppLocalizations.of(context).title_export),
+                      title: Text(AppLocalizations.of(context)!.title_export),
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
-                            Text(AppLocalizations.of(context).save_the_doc),
+                            Text(AppLocalizations.of(context)!.save_the_doc),
                             // ListTile(
                             //     title: const Text('PDF'),
                             //     isThreeLine: false,
@@ -250,11 +250,11 @@ class _ResulPageState extends State<ResulPage> {
                       ),
                       actions: <Widget>[
                         TextButton(
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .text_button_cancel),
                             onPressed: () => Navigator.of(context).pop()),
                         ElevatedButton(
-                            child: Text(AppLocalizations.of(context)
+                            child: Text(AppLocalizations.of(context)!
                                 .text_button_export),
                             onPressed: () {
                               exportDoc();
@@ -282,7 +282,7 @@ class _ResulPageState extends State<ResulPage> {
               return StatefulBuilder(
                   builder: (context, setState) => AlertDialog(
                           title: Text(
-                              AppLocalizations.of(context).feedback_title,
+                              AppLocalizations.of(context)!.feedback_title,
                               textAlign: TextAlign.start),
                           content: SingleChildScrollView(
                               child: Column(
@@ -290,7 +290,7 @@ class _ResulPageState extends State<ResulPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                 Text(
-                                    AppLocalizations.of(context).feedback_body),
+                                    AppLocalizations.of(context)!.feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -344,7 +344,7 @@ class _ResulPageState extends State<ResulPage> {
                                 h16,
                                 if (userRating != null) ...[
                                   Text(
-                                      AppLocalizations.of(context).rating_title,
+                                      AppLocalizations.of(context)!.rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -357,11 +357,11 @@ class _ResulPageState extends State<ResulPage> {
                               ])),
                           actions: <Widget>[
                             TextButton(
-                                child: Text(AppLocalizations.of(context)
+                                child: Text(AppLocalizations.of(context)!
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
                             ElevatedButton(
-                                child: Text(AppLocalizations.of(context)
+                                child: Text(AppLocalizations.of(context)!
                                     .rating_button_send),
                                 onPressed: () {
                                   sendFeedback();
@@ -383,11 +383,11 @@ class _ResulPageState extends State<ResulPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).appbar_result),
+            title: Text(AppLocalizations.of(context)!.appbar_result),
             actions: [
               TextButton(
                   onPressed: () async => _showAlertDialog(),
-                  child: Text(AppLocalizations.of(context).appbar_export))
+                  child: Text(AppLocalizations.of(context)!.appbar_export))
             ]),
         body: Column(children: [
           fq.QuillToolbar.basic(controller: _controller),
