@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:htr/config/buttons/button_themes.dart';
 import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:htr/screens/htr/result/widgets/widgets.dart';
@@ -121,8 +122,8 @@ class _ResulPageState extends State<ResulPage> {
   ///The snackbar contains a message displaying the download location and an action button to open the downloaded file.
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
-        content:
-            Text(AppLocalizations.of(context)!.snack_location(downloadLocation)),
+        content: Text(
+            AppLocalizations.of(context)!.snack_location(downloadLocation)),
         action: SnackBarAction(
             label: AppLocalizations.of(context)!.snack_action,
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
@@ -187,6 +188,16 @@ class _ResulPageState extends State<ResulPage> {
     setState(() {
       isSelected = [for (var i = 0; i < isSelected.length; i++) false];
       isSelected[0] = true;
+    });
+  }
+
+  copyText() async {
+    await Clipboard.setData(
+        ClipboardData(text: _controller.document.toPlainText()));
+    setState(() {
+      SnackBar snackBar = const SnackBar(
+          content: Text("Text has successfully copied to the clipboard"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
 
@@ -289,8 +300,8 @@ class _ResulPageState extends State<ResulPage> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                Text(
-                                    AppLocalizations.of(context)!.feedback_body),
+                                Text(AppLocalizations.of(context)!
+                                    .feedback_body),
                                 h8,
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -344,7 +355,8 @@ class _ResulPageState extends State<ResulPage> {
                                 h16,
                                 if (userRating != null) ...[
                                   Text(
-                                      AppLocalizations.of(context)!.rating_title,
+                                      AppLocalizations.of(context)!
+                                          .rating_title,
                                       textAlign: TextAlign.start),
                                   h8,
                                   TextFormField(
@@ -385,9 +397,22 @@ class _ResulPageState extends State<ResulPage> {
         appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.appbar_result),
             actions: [
-              TextButton(
+              CustomWhiteElevatedButton(
+                  onPressed: () async => copyText(),
+                  child: const Row(children: [
+                    Text("Copy All"),
+                    w8,
+                    Icon(Icons.copy_all_rounded)
+                  ])),
+              w8,
+              CustomWhiteElevatedButton(
                   onPressed: () async => _showAlertDialog(),
-                  child: Text(AppLocalizations.of(context)!.appbar_export))
+                  child: Row(children: [
+                    Text(AppLocalizations.of(context)!.appbar_export),
+                    w8,
+                    const Icon(Icons.file_download_outlined)
+                  ])),
+              w8
             ]),
         body: Column(children: [
           fq.QuillToolbar.basic(controller: _controller),

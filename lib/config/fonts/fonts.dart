@@ -43,8 +43,39 @@ TextStyle fP7014L = GoogleFonts.inter(
 TextStyle fW16M = GoogleFonts.inter(
     color: kWhiteColor, fontSize: 16, fontWeight: FontWeight.w500);
 TextStyle fW16N = GoogleFonts.inter(
-    color: kWhiteColor, fontSize: 16, fontWeight: FontWeight.w400);
+    color: kWhiteColor, fontSize: 14, fontWeight: FontWeight.w400);
 
 //grey
 TextStyle fG14N = GoogleFonts.inter(
     color: kGreyColor, fontSize: 14, fontWeight: FontWeight.w400);
+
+TextStyle fTG14N = GoogleFonts.inter(
+    color: kTextGreyColor, fontSize: 14, fontWeight: FontWeight.w400);
+
+TextStyle fTG12N = GoogleFonts.inter(
+    color: kTextGreyColor, fontSize: 12, fontWeight: FontWeight.w400);
+TextStyle fTG14M = GoogleFonts.inter(
+    color: kTextGreyColor, fontSize: 14, fontWeight: FontWeight.w500);
+TextStyle fTG16M = GoogleFonts.inter(
+    color: kTextGreyColor, fontSize: 16, fontWeight: FontWeight.w500);
+TextStyle fTG24SB = GoogleFonts.inter(
+    color: kTextGreyColor, fontSize: 24, fontWeight: FontWeight.w600);
+
+// Black
+TextStyle fB16M = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 16, fontWeight: FontWeight.w500);
+TextStyle fB14M = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w500);
+TextStyle fB14N = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w400);
+TextStyle fB12N = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 12, fontWeight: FontWeight.w400);
+TextStyle fB18SB = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 18, fontWeight: FontWeight.w500);
+
+//Malayalam
+TextStyle fMP24SB = GoogleFonts.notoSansMalayalam(
+    color: kBlackColor, fontSize: 24, fontWeight: FontWeight.w600);
+
+TextStyle fMB16SB = GoogleFonts.notoSansMalayalam(
+    color: kBlackColor, fontSize: 16, fontWeight: FontWeight.w600);

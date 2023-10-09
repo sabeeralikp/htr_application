@@ -7,10 +7,13 @@ import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:htr/api/api.dart';
 import 'package:htr/api/htr.dart';
 import 'package:htr/api/ocr.dart';
+import 'package:htr/config/buttons/button_themes.dart';
+import 'package:htr/config/measures/gap.dart';
 import 'package:htr/models/ocr_result.dart';
 import 'package:open_app_file/open_app_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class OCRResult extends StatefulWidget {
@@ -24,7 +27,8 @@ class OCRResult extends StatefulWidget {
 
 class _OCRResultState extends State<OCRResult> {
   getNextPage() async {
-    if (widget.ocrResult!.ocr!.numberOfPages! > 1) {
+    if (widget.ocrResult!.ocr != null &&
+        widget.ocrResult!.ocr!.numberOfPages! > 1) {
       for (int i = 1; i < widget.ocrResult!.ocr!.numberOfPages!; i++) {
         String? extractedText =
             await extractText(i, widget.ocrResult!.ocr!.id!);
@@ -43,6 +47,16 @@ class _OCRResultState extends State<OCRResult> {
             label: 'Open',
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  copyText() async {
+    await Clipboard.setData(ClipboardData(
+        text: widget.ocrResult!.quillController!.document.toPlainText()));
+    setState(() {
+      SnackBar snackBar = const SnackBar(
+          content: Text("Text has successfully copied to the clipboard"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
   }
 
   saveDOCX(pdf) async {
@@ -102,14 +116,27 @@ class _OCRResultState extends State<OCRResult> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Result'), actions: [
-          TextButton(
+          CustomWhiteElevatedButton(
+              onPressed: () async => copyText(),
+              child: const Row(children: [
+                Text("Copy All"),
+                w8,
+                Icon(Icons.copy_all_rounded)
+              ])),
+          w8,
+          CustomWhiteElevatedButton(
               onPressed: () async => exportDoc(),
-              child: const Text('Export As DOCX'))
+              child: Row(children: [
+                Text(AppLocalizations.of(context)!.appbar_export),
+                w8,
+                const Icon(Icons.file_download_outlined)
+              ])),
+          w8
         ]),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              if (widget.ocrResult!.ocr != null) ...[
+              if (widget.ocrResult!.quillController != null) ...[
                 fq.QuillToolbar.basic(
                     controller: widget.ocrResult!.quillController!),
                 Expanded(

@@ -37,7 +37,8 @@ class RouteProvider {
         // If the route name is 'home', returns a MaterialPageRoute that builds a Home widget.
         return MaterialPageRoute(builder: (_) => const HTRHome());
       case ocrHome:
-        return MaterialPageRoute(builder: (_) => const OCRHome());
+        return MaterialPageRoute(
+            builder: (_) => OCRHome(isOffline: settings.arguments as bool));
       case result:
         // If the route name is 'result', returns a MaterialPageRoute that builds a ResulPage widget, passing the arguments.
         return MaterialPageRoute(
