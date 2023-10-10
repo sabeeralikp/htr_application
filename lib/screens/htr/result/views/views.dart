@@ -254,7 +254,7 @@ class _ResulPageState extends State<ResulPage> {
                             child: Text(AppLocalizations.of(context)!
                                 .text_button_cancel),
                             onPressed: () => Navigator.of(context).pop()),
-                        ElevatedButton(
+                        CustomElevatedButton(
                             child: Text(AppLocalizations.of(context)!
                                 .text_button_export),
                             onPressed: () {
@@ -374,7 +374,7 @@ class _ResulPageState extends State<ResulPage> {
                                 child: Text(AppLocalizations.of(context)!
                                     .text_button_cancel),
                                 onPressed: () => Navigator.of(context).pop()),
-                            ElevatedButton(
+                            CustomElevatedButton(
                                 child: Text(AppLocalizations.of(context)!
                                     .rating_button_send),
                                 onPressed: () {
