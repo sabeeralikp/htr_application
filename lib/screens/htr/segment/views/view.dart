@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:htr/config/buttons/button_themes.dart';
 import 'package:htr/screens/htr/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
@@ -18,16 +21,26 @@ class _SegmentState extends State<Segment> {
   bool isLoading = false;
   double _deviceWidth = 0;
 
+  List<Cordinates> _fullCordinates = [];
+  int i = 0;
+  int index = 0;
+
+  /// Fetches segmentation coordinates using specified threshold values.
   _getCordinates() async {
-    _cordinates = await postThresholdValues(
+    _fullCordinates = await postThresholdValues(
         _thresholdValue, _horizontalValue, _verticalValue, widget.args!.id);
-    _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
+    _cordinates = _fullCordinates.takeWhile((value) => value.p == i).toList();
+    index = _fullCordinates.indexOf(_cordinates[0]);
+    _isTapped = [for (int k = 0; k < _fullCordinates.length; k++) false];
     setState(() {});
   }
 
+  /// Fetches segmentation coordinates using automatic segmentation values.
   _getAutoSegmentationCordinates(uploadHTR) async {
-    _cordinates = await postAutoSegmentationValues(uploadHTR);
-    _isTapped = [for (int k = 0; k < _cordinates.length; k++) false];
+    _fullCordinates = await postAutoSegmentationValues(uploadHTR);
+    _cordinates = _fullCordinates.takeWhile((value) => value.p == i).toList();
+    index = _fullCordinates.indexOf(_cordinates[0]);
+    _isTapped = [for (int k = 0; k < _fullCordinates.length; k++) false];
     setState(() {});
   }
 
@@ -171,98 +184,153 @@ class _SegmentState extends State<Segment> {
     }
   }
 
+  _goToNextPage() {
+    _cordinates = [];
+    setState(() {
+      i += 1;
+      _cordinates = _fullCordinates.where((value) => value.p == i).toList();
+      index = _fullCordinates.indexOf(_cordinates[0]);
+    });
+    log(_cordinates.first.p.toString());
+  }
+
+  _goToPreviousPage() {
+    _cordinates = [];
+    setState(() {
+      i -= 1;
+      _cordinates = _fullCordinates.takeWhile((value) => value.p == i).toList();
+      index = _fullCordinates.indexOf(_cordinates[0]);
+    });
+    log(_cordinates.first.p.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.appbar_title),
-            actions: [
-              // TextButton(
-              //     onPressed: selectAllOnClick,
-              //     child:
-              //         Text(AppLocalizations.of(context).text_button_selectall)),
-              // w8,
-              Padding(
-                  padding: pR8,
-                  child: ElevatedButton(
-                      onPressed: nextOnClick,
-                      child: Padding(
-                          padding: pY8,
-                          child: Text(AppLocalizations.of(context)!
-                              .elevated_button_next))))
+          title: Text(AppLocalizations.of(context)!.appbar_title),
+          actions: [
+            // TextButton(
+            //     onPressed: selectAllOnClick,
+            //     child:
+            //         Text(AppLocalizations.of(context).text_button_selectall)),
+            // w8,
+            Padding(
+                padding: pR8,
+                child: ElevatedButton(
+                    onPressed: nextOnClick,
+                    child: Padding(
+                        padding: pY8,
+                        child: Text(AppLocalizations.of(context)!
+                            .elevated_button_next))))
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              if (i > 0) ...[
+                CustomWhiteElevatedButton(
+                    onPressed: _goToPreviousPage,
+                    child: const Icon(Icons.chevron_left_rounded)),
+                w8,
+              ],
+              Container(
+                  padding: pA4,
+                  decoration: BoxDecoration(
+                      color: kTextGreyColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border:
+                          Border.all(color: kTextGreyColor.withOpacity(0.4))),
+                  child: Column(
+                    children: [
+                      Text('Page No', style: fG14N),
+                      Text('${i + 1}', style: fB16M),
+                    ],
+                  )),
+              if (i < widget.args!.numberOfPages! - 1) ...[
+                w8,
+                CustomWhiteElevatedButton(
+                    onPressed: _goToNextPage,
+                    child: const Icon(Icons.chevron_right_rounded))
+              ]
             ]),
+          ),
+        ),
         body: isLoading
             ? const Center(child: LoadingIndicator())
             : Stack(fit: StackFit.expand, children: [
                 ListView(children: [
-                  for (int i = 0; i < widget.args!.numberOfPages!; i++)
-                    Column(children: [
-                      Stack(children: [
-                        Image.network(
+                  // for (int i = 0; i < widget.args!.numberOfPages!; i++)
+                  Column(children: [
+                    Stack(children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(
                             '$baseURL/media/pdf2img/${widget.args!.filename!.replaceAll('.pdf', '').replaceAll('.jpeg', '').replaceAll('.jpg', '').replaceAll('.png', '')}/$i.png',
-                            loadingBuilder: imageLoadingBuilder),
-                        _cordinates.isNotEmpty
-                            ? SizedBox(
-                                height: _cordinates[i].imgH!.toDouble(),
-                                child: Stack(children: [
-                                  for (int j = 0; j < _cordinates.length; j++)
-                                    _cordinates[j].p == i
-                                        ? Positioned(
-                                            left: _cordinates[j].x!.toDouble() *
-                                                _deviceWidth /
-                                                _cordinates[j].imgW!.toDouble(),
-                                            top: _cordinates[j].y!.toDouble() *
-                                                _deviceWidth /
-                                                _cordinates[j].imgW!.toDouble(),
-                                            child: InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _isTapped[j] = _isTapped[j]
-                                                        ? false
-                                                        : true;
-                                                  });
-                                                  if (_isTapped[j]) {
+                            loadingBuilder: imageLoadingBuilder,
+                            fit: BoxFit.contain),
+                      ),
+                      _cordinates.isNotEmpty
+                          ? SizedBox(
+                              height: _cordinates[i].imgH!.toDouble(),
+                              child: Stack(children: [
+                                for (int j = 0; j < _cordinates.length; j++)
+                                  _cordinates[j].p == i
+                                      ? Positioned(
+                                          left: _cordinates[j].x!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          top: _cordinates[j].y!.toDouble() *
+                                              _deviceWidth /
+                                              _cordinates[j].imgW!.toDouble(),
+                                          child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  _isTapped[j + index] =
+                                                      _isTapped[j + index]
+                                                          ? false
+                                                          : true;
+                                                });
+                                                if (_isTapped[j + index]) {
+                                                  _selectedCordinates
+                                                      .add(_cordinates[j]);
+                                                } else {
+                                                  if (_selectedCordinates
+                                                      .contains(
+                                                          _cordinates[j])) {
                                                     _selectedCordinates
-                                                        .add(_cordinates[j]);
-                                                  } else {
-                                                    if (_selectedCordinates
-                                                        .contains(
-                                                            _cordinates[j])) {
-                                                      _selectedCordinates
-                                                          .remove(
-                                                              _cordinates[j]);
-                                                    }
+                                                        .remove(_cordinates[j]);
                                                   }
-                                                },
-                                                child: Container(
-                                                    height: _cordinates[j]
-                                                            .h!
-                                                            .toDouble() *
-                                                        _deviceWidth /
-                                                        _cordinates[j]
-                                                            .imgW!
-                                                            .toDouble(),
-                                                    width: _cordinates[j]
-                                                            .w!
-                                                            .toDouble() *
-                                                        _deviceWidth /
-                                                        _cordinates[j]
-                                                            .imgW!
-                                                            .toDouble(),
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                      color: _isTapped[j]
-                                                          ? kBlueColor
-                                                          : kUnSelectedBlueColor,
-                                                      width: 1,
-                                                    )))))
-                                        : const SizedBox()
-                                ]))
-                            : const SizedBox()
-                      ]),
-                      h18
+                                                }
+                                              },
+                                              child: Container(
+                                                  height: _cordinates[j]
+                                                          .h!
+                                                          .toDouble() *
+                                                      _deviceWidth /
+                                                      _cordinates[j]
+                                                          .imgW!
+                                                          .toDouble(),
+                                                  width: _cordinates[j]
+                                                          .w!
+                                                          .toDouble() *
+                                                      _deviceWidth /
+                                                      _cordinates[j]
+                                                          .imgW!
+                                                          .toDouble(),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                    color: _isTapped[j + index]
+                                                        ? kBlueColor
+                                                        : kUnSelectedBlueColor,
+                                                    width: 1,
+                                                  )))))
+                                      : const SizedBox()
+                              ]))
+                          : const SizedBox()
                     ]),
+                    h18
+                  ]),
                   h18
                 ]),
                 if (widget.args!.segment != "auto")
