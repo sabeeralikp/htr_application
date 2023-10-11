@@ -154,21 +154,23 @@ class _OCRHomeState extends State<OCRHome> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Digital${widget.isOffline ? " (offline)" : ""}'),
-          actions: [
-            SizedBox(
-              width: 116,
-              child: DropdownButtonFormField(
-                items: languages,
-                value: language,
-                onChanged: changeLanguage,
-                decoration: const InputDecoration(
-                    labelText: "Language",
-                    contentPadding: EdgeInsets.only(left: 12),
-                    border: OutlineInputBorder()),
-              ),
-            ),
-            w8,
-          ],
+          actions: widget.isOffline
+              ? [
+                  SizedBox(
+                    width: 116,
+                    child: DropdownButtonFormField(
+                      items: languages,
+                      value: language,
+                      onChanged: changeLanguage,
+                      decoration: const InputDecoration(
+                          labelText: "Language",
+                          contentPadding: EdgeInsets.only(left: 12),
+                          border: OutlineInputBorder()),
+                    ),
+                  ),
+                  w8,
+                ]
+              : null,
         ),
         body: isUploading
             ? const UploadingIndicator()

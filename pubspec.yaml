@@ -33,6 +33,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   pdfx: ^2.4.0
   flutter_tesseract_ocr: ^0.4.24
+  url_launcher: ^6.1.14
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_test:

@@ -72,6 +72,8 @@ TextStyle fB12N = GoogleFonts.inter(
     color: kBlackColor, fontSize: 12, fontWeight: FontWeight.w400);
 TextStyle fB18SB = GoogleFonts.inter(
     color: kBlackColor, fontSize: 18, fontWeight: FontWeight.w500);
+TextStyle fB24SB = GoogleFonts.inter(
+    color: kBlackColor, fontSize: 28, fontWeight: FontWeight.w600);
 
 //Malayalam
 TextStyle fMP24SB = GoogleFonts.notoSansMalayalam(

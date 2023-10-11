@@ -7,8 +7,10 @@ import 'package:htr/config/measures/padding.dart';
 import 'package:htr/providers/locale_provider.dart';
 import 'package:htr/routes/route.dart';
 import 'package:htr/screens/home/home.dart';
+import 'package:ionicons/ionicons.dart';
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,6 +27,29 @@ class _HomeState extends State<Home> {
   navigateToOCR(context, bool? isOffline) {
     Navigator.of(context)
         .pushNamed(RouteProvider.ocrHome, arguments: isOffline);
+  }
+
+  /// Defines the URL for the ICFoSS (International Centre for Free and Open Source Software) website.
+  final Uri _icfossURL = Uri.parse('https://icfoss.in');
+
+  /// Defines the URL for the ICFoSS GitLab repository.
+  final Uri _gitlabURL = Uri.parse('https://gitlab.com/icfoss');
+
+  /// Defines the URL for the ICFoSS LinkedIn page.
+  final Uri _linkedInURL =
+      Uri.parse('https://www.linkedin.com/company/icfoss-in/');
+
+  /// Defines the URL for the ICFoSS YouTube channel.
+  final Uri _youtubeURL =
+      Uri.parse('https://www.youtube.com/channel/UCskKbOu_s_VxcK7QOfbvb4w');
+
+  /// Launches a URL in the device's default web browser.
+  ///
+  /// Throws an exception if the URL cannot be launched.
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $_icfossURL');
+    }
   }
 
   @override
@@ -71,55 +96,10 @@ class _HomeState extends State<Home> {
         ),
         body: Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child:
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Container(
-                padding: pA16,
-                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    boxShadow: [
-                      BoxShadow(
-                          spreadRadius: -1,
-                          blurRadius: 2,
-                          color: Colors.black.withOpacity(.4))
-                    ]),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: Text("Document Extractor", style: fB16M)),
-                      h16,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          MenuChild(
-                              icon: Icons.cloud_off_rounded,
-                              title: 'Digital',
-                              description: '(offline)',
-                              iconColor: kGreenColor,
-                              onTap: () => navigateToOCR(context, true)),
-                          MenuChild(
-                              icon: Icons.description_outlined,
-                              title: 'Digital',
-                              description: '(online)',
-                              iconColor: kBlueColor,
-                              onTap: () => navigateToOCR(context, false)),
-                          MenuChild(
-                              icon: Icons.draw_rounded,
-                              title: 'Handwriting',
-                              description: '(beta)',
-                              iconColor: kPurpleColor,
-                              onTap: () => navigateToHTR(context)),
-                        ],
-                      )
-                    ]),
-              ),
-              h8,
-              Stack(
-                children: [
                   Container(
                     padding: pA16,
                     margin:
@@ -139,47 +119,164 @@ class _HomeState extends State<Home> {
                         children: [
                           Padding(
                               padding: const EdgeInsets.only(left: 4.0),
-                              child: Text("Document Utilities", style: fTG16M)),
+                              child: Text("Document Extractor", style: fB16M)),
                           h16,
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               MenuChild(
-                                  icon: Icons.translate_outlined,
-                                  title: 'Translate',
-                                  // description: 'Documents',
-                                  iconColor: kTextGreyColor,
-                                  onTap: () {}),
+                                  icon: Icons.cloud_off_rounded,
+                                  title: 'Digital',
+                                  description: '(offline)',
+                                  iconColor: kGreenColor,
+                                  onTap: () => navigateToOCR(context, true)),
                               MenuChild(
-                                  icon: Icons.short_text_outlined,
-                                  title: 'Summerize',
-                                  // description: 'Summerizer',
-                                  iconColor: kTextGreyColor,
-                                  onTap: () {}),
+                                  icon: Icons.description_outlined,
+                                  title: 'Digital',
+                                  description: '(online)',
+                                  iconColor: kBlueColor,
+                                  onTap: () => navigateToOCR(context, false)),
                               MenuChild(
-                                  icon: Icons.mic_none_outlined,
-                                  title: 'Speech',
-                                  // description: 'Documents',
-                                  iconColor: kTextGreyColor,
-                                  onTap: () {}),
+                                  icon: Icons.draw_rounded,
+                                  title: 'Handwriting',
+                                  description: '(beta)',
+                                  iconColor: kPurpleColor,
+                                  onTap: () => navigateToHTR(context)),
                             ],
                           )
                         ]),
                   ),
-                  Positioned(
-                      top: 4,
-                      right: 16,
-                      child: Container(
-                          padding: pA8,
-                          decoration: BoxDecoration(
-                              color: kTextGreyColor.withOpacity(0.3),
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(16),
-                                  bottomLeft: Radius.circular(16))),
-                          child: Text('Coming Soon', style: fW16N)))
-                ],
-              )
-            ])));
+                  h8,
+                  Stack(
+                    children: [
+                      Container(
+                        padding: pA16,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16)),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: -1,
+                                  blurRadius: 2,
+                                  color: Colors.black.withOpacity(.4))
+                            ]),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 4.0),
+                                  child: Text("Document Utilities",
+                                      style: fTG16M)),
+                              h16,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  MenuChild(
+                                      icon: Icons.translate_outlined,
+                                      title: 'Translate',
+                                      // description: 'Documents',
+                                      iconColor: kTextGreyColor,
+                                      onTap: () {}),
+                                  MenuChild(
+                                      icon: Icons.short_text_outlined,
+                                      title: 'Summerize',
+                                      // description: 'Summerizer',
+                                      iconColor: kTextGreyColor,
+                                      onTap: () {}),
+                                  MenuChild(
+                                      icon: Icons.mic_none_outlined,
+                                      title: 'Speech',
+                                      // description: 'Documents',
+                                      iconColor: kTextGreyColor,
+                                      onTap: () {}),
+                                ],
+                              )
+                            ]),
+                      ),
+                      Positioned(
+                          top: 4,
+                          right: 16,
+                          child: Container(
+                              padding: pA8,
+                              decoration: BoxDecoration(
+                                  color: kTextGreyColor.withOpacity(0.3),
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16))),
+                              child: Text('Coming Soon', style: fW16N)))
+                    ],
+                  ),
+                ]),
+                Column(
+                  children: [
+                    Divider(color: kTextGreyColor.withOpacity(0.1)),
+                    h8,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Powered By', style: fTG14M),
+                            // Text('LT Team', style: fB14N),
+                            Text('ICFOSS', style: fB24SB),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Tooltip(
+                                    // Tooltip widget with an IconButton to launch Gitlab URL.
+                                    message: 'Gitlab',
+                                    child: IconButton(
+                                        onPressed: () => _launchUrl(_gitlabURL),
+                                        icon:
+                                            const Icon(Ionicons.logo_gitlab))),
+                                w8,
+                                Tooltip(
+                                    // Tooltip widget with an IconButton to launch LinkedIn URL.
+                                    message: 'LinkedIn',
+                                    child: IconButton(
+                                        onPressed: () =>
+                                            _launchUrl(_linkedInURL),
+                                        icon: const Icon(
+                                            Ionicons.logo_linkedin))),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Tooltip(
+                                    // Tooltip widget with an IconButton to launch icfoss.in URL.
+                                    message: 'icfoss.in',
+                                    child: IconButton(
+                                        onPressed: () => _launchUrl(_icfossURL),
+                                        icon: const Icon(
+                                            Icons.language_rounded))),
+                                w8,
+                                Tooltip(
+                                    // Tooltip widget with an IconButton to launch Youtube URL
+                                    message: 'Youtube',
+                                    child: IconButton(
+                                        onPressed: () =>
+                                            _launchUrl(_youtubeURL),
+                                        icon:
+                                            const Icon(Ionicons.logo_youtube)))
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            )));
   }
 }
 
