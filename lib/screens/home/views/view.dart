@@ -119,27 +119,27 @@ class _HomeState extends State<Home> {
                         children: [
                           Padding(
                               padding: const EdgeInsets.only(left: 4.0),
-                              child: Text("Document Extractor", style: fB16M)),
+                              child: Text(AppLocalizations.of(context)!.box_title_1, style: fB16M)),
                           h16,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               MenuChild(
                                   icon: Icons.cloud_off_rounded,
-                                  title: 'Digital',
-                                  description: '(offline)',
+                                  title: AppLocalizations.of(context)!.menu_title_1,
+                                  description: AppLocalizations.of(context)!.description_title_1,
                                   iconColor: kGreenColor,
                                   onTap: () => navigateToOCR(context, true)),
                               MenuChild(
                                   icon: Icons.description_outlined,
-                                  title: 'Digital',
-                                  description: '(online)',
+                                  title: AppLocalizations.of(context)!.menu_title_1,
+                                  description: AppLocalizations.of(context)!.description_title_2,
                                   iconColor: kBlueColor,
                                   onTap: () => navigateToOCR(context, false)),
                               MenuChild(
                                   icon: Icons.draw_rounded,
-                                  title: 'Handwriting',
-                                  description: '(beta)',
+                                  title: AppLocalizations.of(context)!.menu_title_2,
+                                  description: AppLocalizations.of(context)!.description_title_3,
                                   iconColor: kPurpleColor,
                                   onTap: () => navigateToHTR(context)),
                             ],
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(left: 4.0),
-                                  child: Text("Document Utilities",
+                                  child: Text(AppLocalizations.of(context)!.box_title_2,
                                       style: fTG16M)),
                               h16,
                               Row(
@@ -178,19 +178,19 @@ class _HomeState extends State<Home> {
                                 children: [
                                   MenuChild(
                                       icon: Icons.translate_outlined,
-                                      title: 'Translate',
+                                      title: AppLocalizations.of(context)!.menu_title_3,
                                       // description: 'Documents',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
                                   MenuChild(
                                       icon: Icons.short_text_outlined,
-                                      title: 'Summerize',
+                                      title: AppLocalizations.of(context)!.menu_title_4,
                                       // description: 'Summerizer',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
                                   MenuChild(
                                       icon: Icons.mic_none_outlined,
-                                      title: 'Speech',
+                                      title: AppLocalizations.of(context)!.menu_title_5,
                                       // description: 'Documents',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
@@ -209,7 +209,7 @@ class _HomeState extends State<Home> {
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(16),
                                       bottomLeft: Radius.circular(16))),
-                              child: Text('Coming Soon', style: fW16N)))
+                              child: Text(AppLocalizations.of(context)!.child_text, style: fW16N)))
                     ],
                   ),
                 ]),

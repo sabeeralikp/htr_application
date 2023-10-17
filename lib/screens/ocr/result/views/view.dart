@@ -42,7 +42,7 @@ class _OCRResultState extends State<OCRResult> {
 
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
-        content: Text('File has been downloaded to $downloadLocation'),
+        content: Text(AppLocalizations.of(context)!.snack_location(downloadLocation)),
         action: SnackBarAction(
             label: 'Open',
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
@@ -53,8 +53,8 @@ class _OCRResultState extends State<OCRResult> {
     await Clipboard.setData(ClipboardData(
         text: widget.ocrResult!.quillController!.document.toPlainText()));
     setState(() {
-      SnackBar snackBar = const SnackBar(
-          content: Text("Text has successfully copied to the clipboard"));
+      SnackBar snackBar = SnackBar(
+          content: Text(AppLocalizations.of(context)!.clipboard_content));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
@@ -126,10 +126,10 @@ class _OCRResultState extends State<OCRResult> {
           w8,
           CustomWhiteElevatedButton(
               onPressed: () async => exportDoc(),
-              child: Row(children: [
-                Text(AppLocalizations.of(context)!.appbar_export),
+              child: const Row(children: [
+                Text("Export As"),
                 w8,
-                const Icon(Icons.file_download_outlined)
+                Icon(Icons.file_download_outlined)
               ])),
           w8
         ]),

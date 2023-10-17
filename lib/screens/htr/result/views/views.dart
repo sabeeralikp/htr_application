@@ -195,8 +195,8 @@ class _ResulPageState extends State<ResulPage> {
     await Clipboard.setData(
         ClipboardData(text: _controller.document.toPlainText()));
     setState(() {
-      SnackBar snackBar = const SnackBar(
-          content: Text("Text has successfully copied to the clipboard"));
+      SnackBar snackBar = SnackBar(
+          content: Text(AppLocalizations.of(context)!.clipboard_content));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
@@ -215,7 +215,7 @@ class _ResulPageState extends State<ResulPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (context, setState) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.title_export),
+                      title: const Text("Export As"),
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
@@ -407,10 +407,10 @@ class _ResulPageState extends State<ResulPage> {
               w8,
               CustomWhiteElevatedButton(
                   onPressed: () async => _showAlertDialog(),
-                  child: Row(children: [
-                    Text(AppLocalizations.of(context)!.appbar_export),
+                  child: const Row(children: [
+                     Text("Export As"),
                     w8,
-                    const Icon(Icons.file_download_outlined)
+                    Icon(Icons.file_download_outlined)
                   ])),
               w8
             ]),

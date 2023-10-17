@@ -158,7 +158,7 @@ class _HTRHomeState extends State<HTRHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Handwritten'),
+          title: Text(AppLocalizations.of(context)!.menu_title_2),
           // actions: [
           //   TextButton(
           //       onPressed: () => {

@@ -153,7 +153,7 @@ class _OCRHomeState extends State<OCRHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Digital${widget.isOffline ? " (offline)" : ""}'),
+          title: Text('${AppLocalizations.of(context)!.menu_title_1} ${widget.isOffline ? " ${AppLocalizations.of(context)!.description_title_1}" : ""}'),
           actions: widget.isOffline
               ? [
                   SizedBox(
@@ -162,10 +162,10 @@ class _OCRHomeState extends State<OCRHome> {
                       items: languages,
                       value: language,
                       onChanged: changeLanguage,
-                      decoration: const InputDecoration(
-                          labelText: "Language",
-                          contentPadding: EdgeInsets.only(left: 12),
-                          border: OutlineInputBorder()),
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.label_text,
+                          contentPadding: const EdgeInsets.only(left: 12),
+                          border: const OutlineInputBorder()),
                     ),
                   ),
                   w8,
