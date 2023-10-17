@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:htr/config/buttons/button_themes.dart';
-import 'package:htr/screens/htr/segment/widgets/widgets.dart';
+import 'package:dhriti/config/buttons/button_themes.dart';
+import 'package:dhriti/screens/htr/segment/widgets/widgets.dart';
 
 class Segment extends StatefulWidget {
   final UploadHTRModel? args;
@@ -227,33 +227,37 @@ class _SegmentState extends State<Segment> {
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (i > 0) ...[
-                CustomWhiteElevatedButton(
-                    onPressed: _goToPreviousPage,
-                    child: const Icon(Icons.chevron_left_rounded)),
-                w8,
-              ],
-              Container(
-                  padding: pA4,
-                  decoration: BoxDecoration(
-                      color: kTextGreyColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                      border:
-                          Border.all(color: kTextGreyColor.withOpacity(0.4))),
-                  child: Column(
-                    children: [
-                      Text('Page No', style: fG14N),
-                      Text('${i + 1}', style: fB16M),
-                    ],
-                  )),
-              if (i < widget.args!.numberOfPages! - 1) ...[
-                w8,
-                CustomWhiteElevatedButton(
-                    onPressed: _goToNextPage,
-                    child: const Icon(Icons.chevron_right_rounded))
-              ]
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (i > 0) ...[
+                    CustomWhiteElevatedButton(
+                        onPressed: _goToPreviousPage,
+                        child: const Icon(Icons.chevron_left_rounded)),
+                    w8,
+                  ],
+                  Container(
+                      padding: pA4,
+                      margin: const EdgeInsets.only(bottom: 8),
+                      decoration: BoxDecoration(
+                          color: kTextGreyColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: kTextGreyColor.withOpacity(0.4))),
+                      child: Column(
+                        children: [
+                          Text('Page No', style: fG14N),
+                          Text('${i + 1}', style: fB16M),
+                        ],
+                      )),
+                  if (i < widget.args!.numberOfPages! - 1) ...[
+                    w8,
+                    CustomWhiteElevatedButton(
+                        onPressed: _goToNextPage,
+                        child: const Icon(Icons.chevron_right_rounded))
+                  ]
+                ]),
           ),
         ),
         body: isLoading

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:htr/models/ocr_result.dart';
-import 'package:htr/models/upload_htr.dart';
-import 'package:htr/screens/home/home.dart';
-import 'package:htr/screens/htr/result/result.dart';
-import 'package:htr/screens/htr/segment/segment.dart';
-import 'package:htr/screens/ocr/home/views/view.dart';
-import 'package:htr/screens/ocr/result/views/view.dart';
+import 'package:dhriti/models/ocr_result.dart';
+import 'package:dhriti/models/upload_htr.dart';
+import 'package:dhriti/screens/home/home.dart';
+import 'package:dhriti/screens/htr/result/result.dart';
+import 'package:dhriti/screens/htr/segment/segment.dart';
+import 'package:dhriti/screens/ocr/home/views/view.dart';
+import 'package:dhriti/screens/ocr/result/views/view.dart';
 
 import '../screens/htr/home/home.dart';
 

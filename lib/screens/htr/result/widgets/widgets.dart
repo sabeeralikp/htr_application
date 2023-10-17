@@ -1,9 +1,9 @@
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
-export 'package:htr/api/api.dart';
-export 'package:htr/api/htr.dart';
-export 'package:htr/models/save_data.dart';
+export 'package:dhriti/api/api.dart';
+export 'package:dhriti/api/htr.dart';
+export 'package:dhriti/models/save_data.dart';
 export 'package:open_app_file/open_app_file.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:pdf/pdf.dart';

@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:htr/api/api.dart';
-import 'package:htr/models/cordinates.dart';
-import 'package:htr/models/feedback_model.dart';
-import 'package:htr/models/save_data.dart';
-import 'package:htr/models/upload_htr.dart';
+import 'package:dhriti/api/api.dart';
+import 'package:dhriti/models/cordinates.dart';
+import 'package:dhriti/models/feedback_model.dart';
+import 'package:dhriti/models/save_data.dart';
+import 'package:dhriti/models/upload_htr.dart';
 import 'package:http_parser/http_parser.dart';
 
 final dio = Dio(baseOptions);

@@ -1,4 +1,4 @@
-import 'package:htr/models/upload_ocr.dart';
+import 'package:dhriti/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 
 class OCRResultModel {

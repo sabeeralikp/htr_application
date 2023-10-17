@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:htr/config/buttons/button_themes.dart';
-import 'package:htr/screens/htr/segment/widgets/widgets.dart';
+import 'package:dhriti/config/buttons/button_themes.dart';
+import 'package:dhriti/screens/htr/segment/widgets/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:htr/screens/htr/result/widgets/widgets.dart';
+import 'package:dhriti/screens/htr/result/widgets/widgets.dart';
 
 ///
 /// [ResulPage]

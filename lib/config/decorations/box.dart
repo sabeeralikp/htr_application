@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/borders/borders.dart';
-import 'package:htr/config/colors/colors.dart';
-import 'package:htr/config/measures/border_radius.dart';
+import 'package:dhriti/config/borders/borders.dart';
+import 'package:dhriti/config/colors/colors.dart';
+import 'package:dhriti/config/measures/border_radius.dart';
 
 // bD[Color][BorderRadius][border]
 // Example: bDP16

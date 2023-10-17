@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/colors/colors.dart';
+import 'package:dhriti/config/colors/colors.dart';
 
 // Button Styles
 

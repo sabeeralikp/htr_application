@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/fonts/fonts.dart';
+import 'package:dhriti/config/fonts/fonts.dart';
 
 ///
 /// [FloatingActionButton]

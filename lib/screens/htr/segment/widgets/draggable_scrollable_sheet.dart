@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/colors/colors.dart';
-import 'package:htr/config/measures/border_radius.dart';
-import 'package:htr/config/measures/padding.dart';
+import 'package:dhriti/config/colors/colors.dart';
+import 'package:dhriti/config/measures/border_radius.dart';
+import 'package:dhriti/config/measures/padding.dart';
 
 ///
 /// [DraggableScrollableSheetForThresholding]

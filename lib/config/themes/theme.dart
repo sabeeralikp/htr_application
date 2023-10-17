@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/colors/colors.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/widgets/fab.dart';
+import 'package:dhriti/config/colors/colors.dart';
+import 'package:dhriti/config/fonts/fonts.dart';
+import 'package:dhriti/config/widgets/fab.dart';
 
 ///
 /// [ThemeData]

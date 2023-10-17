@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:htr/config/colors/colors.dart';
+import 'package:dhriti/config/colors/colors.dart';
 
 /// f[Color]-[Size]-[Weight]-[LetterSpacing:optional]
 

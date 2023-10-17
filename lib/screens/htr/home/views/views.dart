@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:htr/screens/htr/home/widgets/widgets.dart';
+import 'package:dhriti/screens/htr/home/widgets/widgets.dart';
 
 /// An enumeration representing different types of segmentation.
 ///

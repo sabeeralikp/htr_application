@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/themes/theme.dart';
-import 'package:htr/providers/locale_provider.dart';
-import 'package:htr/routes/route.dart';
+import 'package:dhriti/config/themes/theme.dart';
+import 'package:dhriti/providers/locale_provider.dart';
+import 'package:dhriti/routes/route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 
 ///
@@ -17,8 +18,17 @@ import 'package:provider/provider.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key}); // A Flutter app's root widget.
 
+  checkUpdate() {
+    InAppUpdate.checkForUpdate().then((updateInfo) async {
+      if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+        await InAppUpdate.performImmediateUpdate();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // checkUpdate();
     // Builds the UI representation of the widget.
     return MultiProvider(
         providers: [ChangeNotifierProvider(create: (_) => LocaleProvider())],
@@ -26,7 +36,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<LocaleProvider>(
             // Listens to changes in the LocaleProvider.
             builder: (context, provider, snapshot) => MaterialApp(
-                title: 'HTR', // The title of the application.
+                title: 'Dhriti OCR', // The title of the application.
                 theme: htrLightThemeData(context), // The app's theme data.
                 initialRoute: RouteProvider.home, // The initial route.
                 onGenerateRoute: RouteProvider

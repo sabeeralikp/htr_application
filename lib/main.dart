@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:htr/app.dart';
+import 'package:dhriti/app.dart';
 
 ///
 /// [main Function]

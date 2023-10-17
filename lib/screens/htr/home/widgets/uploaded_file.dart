@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/assets/assets.dart';
-import 'package:htr/config/decorations/box.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/icons/icons.dart';
-import 'package:htr/config/measures/padding.dart';
-import 'package:htr/config/measures/visual_density.dart';
-import 'package:htr/models/upload_htr.dart';
+import 'package:dhriti/config/assets/assets.dart';
+import 'package:dhriti/config/decorations/box.dart';
+import 'package:dhriti/config/fonts/fonts.dart';
+import 'package:dhriti/config/icons/icons.dart';
+import 'package:dhriti/config/measures/padding.dart';
+import 'package:dhriti/config/measures/visual_density.dart';
+import 'package:dhriti/models/upload_htr.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 ///

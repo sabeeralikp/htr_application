@@ -1,5 +1,5 @@
-name: htr
-description: A new Flutter project.
+name: dhriti
+description: An open source software to extract texts from PDF and Images.
 publish_to: "none"
 version: 1.0.0+1
 
@@ -35,6 +35,7 @@ dependencies:
   flutter_tesseract_ocr: ^0.4.24
   url_launcher: ^6.1.14
   ionicons: ^0.2.2
+  in_app_update: ^4.2.2
 
 dev_dependencies:
   flutter_test:

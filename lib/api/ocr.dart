@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:htr/models/upload_ocr.dart';
+import 'package:dhriti/models/upload_ocr.dart';
 import 'package:http_parser/http_parser.dart';
 import 'api.dart';
 

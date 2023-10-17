@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/buttons/button_themes.dart';
-import 'package:htr/config/colors/colors.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/measures/gap.dart';
-import 'package:htr/config/measures/padding.dart';
-import 'package:htr/providers/locale_provider.dart';
-import 'package:htr/routes/route.dart';
-import 'package:htr/screens/home/home.dart';
+import 'package:dhriti/config/buttons/button_themes.dart';
+import 'package:dhriti/config/colors/colors.dart';
+import 'package:dhriti/config/fonts/fonts.dart';
+import 'package:dhriti/config/measures/gap.dart';
+import 'package:dhriti/config/measures/padding.dart';
+import 'package:dhriti/providers/locale_provider.dart';
+import 'package:dhriti/routes/route.dart';
+import 'package:dhriti/screens/home/home.dart';
 import 'package:ionicons/ionicons.dart';
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                               child: Text("Document Extractor", style: fB16M)),
                           h16,
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               MenuChild(
                                   icon: Icons.cloud_off_rounded,
@@ -143,7 +143,8 @@ class _HomeState extends State<Home> {
                                   iconColor: kPurpleColor,
                                   onTap: () => navigateToHTR(context)),
                             ],
-                          )
+                          ),
+                          h8,
                         ]),
                   ),
                   h8,
@@ -194,7 +195,8 @@ class _HomeState extends State<Home> {
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
                                 ],
-                              )
+                              ),
+                              h8,
                             ]),
                       ),
                       Positioned(

@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:htr/api/htr.dart';
-import 'package:htr/models/upload_htr.dart';
-import 'package:htr/routes/route.dart';
-import 'package:htr/screens/htr/home/home.dart';
+import 'package:dhriti/api/htr.dart';
+import 'package:dhriti/models/upload_htr.dart';
+import 'package:dhriti/routes/route.dart';
+import 'package:dhriti/screens/htr/home/home.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeFunctions {

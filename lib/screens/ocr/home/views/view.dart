@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter_tesseract_ocr/android_ios.dart';
-import 'package:htr/api/ocr.dart';
-import 'package:htr/models/ocr_result.dart';
-import 'package:htr/models/upload_ocr.dart';
+import 'package:dhriti/api/ocr.dart';
+import 'package:dhriti/models/ocr_result.dart';
+import 'package:dhriti/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
-import 'package:htr/screens/htr/home/widgets/widgets.dart';
+import 'package:dhriti/screens/htr/home/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfx/pdfx.dart';
 

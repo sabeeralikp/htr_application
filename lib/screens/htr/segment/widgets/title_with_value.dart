@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:htr/config/decorations/box.dart';
-import 'package:htr/config/fonts/fonts.dart';
-import 'package:htr/config/measures/gap.dart';
-import 'package:htr/config/measures/padding.dart';
+import 'package:dhriti/config/decorations/box.dart';
+import 'package:dhriti/config/fonts/fonts.dart';
+import 'package:dhriti/config/measures/gap.dart';
+import 'package:dhriti/config/measures/padding.dart';
 
 ///
 /// [TitleWithValue]
 ///
 /// [author] Sabeerali
-/// [since]	v0.0.1 
-/// [version]	v1.0.0	May 29th, 2023 1:32 PM 
+/// [since]	v0.0.1
+/// [version]	v1.0.0	May 29th, 2023 1:32 PM
 /// [see]		StatelessWidget
 ///
 ///A widget that displays a title and a corresponding numeric value horizontally.
