@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:flutter_tesseract_ocr/android_ios.dart';
 import 'package:dhriti/api/ocr.dart';
 import 'package:dhriti/models/ocr_result.dart';
@@ -103,10 +104,11 @@ class _OCRHomeState extends State<OCRHome> {
   getCameraImage() async {
     if (mounted) {
       try {
-        final XFile? capturedImage =
-            await ImagePicker().pickImage(source: ImageSource.camera);
+        final XFile? capturedImage = await ImagePicker().pickImage(
+            source: ImageSource.camera,
+            preferredCameraDevice: CameraDevice.rear);
         if (capturedImage == null) return;
-        file = File(capturedImage.path);
+        file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
         if (file != null) {
           setState(() {
             isUploading = true;
@@ -153,7 +155,8 @@ class _OCRHomeState extends State<OCRHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('${AppLocalizations.of(context)!.menu_title_1} ${widget.isOffline ? " ${AppLocalizations.of(context)!.description_title_1}" : ""}'),
+          title: Text(
+              '${AppLocalizations.of(context)!.menu_title_1} ${widget.isOffline ? " ${AppLocalizations.of(context)!.description_title_1}" : ""}'),
           actions: widget.isOffline
               ? [
                   SizedBox(

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dhriti/screens/htr/home/widgets/widgets.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 /// An enumeration representing different types of segmentation.
 ///
@@ -103,10 +104,11 @@ class _HTRHomeState extends State<HTRHome> {
   getCameraImage() async {
     if (mounted) {
       try {
-        final XFile? capturedImage =
-            await ImagePicker().pickImage(source: ImageSource.camera);
+        final XFile? capturedImage = await ImagePicker().pickImage(
+            source: ImageSource.camera,
+            preferredCameraDevice: CameraDevice.rear);
         if (capturedImage == null) return;
-        file = File(capturedImage.path);
+        file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
         if (file != null) {
           htr = await uploadHTR(file!);
           isUploading = false;

@@ -105,11 +105,8 @@ class _ResulPageState extends State<ResulPage> {
     log(filePath ?? 'Hello');
 
     /// Download the converted DOCX file
-    final request = await HttpClient().getUrl(Uri.parse(baseURL +
-        filePath!
-            .replaceFirst(".pdf", ".docx")
-            .replaceFirst("PDF", "Doc")
-            .replaceFirst('/', '')));
+    final request = await HttpClient().getUrl(Uri.parse(
+        '$baseURL/${filePath!.replaceFirst(".pdf", ".docx").replaceFirst("PDF", "Doc").replaceFirst('/', '')}'));
     final response = await request.close();
     final docfile = File("${output.path}/document.docx");
     response.pipe(docfile.openWrite());
@@ -408,7 +405,7 @@ class _ResulPageState extends State<ResulPage> {
               CustomWhiteElevatedButton(
                   onPressed: () async => _showAlertDialog(),
                   child: const Row(children: [
-                     Text("Export As"),
+                    Text("Export As"),
                     w8,
                     Icon(Icons.file_download_outlined)
                   ])),
