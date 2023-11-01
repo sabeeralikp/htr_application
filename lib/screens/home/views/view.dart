@@ -15,7 +15,7 @@ import 'dart:html' as html;
 ///
 /// [author] Sabeerali
 /// [since]	v0.0.1
-/// [version]	v1.0.0	(August 16th, 2023 3:27 PM) 
+/// [version]	v1.0.0	(August 16th, 2023 3:27 PM)
 /// [see]		RoundedRectSliderTrackShape
 ///
 /// The [Home] class represents the main screen of the Flutter application.
@@ -28,43 +28,54 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
+
 /// The [ _HomeState] class represents the state of the [Home] widget.
 class _HomeState extends State<Home> {
   /// Navigates to the 'HTR' (Handwriting Text Recognition) screen.
   navigateToHTR(context) =>
       Navigator.of(context).pushNamed(RouteProvider.htrHome);
+
   /// Navigates to the 'OCR' (Optical Character Recognition) screen.
   navigateToOCR(context) =>
       Navigator.of(context).pushNamed(RouteProvider.ocrHome);
-/// Defines the URL for the ICFoSS (International Centre for Free and Open Source Software) website.
+
+  /// Defines the URL for the ICFoSS (International Centre for Free and Open Source Software) website.
   final Uri _icfossURL = Uri.parse('https://icfoss.in');
-/// Defines the URL for the ICFoSS GitLab repository.  
+
+  /// Defines the URL for the ICFoSS GitLab repository.
   final Uri _gitlabURL = Uri.parse('https://gitlab.com/icfoss');
-/// Defines the URL for the ICFoSS LinkedIn page.  
+
+  /// Defines the URL for the ICFoSS LinkedIn page.
   final Uri _linkedInURL =
       Uri.parse('https://www.linkedin.com/company/icfoss-in/');
-/// Defines the URL for the ICFoSS YouTube channel.      
+
+  /// Defines the URL for the ICFoSS YouTube channel.
   final Uri _youtubeURL =
       Uri.parse('https://www.youtube.com/channel/UCskKbOu_s_VxcK7QOfbvb4w');
-/// Launches a URL in the device's default web browser.
-///
-/// Throws an exception if the URL cannot be launched.      
+  final Uri _androidAppURL = Uri.parse(
+      'https://play.google.com/store/apps/details?id=org.icfoss.dhriti&pcampaignid=web_share');
+
+  /// Launches a URL in the device's default web browser.
+  ///
+  /// Throws an exception if the URL cannot be launched.
   Future<void> _launchUrl(Uri url) async {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $_icfossURL');
     }
   }
- /// Defines the URL for downloading the APK file of the application.
+
+  /// Defines the URL for downloading the APK file of the application.
   String apkFilePath =
       "https://hub.icfoss.org/s/CMATSFwAZwsW4fx/download/app-release.apk";
-/// Defines the URL for downloading the DEB file of the application.      
+
+  /// Defines the URL for downloading the DEB file of the application.
   String debFilePath =
       "https://hub.icfoss.org/s/9cQAYzrASznP4t3/download/htr_2.0.0-3_amd64.deb";
 
-/// Initiates the download of the APK file.
-/// This method creates an anchor element, sets its attributes, triggers a
-/// click event to download the file, and removes the anchor element after
-/// the download is complete.
+  /// Initiates the download of the APK file.
+  /// This method creates an anchor element, sets its attributes, triggers a
+  /// click event to download the file, and removes the anchor element after
+  /// the download is complete.
   downloadAPK() {
     final anchor = html.AnchorElement()
       ..href = apkFilePath
@@ -75,10 +86,11 @@ class _HomeState extends State<Home> {
     html.document.body?.children.remove(anchor);
     html.Url.revokeObjectUrl(apkFilePath);
   }
-/// Initiates the download of the DEB file.
-/// This method creates an anchor element, sets its attributes, triggers a
-/// click event to download the file, and removes the anchor element after
-/// the download is complete.
+
+  /// Initiates the download of the DEB file.
+  /// This method creates an anchor element, sets its attributes, triggers a
+  /// click event to download the file, and removes the anchor element after
+  /// the download is complete.
   downloadDEB() {
     final anchor = html.AnchorElement()
       ..href = debFilePath
@@ -89,30 +101,38 @@ class _HomeState extends State<Home> {
     html.document.body?.children.remove(anchor);
     html.Url.revokeObjectUrl(debFilePath);
   }
-/// Represents the result of file picking operation.
+
+  /// Represents the result of file picking operation.
   FilePickerResult? result;
-/// Represents the OCR (Optical Character Recognition) upload model.  
+
+  /// Represents the OCR (Optical Character Recognition) upload model.
   UploadOCRModel? ocr;
-/// Represents the HTR (Handwriting Text Recognition) upload model.  
+
+  /// Represents the HTR (Handwriting Text Recognition) upload model.
   UploadHTRModel? htr;
-/// Indicates whether a file upload is in progress.  
+
+  /// Indicates whether a file upload is in progress.
   bool isUploading = false;
-/// Indicates whether the automatic mode is enabled for the upload.  
+
+  /// Indicates whether the automatic mode is enabled for the upload.
   bool isAuto = true;
-/// Quill text editing controller for handling rich text content.
+
+  /// Quill text editing controller for handling rich text content.
   final fq.QuillController _quillController = fq.QuillController.basic();
-/// Allows the user to choose a file for upload.
-/// This method uses the FilePicker plugin to prompt the user to select a file
-/// with specific allowed extensions and updates the UI accordingly.  
+
+  /// Allows the user to choose a file for upload.
+  /// This method uses the FilePicker plugin to prompt the user to select a file
+  /// with specific allowed extensions and updates the UI accordingly.
   Future<void> chooseFile(setState) async {
     result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['jpg', 'pdf', 'jpeg', 'png']);
     setState(() {});
   }
-/// Uploads the selected file to the appropriate service.
-/// Depending on whether it's an OCR or HTR upload, this method handles the
-/// file upload, updates the UI state, and navigates to the relevant screen.
+
+  /// Uploads the selected file to the appropriate service.
+  /// Depending on whether it's an OCR or HTR upload, this method handles the
+  /// file upload, updates the UI state, and navigates to the relevant screen.
   Future<void> uploadFile() async {
     if (result != null) {
       Navigator.of(context).pop();
@@ -154,23 +174,25 @@ class _HomeState extends State<Home> {
       }
     }
   }
-/// Indicates whether the selected upload type is HTR (Handwriting Text Recognition).
+
+  /// Indicates whether the selected upload type is HTR (Handwriting Text Recognition).
   bool isHTR = false;
-/// Displays a download dialog for selecting the target platform.
-/// This method allows the user to choose the target platform (Android or Linux)
-/// for downloading files and handles UI updates accordingly.  
+
+  /// Displays a download dialog for selecting the target platform.
+  /// This method allows the user to choose the target platform (Android or Linux)
+  /// for downloading files and handles UI updates accordingly.
 
   downloadDialog({required double width, bool isDownload = true}) {
-    bool androidSelected = false;
     bool linuxSelected = false;
-/// Displays a dialog with dynamic content based on the [isDownload] flag.
-///
-/// This function shows a dialog with platform-specific download options or
-/// allows the user to select a document type for OCR processing, depending
-/// on the value of [isDownload].
-/// - When [isDownload] is true, it displays Android and Linux download options.
-/// - When [isDownload] is false, it offers choices between printed and handwritten
-///   document types for OCR processing.
+
+    /// Displays a dialog with dynamic content based on the [isDownload] flag.
+    ///
+    /// This function shows a dialog with platform-specific download options or
+    /// allows the user to select a document type for OCR processing, depending
+    /// on the value of [isDownload].
+    /// - When [isDownload] is true, it displays Android and Linux download options.
+    /// - When [isDownload] is false, it offers choices between printed and handwritten
+    ///   document types for OCR processing.
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -195,11 +217,9 @@ class _HomeState extends State<Home> {
                                   Text(
                                       isDownload
                                           ? AppLocalizations.of(context)!
-                                    
                                               .platform_heading
                                           : AppLocalizations.of(context)!
                                               .document_upload_heading,
-
                                       style: width > 480 ? fB32SB : fB20SB,
                                       textAlign: width > 480
                                           ? TextAlign.start
@@ -219,99 +239,84 @@ class _HomeState extends State<Home> {
                                       ? width > 480
                                           ? Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceEvenly,
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                // Android download button
+                                                  // Android download button
                                                   PlatformItemButton(
-                                                      onTap: () =>
-                                                          setState(() {
-                                                            downloadAPK();
-                                                            linuxSelected =
-                                                                false;
-                                                            androidSelected =
-                                                                true;
-                                                          }),
-                                                      icon: Icons
-                                                          .phone_android_rounded,
-                                                      borderColor:
-                                                          kBlackColor,
-                                                      style: fB16M,
-                                                      title: AppLocalizations.of(context)!.platform_item_android),
-                                                      // Linux download button
-                                                  PlatformItemButton(
-                                                      onTap: () =>
-                                                          setState(() {
-                                                            downloadDEB();
-                                                            androidSelected =
-                                                                false;
-                                                            linuxSelected =
-                                                                true;
-                                                          }),
+                                                      onTap: () => _launchUrl(
+                                                          _androidAppURL),
                                                       icon:
-                                                          Ionicons.logo_tux,
-                                                      borderColor:
-                                                          kBlackColor,
+                                                          Ionicons.logo_android,
+                                                      borderColor: kBlackColor,
                                                       style: fB16M,
-                                                      title: AppLocalizations.of(context)!.platform_item_linux),
-                                                  // Additional platform buttons for wider screens    
+                                                      title: AppLocalizations
+                                                              .of(context)!
+                                                          .platform_item_android),
+                                                  // Linux download button
+                                                  PlatformItemButton(
+                                                      onTap: () => setState(() {
+                                                            downloadDEB();
+
+                                                            linuxSelected =
+                                                                true;
+                                                          }),
+                                                      icon: Ionicons.logo_tux,
+                                                      borderColor: kBlackColor,
+                                                      style: fB16M,
+                                                      title: AppLocalizations
+                                                              .of(context)!
+                                                          .platform_item_linux),
+                                                  // Additional platform buttons for wider screens
                                                   if (width > 1200) ...[
-                                                     PlatformItemButton(
+                                                    PlatformItemButton(
                                                         icon: Ionicons
                                                             .phone_portrait_outline,
                                                         iconColor:
                                                             kTextGreyColor,
-                                                        title: AppLocalizations.of(context)!.platform_item_ios),
-                                                     PlatformItemButton(
+                                                        title: AppLocalizations
+                                                                .of(context)!
+                                                            .platform_item_ios),
+                                                    PlatformItemButton(
                                                         icon: Ionicons
                                                             .logo_windows,
                                                         iconColor:
                                                             kTextGreyColor,
-                                                        title: AppLocalizations.of(context)!.platform_item_windows),
-                                                     PlatformItemButton(
-                                                        icon: Ionicons
-                                                            .logo_apple,
+                                                        title: AppLocalizations
+                                                                .of(context)!
+                                                            .platform_item_windows),
+                                                    PlatformItemButton(
+                                                        icon:
+                                                            Ionicons.logo_apple,
                                                         iconColor:
                                                             kTextGreyColor,
-                                                        title: AppLocalizations.of(context)!.platform_item_macos)
+                                                        title: AppLocalizations
+                                                                .of(context)!
+                                                            .platform_item_macos)
                                                   ]
                                                 ])
                                           : Column(
-                                              mainAxisSize:
-                                                  MainAxisSize.min,
+                                              mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 // Android download button
                                                 PlatformItemButton(
-                                                    onTap: () =>
-                                                        setState(() {
-                                                          downloadAPK();
-                                                          linuxSelected =
-                                                              false;
-                                                          androidSelected =
-                                                              true;
-                                                        }),
-                                                    icon: Icons
-                                                        .phone_android_rounded,
-                                                    borderColor:
-                                                        kBlackColor,
+                                                    onTap: () => _launchUrl(
+                                                        _androidAppURL),
+                                                    icon: Ionicons.logo_android,
+                                                    borderColor: kBlackColor,
                                                     style: fB16M,
                                                     title: 'Android'),
                                                 h16,
                                                 // Linux download button
                                                 PlatformItemButton(
-                                                    onTap: () =>
-                                                        setState(() {
+                                                    onTap: () => setState(() {
                                                           downloadDEB();
-                                                          androidSelected =
-                                                              false;
-                                                          linuxSelected =
-                                                              true;
+
+                                                          linuxSelected = true;
                                                         }),
                                                     icon: Ionicons.logo_tux,
-                                                    borderColor:
-                                                        kBlackColor,
+                                                    borderColor: kBlackColor,
                                                     style: fB16M,
                                                     title: 'Linux')
                                               ],
@@ -328,8 +333,7 @@ class _HomeState extends State<Home> {
                                                         onTap: () {
                                                           isHTR = false;
                                                           setState(() {});
-                                                          chooseFile(
-                                                              setState);
+                                                          chooseFile(setState);
                                                         },
                                                         borderRadius:
                                                             const BorderRadius.all(
@@ -340,21 +344,21 @@ class _HomeState extends State<Home> {
                                                                 Colors
                                                                     .transparent,
                                                             border: Border.all(
-                                                                color:
-                                                                    kTextGreyColor.withOpacity(
+                                                                color: kTextGreyColor
+                                                                    .withOpacity(
                                                                         0.4)),
                                                             icon: Icons
                                                                 .description_outlined,
                                                             iconColor:
                                                                 kBlueColor,
                                                             iconBackgroundColor:
-                                                                kBlueColor
-                                                                    .withOpacity(
-                                                                        0.1),
-                                                            title:
-                                                                AppLocalizations.of(context)!.feature_menu_printed,
+                                                                kBlueColor.withOpacity(
+                                                                    0.1),
+                                                            title: AppLocalizations.of(context)!
+                                                                .feature_menu_printed,
                                                             description:
-                                                                AppLocalizations.of(context)!.feature_menu_printed_description)),
+                                                                AppLocalizations.of(context)!
+                                                                    .feature_menu_printed_description)),
                                                     // Handwritten document selection (Beta)
                                                     Stack(
                                                       children: [
@@ -362,16 +366,17 @@ class _HomeState extends State<Home> {
                                                             top: 0,
                                                             right: 0,
                                                             child: Container(
-                                                                padding:
-                                                                    pA8,
+                                                                padding: pA8,
                                                                 decoration: const BoxDecoration(
                                                                     color:
                                                                         kPrimaryColor,
                                                                     borderRadius: BorderRadius.only(
-                                                                        topRight: Radius.circular(
-                                                                            32),
-                                                                        bottomLeft: Radius.circular(
-                                                                            16))),
+                                                                        topRight:
+                                                                            Radius.circular(
+                                                                                32),
+                                                                        bottomLeft:
+                                                                            Radius.circular(
+                                                                                16))),
                                                                 child: Text(
                                                                     'Beta',
                                                                     style:
@@ -379,8 +384,7 @@ class _HomeState extends State<Home> {
                                                         InkWell(
                                                             onTap: () {
                                                               isHTR = true;
-                                                              setState(
-                                                                  () {});
+                                                              setState(() {});
                                                               chooseFile(
                                                                   setState);
                                                             },
@@ -400,12 +404,14 @@ class _HomeState extends State<Home> {
                                                                 iconColor:
                                                                     kPrimaryColor,
                                                                 iconBackgroundColor:
-                                                                    kPrimaryColor.withOpacity(
-                                                                        0.1),
-                                                                title:
-                                                                    AppLocalizations.of(context)!.feature_menu_handwritten,
+                                                                    kPrimaryColor
+                                                                        .withOpacity(
+                                                                            0.1),
+                                                                title: AppLocalizations.of(context)!
+                                                                    .feature_menu_handwritten,
                                                                 description:
-                                                                    AppLocalizations.of(context)!.feature_menu_handwritten_description)),
+                                                                    AppLocalizations.of(context)!
+                                                                        .feature_menu_handwritten_description)),
                                                       ],
                                                     ),
                                                   ],
@@ -443,10 +449,11 @@ class _HomeState extends State<Home> {
                                                               iconBackgroundColor:
                                                                   kBlueColor.withOpacity(
                                                                       0.1),
-                                                              title:
-                                                                  AppLocalizations.of(context)!.feature_menu_printed,
+                                                              title: AppLocalizations.of(context)!
+                                                                  .feature_menu_printed,
                                                               description:
-                                                                  AppLocalizations.of(context)!.feature_menu_printed_description)),
+                                                                  AppLocalizations.of(context)!
+                                                                      .feature_menu_printed_description)),
                                                       h16,
                                                       // Handwritten document selection (Beta)
                                                       Stack(
@@ -455,8 +462,7 @@ class _HomeState extends State<Home> {
                                                               top: 0,
                                                               right: 0,
                                                               child: Container(
-                                                                  padding:
-                                                                      pA8,
+                                                                  padding: pA8,
                                                                   decoration: const BoxDecoration(
                                                                       color:
                                                                           kPrimaryColor,
@@ -469,53 +475,59 @@ class _HomeState extends State<Home> {
                                                                       'Beta',
                                                                       style:
                                                                           fW16N))),
+
                                                           /// Defines an InkWell widget for handling user taps to select Handwritten Text Recognition (HTR) mode.
                                                           /// This InkWell widget is used to activate the HTR mode when tapped. It sets the [isHTR] flag to true,
                                                           /// triggers a UI update using [setState], and invokes the [chooseFile] function to allow the user
                                                           /// to choose a file for processing. The widget also contains a FeatureMenuItem that displays an icon,
-                                                          /// title, and description relevant to the handwritten document selection option.                
+                                                          /// title, and description relevant to the handwritten document selection option.
                                                           InkWell(
                                                               onTap: () {
                                                                 // Set the isHTR flag to true, enabling Handwritten Text Recognition (HTR) mode.
-                                                                isHTR =
-                                                                    true;
+                                                                isHTR = true;
                                                                 setState(
                                                                     () {}); // Trigger a UI update.
                                                                 chooseFile(
                                                                     setState); // Prompt the user to select a file for processing.
                                                               },
+
                                                               /// Specifies the visual attributes of a container and its child FeatureMenuItem.
                                                               /// This code block configures the appearance of a container with rounded corners, which contains
                                                               /// a FeatureMenuItem. The container has a circular [borderRadius], a transparent background color,
                                                               /// and a border with a color that has slight opacity. Inside the container, a FeatureMenuItem displays
                                                               /// an icon, title, and description related to the handwritten document selection option.
                                                               borderRadius:
-                                                                  const BorderRadius.all(   // Defines rounded corners for the container.
+                                                                  const BorderRadius.all(
+                                                                      // Defines rounded corners for the container.
                                                                       Radius.circular(
                                                                           32)),
-                                                              child: FeatureMenuItem(
-                                                                  containerColor:
-                                                                      Colors
-                                                                          .transparent,  // Sets the container's background color to transparent.
-                                                                  border: Border.all(
-                                                                      color: kTextGreyColor.withOpacity(
-                                                                          0.4)), // Defines a border with slight opacity.
-                                                                  icon: Icons
-                                                                      .document_scanner_outlined, // Specifies the icon for the FeatureMenuItem.
-                                                                  iconColor:
-                                                                      kPrimaryColor, // Sets the color of the icon.
-                                                                  iconBackgroundColor:
-                                                                      kPrimaryColor.withOpacity( // Defines the icon's background color with slight opacity.
+                                                              child:
+                                                                  FeatureMenuItem(
+                                                                      containerColor:
+                                                                          Colors
+                                                                              .transparent, // Sets the container's background color to transparent.
+                                                                      border: Border.all(
+                                                                          color: kTextGreyColor.withOpacity(
+                                                                              0.4)), // Defines a border with slight opacity.
+                                                                      icon: Icons
+                                                                          .document_scanner_outlined, // Specifies the icon for the FeatureMenuItem.
+                                                                      iconColor:
+                                                                          kPrimaryColor, // Sets the color of the icon.
+                                                                      iconBackgroundColor: kPrimaryColor.withOpacity(
+                                                                          // Defines the icon's background color with slight opacity.
                                                                           0.1),
-                                                                  title:
-                                                                      AppLocalizations.of(context)!.feature_menu_handwritten, // Sets the title text.
-                                                                  description:
-                                                                      AppLocalizations.of(context)!.feature_menu_handwritten_description)), // Sets the description text.
+                                                                      title: AppLocalizations.of(
+                                                                              context)!
+                                                                          .feature_menu_handwritten, // Sets the title text.
+                                                                      description:
+                                                                          AppLocalizations.of(context)!
+                                                                              .feature_menu_handwritten_description)), // Sets the description text.
                                                         ],
                                                       ),
                                                     ],
                                                   ),
                                                 )
+
                                           /// Configures the layout for larger screen widths (greater than or equal to 1680 pixels).
                                           /// When the screen width is 1680 pixels or more, this code block specifies the layout for a Row
                                           /// containing two components: a container and a button. The container displays information about
@@ -523,7 +535,7 @@ class _HomeState extends State<Home> {
                                           /// file processing. The container has rounded corners, a light background color, and a border with
                                           /// slight opacity. Inside the container, details about the selected file are presented in a
                                           /// structured manner, including the file name and size. Additional options are displayed depending
-                                          /// on whether Handwritten Text Recognition (HTR) mode is active.                 
+                                          /// on whether Handwritten Text Recognition (HTR) mode is active.
                                           : width >= 1680
                                               ? Row(
                                                   mainAxisSize:
@@ -534,24 +546,28 @@ class _HomeState extends State<Home> {
                                                   children: [
                                                     Container(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                7),
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.35,
-                                                        decoration: BoxDecoration(
-                                                            color:
-                                                                kWhiteColor, // Background color of the container.
-                                                            border: Border.all(
-                                                                color: kTextGreyColor
-                                                                    .withOpacity( // Border color with slight opacity.
-                                                                        0.2)),
-                                                            borderRadius:
-                                                                const BorderRadius.all(
-                                                                    Radius.circular(  
-                                                                        12))),
+                                                            const EdgeInsets
+                                                                .all(7),
+                                                        width:
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.35,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color:
+                                                                    kWhiteColor, // Background color of the container.
+                                                                border: Border.all(
+                                                                    color: kTextGreyColor
+                                                                        .withOpacity(
+                                                                            // Border color with slight opacity.
+                                                                            0.2)),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            12))),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -562,7 +578,8 @@ class _HomeState extends State<Home> {
                                                               const Icon(
                                                                   Ionicons
                                                                       .document_outline,
-                                                                  size: 32),// Size of the document icon.
+                                                                  size:
+                                                                      32), // Size of the document icon.
                                                               w16,
                                                               Column(
                                                                   crossAxisAlignment:
@@ -570,16 +587,22 @@ class _HomeState extends State<Home> {
                                                                           .start,
                                                                   children: [
                                                                     SizedBox(
-                                                                      width:
-                                                                          MediaQuery.of(context).size.width * 0.16,
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.16,
                                                                       child: Text(
-                                                                          result!.files.first.name,// Displayed file name.
-                                                                          style: fB16M), // Text style for the file name.
+                                                                          result!
+                                                                              .files
+                                                                              .first
+                                                                              .name, // Displayed file name.
+                                                                          style:
+                                                                              fB16M), // Text style for the file name.
                                                                     ),
                                                                     Text(
                                                                         '${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', // Displayed file size in megabytes
                                                                         style:
-                                                                            fTG16N)  // Text style for the file size.
+                                                                            fTG16N) // Text style for the file size.
                                                                   ])
                                                             ]),
                                                             Row(
@@ -588,6 +611,7 @@ class _HomeState extends State<Home> {
                                                                   const Text(
                                                                       'as'), // Displayed when in HTR mode.
                                                                   w8,
+
                                                                   /// Creates a DropdownButtonFormField for selecting segmentation type.
                                                                   /// This code block defines a DropdownButtonFormField widget that allows the user to select
                                                                   /// the segmentation type for file processing. The dropdown displays two options: 'Automatic'
@@ -597,31 +621,39 @@ class _HomeState extends State<Home> {
                                                                     width:
                                                                         112, // Sets the width of the dropdown field.
                                                                     child:
-                                                                        DropdownButtonFormField( 
-                                                                      value:
-                                                                          AppLocalizations.of(context)!.segmentation_button_auto, // Initial selected value.
+                                                                        DropdownButtonFormField(
+                                                                      value: AppLocalizations.of(
+                                                                              context)!
+                                                                          .segmentation_button_auto, // Initial selected value.
                                                                       decoration: InputDecoration(
                                                                           contentPadding: const EdgeInsets.only(left: 12), // Padding for dropdown content.
-                                                                          border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)),  // Border color with slight opacity.
-                                                                          borderRadius: const BorderRadius.all(Radius.circular(8)))),// Rounded border corners.
+                                                                          border: OutlineInputBorder(
+                                                                              borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), // Border color with slight opacity.
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(8)))), // Rounded border corners.
                                                                       items: [
-                                                                        AppLocalizations.of(context)!.segmentation_button_auto,// Option: 'Automatic'.
-                                                                        AppLocalizations.of(context)!.segmentation_button_manual// Option: 'Manual'.
+                                                                        AppLocalizations.of(context)!
+                                                                            .segmentation_button_auto, // Option: 'Automatic'.
+                                                                        AppLocalizations.of(context)!
+                                                                            .segmentation_button_manual // Option: 'Manual'.
                                                                       ]
-                                                                          .map((e) => DropdownMenuItem(
+                                                                          .map((e) =>
+                                                                              DropdownMenuItem(
                                                                                 value: e,
-                                                                                child: Text(e),// Displayed text for each option.
+                                                                                child: Text(e), // Displayed text for each option.
                                                                               ))
                                                                           .toList(),
                                                                       onChanged:
-                                                                          (e) { // Callback function when a new value is selected.
+                                                                          (e) {
+                                                                        // Callback function when a new value is selected.
                                                                         isAuto =
-                                                                            e == AppLocalizations.of(context)!.segmentation_button_auto;  // Set the 'isAuto' flag based on the selected value.
+                                                                            e ==
+                                                                                AppLocalizations.of(context)!.segmentation_button_auto; // Set the 'isAuto' flag based on the selected value.
                                                                       },
                                                                     ),
                                                                   ),
                                                                   w16,
                                                                 ],
+
                                                                 /// This code block creates a row of widgets that includes a close button
                                                                 /// (for clearing the current selection) and an upload button. The close
                                                                 /// button is an IconButton that triggers a callback to reset certain
@@ -637,12 +669,13 @@ class _HomeState extends State<Home> {
                                                                       });
                                                                     },
                                                                     icon: const Icon(
-                                                                        Ionicons.close)),// Close icon for clearing the selection.
+                                                                        Ionicons
+                                                                            .close)), // Close icon for clearing the selection.
                                                               ],
                                                             )
                                                           ],
                                                         )),
-                                                    w32,// Horizontal spacing.
+                                                    w32, // Horizontal spacing.
                                                     CustomElevatedButton(
                                                         onPressed:
                                                             uploadFile, // Callback function when the upload button is pressed.
@@ -651,38 +684,42 @@ class _HomeState extends State<Home> {
                                                                 MainAxisSize
                                                                     .min,
                                                             children: [
-                                                              Text(
-                                                                  AppLocalizations.of(context)!.elevated_button_ext),
+                                                              Text(AppLocalizations
+                                                                      .of(context)!
+                                                                  .elevated_button_ext),
                                                               w12,
-                                                              const Icon(Icons 
-                                                                  .arrow_forward_rounded) 
-                                                            ])), 
+                                                              const Icon(Icons
+                                                                  .arrow_forward_rounded)
+                                                            ])),
                                                   ],
                                                 )
-                                                // This code defines a Flutter Column widget with a specific layout and styling.
+                                              // This code defines a Flutter Column widget with a specific layout and styling.
                                               : Column(
                                                   children: [
                                                     // Container widget for displaying content
                                                     Container(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                7),
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.35,
-                                                        decoration: BoxDecoration(
-                                                            color:
-                                                                kWhiteColor, // Background color of the container
-                                                            border: Border.all(
-                                                                color: kTextGreyColor
-                                                                    .withOpacity(
-                                                                        0.2)),// Border color with opacity
-                                                            borderRadius:
-                                                                const BorderRadius.all(
-                                                                    Radius.circular(
-                                                                        12))),// Rounded corners
+                                                            const EdgeInsets
+                                                                .all(7),
+                                                        width:
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.35,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color:
+                                                                    kWhiteColor, // Background color of the container
+                                                                border: Border.all(
+                                                                    color: kTextGreyColor
+                                                                        .withOpacity(
+                                                                            0.2)), // Border color with opacity
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            12))), // Rounded corners
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -699,80 +736,105 @@ class _HomeState extends State<Home> {
                                                                   IconButton(
                                                                       onPressed:
                                                                           () {
-                                                                        setState(() {
-                                                                          isHTR = false;
-                                                                          result = null;
+                                                                        setState(
+                                                                            () {
+                                                                          isHTR =
+                                                                              false;
+                                                                          result =
+                                                                              null;
                                                                         });
                                                                       },
-                                                                      icon:
-                                                                          const Icon(Ionicons.close)),
+                                                                      icon: const Icon(
+                                                                          Ionicons
+                                                                              .close)),
                                                                 ],
                                                               ),
-                                                            h16,// Custom widget (possibly a spacer)
+                                                            h16, // Custom widget (possibly a spacer)
                                                             Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
                                                                       .spaceBetween,
                                                               children: [
                                                                 // Icon and file name row
-                                                                Row(
-                                                                    children: [
-                                                                      // Custom horizontal spacing based on 'width'
-                                                                          width > 400
-                                                                          ? w16
-                                                                          : w4,
-                                                                          // Document icon with size based on 'width'
-                                                                      Icon(
-                                                                          Ionicons.document_outline,
-                                                                          size: width > 400 ? 32 : 24),
-                                                                      width > 400
-                                                                          ? w16
-                                                                          : w4,
-                                                                          // Column for displaying file name and size
-                                                                      Column(
-                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            // File name with a specified width and style
-                                                                            SizedBox(
-                                                                              width: MediaQuery.of(context).size.width * 0.16,
-                                                                              child: Text(result!.files.first.name, style: fB16M),
-                                                                            ),// File size displayed in MB with a specified width and style
-                                                                            SizedBox(width: MediaQuery.of(context).size.width * 0.16, child: Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
-                                                                          ])
-                                                                    ]),
-                                                                    // Conditional rendering based on screen width ('width')
+                                                                Row(children: [
+                                                                  // Custom horizontal spacing based on 'width'
+                                                                  width > 400
+                                                                      ? w16
+                                                                      : w4,
+                                                                  // Document icon with size based on 'width'
+                                                                  Icon(
+                                                                      Ionicons
+                                                                          .document_outline,
+                                                                      size: width >
+                                                                              400
+                                                                          ? 32
+                                                                          : 24),
+                                                                  width > 400
+                                                                      ? w16
+                                                                      : w4,
+                                                                  // Column for displaying file name and size
+                                                                  Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        // File name with a specified width and style
+                                                                        SizedBox(
+                                                                          width:
+                                                                              MediaQuery.of(context).size.width * 0.16,
+                                                                          child: Text(
+                                                                              result!.files.first.name,
+                                                                              style: fB16M),
+                                                                        ), // File size displayed in MB with a specified width and style
+                                                                        SizedBox(
+                                                                            width: MediaQuery.of(context).size.width *
+                                                                                0.16,
+                                                                            child:
+                                                                                Text('${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', style: fTG16N))
+                                                                      ])
+                                                                ]),
+                                                                // Conditional rendering based on screen width ('width')
                                                                 if (width >=
                                                                     675)
-                                                                    // Render an IconButton with a close icon when the width is greater than or equal to 675
+                                                                  // Render an IconButton with a close icon when the width is greater than or equal to 675
                                                                   IconButton(
                                                                       onPressed:
                                                                           () {
-                                                                            // Trigger a state change when the IconButton is pressed
-                                                                        setState(() {
-                                                                          isHTR = false; // Update 'isHTR' state to false
-                                                                          result = null; // Set 'result' to null
+                                                                        // Trigger a state change when the IconButton is pressed
+                                                                        setState(
+                                                                            () {
+                                                                          isHTR =
+                                                                              false; // Update 'isHTR' state to false
+                                                                          result =
+                                                                              null; // Set 'result' to null
                                                                         });
                                                                       },
-                                                                      icon:
-                                                                          const Icon(Ionicons.close)), // Display a close icon
+                                                                      icon: const Icon(
+                                                                          Ionicons
+                                                                              .close)), // Display a close icon
                                                               ],
                                                             ),
-                                                            h8,  // Custom widget (possibly a spacer) with a specified height
+                                                            h8, // Custom widget (possibly a spacer) with a specified height
                                                             // Conditional rendering based on screen width and 'isHTR' state
                                                             width > 675
                                                                 ? Row(
                                                                     children: [
                                                                       // Conditional rendering using the spread operator (...)
                                                                       if (isHTR) ...[
-                                                                        w16,  // Custom horizontal spacing
-                                                                        const Text('Segment as'), // Display a text label
+                                                                        w16, // Custom horizontal spacing
+                                                                        const Text(
+                                                                            'Segment as'), // Display a text label
                                                                         w8, // Custom horizontal spacing
                                                                         // Dropdown button for segment selection with a specified width
                                                                         SizedBox(
-                                                                          width: 112,
-                                                                          child: DropdownButtonFormField(
-                                                                            value: 'Automatic', // Default dropdown value
-                                                                            decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
+                                                                          width:
+                                                                              112,
+                                                                          child:
+                                                                              DropdownButtonFormField(
+                                                                            value:
+                                                                                'Automatic', // Default dropdown value
+                                                                            decoration:
+                                                                                InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
                                                                             items: [
                                                                               'Automatic',
                                                                               'Manual'
@@ -782,7 +844,8 @@ class _HomeState extends State<Home> {
                                                                                       child: Text(e),
                                                                                     ))
                                                                                 .toList(),
-                                                                            onChanged: (e) {
+                                                                            onChanged:
+                                                                                (e) {
                                                                               // Update 'isAuto' based on dropdown selection
                                                                               isAuto = e == 'Automatic';
                                                                             },
@@ -794,13 +857,16 @@ class _HomeState extends State<Home> {
                                                                 : isHTR
                                                                     ? Column(
                                                                         children: [
-                                                                          const Text('Segment as'), // Display a text label
+                                                                          const Text(
+                                                                              'Segment as'), // Display a text label
                                                                           w8, // Custom horizontal spacing
                                                                           // Dropdown button for segment selection with a specified width
                                                                           SizedBox(
-                                                                            width: 112,
-                                                                            child: DropdownButtonFormField(
-                                                                              value: 'Automatic',  // Default dropdown value
+                                                                            width:
+                                                                                112,
+                                                                            child:
+                                                                                DropdownButtonFormField(
+                                                                              value: 'Automatic', // Default dropdown value
                                                                               decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
                                                                               items: [
                                                                                 'Automatic',
@@ -822,7 +888,7 @@ class _HomeState extends State<Home> {
                                                                     : const SizedBox() // An empty SizedBox when 'isHTR' is false
                                                           ],
                                                         )),
-                                                        // Additional UI components
+                                                    // Additional UI components
                                                     h16, // Custom widget (possibly a spacer) with a specified height
                                                     CustomElevatedButton(
                                                         onPressed:
@@ -832,75 +898,82 @@ class _HomeState extends State<Home> {
                                                                 MainAxisSize
                                                                     .min,
                                                             children: [
-                                                              Text(
-                                                                  AppLocalizations.of(context)!.elevated_button_ext), // Display a localized button label
+                                                              Text(AppLocalizations
+                                                                      .of(context)!
+                                                                  .elevated_button_ext), // Display a localized button label
                                                               w12,
                                                               const Icon(Icons
                                                                   .arrow_forward_rounded) // Display an arrow icon
                                                             ])),
                                                   ],
                                                 ),
-                                  // Custom spacer with a height of 64 units              
+                                  // Custom spacer with a height of 64 units
                                   h64,
                                   // Conditional rendering based on 'androidSelected'
-                                  if (androidSelected)
-                                  // Display a Column widget with left-aligned content
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Divider(), // Horizontal line divider
-                                        h16, // Custom spacer with a height of 16 units
-                                        Text(AppLocalizations.of(context)!.android_install,
-                                            style: fB20N), // Apply a bold 20-point font style
-                                        h16, // Custom spacer with a height of 16 units
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_1,
-                                            style: fTG20N), // Apply a normal-weight 20-point font style
-                                        h4,
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_2,
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_3,
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_4,
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_5,
-                                            style: fTG20N),
-                                        h4,
-                                        Text(
-                                            AppLocalizations.of(context)!.android_install_6,
-                                            style: fTG20N),
-                                      ],
-                                    ),
-                                    // Conditional rendering based on 'linuxSelected'
+                                  // if (androidSelected)
+                                  // // Display a Column widget with left-aligned content
+                                  //   Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       const Divider(), // Horizontal line divider
+                                  //       h16, // Custom spacer with a height of 16 units
+                                  //       Text(AppLocalizations.of(context)!.android_install,
+                                  //           style: fB20N), // Apply a bold 20-point font style
+                                  //       h16, // Custom spacer with a height of 16 units
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_1,
+                                  //           style: fTG20N), // Apply a normal-weight 20-point font style
+                                  //       h4,
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_2,
+                                  //           style: fTG20N),
+                                  //       h4,
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_3,
+                                  //           style: fTG20N),
+                                  //       h4,
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_4,
+                                  //           style: fTG20N),
+                                  //       h4,
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_5,
+                                  //           style: fTG20N),
+                                  //       h4,
+                                  //       Text(
+                                  //           AppLocalizations.of(context)!.android_install_6,
+                                  //           style: fTG20N),
+                                  //     ],
+                                  //   ),
+                                  // Conditional rendering based on 'linuxSelected'
                                   if (linuxSelected)
-                                  // Display a Column widget with left-aligned content
+                                    // Display a Column widget with left-aligned content
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Divider(), // Horizontal line divider
-                                        h16,// Custom spacer with a height of 16 units
-                                        Text(AppLocalizations.of(context)!.linux_install,
-                                            style: fB20N),// Apply a bold 20-point font style
+                                        h16, // Custom spacer with a height of 16 units
+                                        Text(
+                                            AppLocalizations.of(context)!
+                                                .linux_install,
+                                            style:
+                                                fB20N), // Apply a bold 20-point font style
                                         h16,
                                         Text(
-                                            AppLocalizations.of(context)!.linux_install_1,
+                                            AppLocalizations.of(context)!
+                                                .linux_install_1,
                                             style: fTG20N),
                                         h4,
                                         Text(
-                                            AppLocalizations.of(context)!.linux_install_2,
+                                            AppLocalizations.of(context)!
+                                                .linux_install_2,
                                             style: fTG20N),
                                         h4,
                                         Text(
-                                            AppLocalizations.of(context)!.linux_install_3,
+                                            AppLocalizations.of(context)!
+                                                .linux_install_3,
                                             style: fTG20N),
                                       ],
                                     ),
@@ -913,7 +986,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // App bar with title and language switcher button
+            // App bar with title and language switcher button
             title: Padding(
                 padding: const EdgeInsets.only(left: 48.0),
                 child: Row(
@@ -932,7 +1005,7 @@ class _HomeState extends State<Home> {
                               ? fTG30SB
                               : fTG24SB)
                     ])),
-                    // Language switcher button and additional spacing
+            // Language switcher button and additional spacing
             actions: [
               CustomWhiteElevatedButton(
                   onPressed: () {
@@ -946,8 +1019,8 @@ class _HomeState extends State<Home> {
                     Provider.of<LocaleProvider>(context, listen: false)
                                 .locale ==
                             AppLocalizations.supportedLocales[0]
-                        ? const Text('English')
-                        : Text('മലയാളം', style: fMP16N),
+                        ? Text('മലയാളം', style: fMP16N)
+                        : const Text('English'),
                     w8,
                     const Icon(Icons.translate_rounded, color: kPrimaryColor)
                   ])),
@@ -956,7 +1029,7 @@ class _HomeState extends State<Home> {
         body: isUploading
             ? const UploadingIndicator() // Display uploading indicator if isUploading is true
             : LayoutBuilder(builder: (context, contraint) {
-              // Content displayed when not uploading
+                // Content displayed when not uploading
                 return SingleChildScrollView(
                     child: Column(children: [
                   Center(
@@ -966,7 +1039,9 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // Main title with font size based on screen width
-                                Text(AppLocalizations.of(context)!.home_main_title1,
+                                Text(
+                                    AppLocalizations.of(context)!
+                                        .home_main_title1,
                                     style: contraint.maxWidth > 1000
                                         ? fB72B
                                         : fB32SB,
@@ -985,7 +1060,7 @@ class _HomeState extends State<Home> {
                                             0.4
                                         : MediaQuery.of(context).size.width *
                                             0.8,
-                                             // Subtitle text with font style
+                                    // Subtitle text with font style
                                     child: Text(
                                         AppLocalizations.of(context)!
                                             .home_sub_title,
@@ -995,7 +1070,7 @@ class _HomeState extends State<Home> {
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                       // Button for downloading with custom label
+                                      // Button for downloading with custom label
                                       CustomWhiteElevatedButton(
                                           onPressed: () => downloadDialog(
                                               width: contraint.maxWidth),
@@ -1033,13 +1108,14 @@ class _HomeState extends State<Home> {
                                 ? MediaQuery.of(context).size.width * 0.4
                                 : MediaQuery.of(context).size.width * 0.8,
                             child: Text(
-                              // Text widget displaying a localized sub-description with a specified font style and centered alignment.
-                                AppLocalizations.of(context)!.home_sub_description,
+                                // Text widget displaying a localized sub-description with a specified font style and centered alignment.
+                                AppLocalizations.of(context)!
+                                    .home_sub_description,
                                 style: fTG20N,
                                 textAlign: TextAlign.center)),
                         h64,
                         if (contraint.maxWidth > 1000)
-                        // Conditional rendering of Row and Column based on screen width.
+                          // Conditional rendering of Row and Column based on screen width.
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -1056,32 +1132,35 @@ class _HomeState extends State<Home> {
                                           kGreenColor.withOpacity(0.1)),
                                   h48, //Custom vertical spacing.
                                   FeatureMenuItem(
-                                    // FeatureMenuItem widget with custom title, description, and icon.
-                                      title: AppLocalizations.of(context)!.feature_title_2,
-                                      description:
-                                          AppLocalizations.of(context)!.feature_title_desc_2,
+                                      // FeatureMenuItem widget with custom title, description, and icon.
+                                      title: AppLocalizations.of(context)!
+                                          .feature_title_2,
+                                      description: AppLocalizations.of(context)!
+                                          .feature_title_desc_2,
                                       icon: Icons.text_fields_rounded,
                                       iconColor: kPinkColor,
                                       iconBackgroundColor:
                                           kPinkColor.withOpacity(0.1))
                                 ]),
-                                w48,//Custom vertical spacing.
+                                w48, //Custom vertical spacing.
                                 Column(children: [
                                   FeatureMenuItem(
-                                    // FeatureMenuItem widget with custom title, description, and icon.
-                                      title: AppLocalizations.of(context)!.feature_title_3,
-                                      description:
-                                          AppLocalizations.of(context)!.feature_title_desc_3,
+                                      // FeatureMenuItem widget with custom title, description, and icon.
+                                      title: AppLocalizations.of(context)!
+                                          .feature_title_3,
+                                      description: AppLocalizations.of(context)!
+                                          .feature_title_desc_3,
                                       icon: Icons.edit_document,
                                       iconColor: kBlueColor,
                                       iconBackgroundColor:
                                           kBlueColor.withOpacity(0.1)),
-                                  h48,//Custom vertical spacing.
+                                  h48, //Custom vertical spacing.
                                   FeatureMenuItem(
-                                    // FeatureMenuItem widget with custom title, description, and icon.
-                                      title: AppLocalizations.of(context)!.feature_title_4,
-                                      description:
-                                          AppLocalizations.of(context)!.feature_title_desc_4,
+                                      // FeatureMenuItem widget with custom title, description, and icon.
+                                      title: AppLocalizations.of(context)!
+                                          .feature_title_4,
+                                      description: AppLocalizations.of(context)!
+                                          .feature_title_desc_4,
                                       icon: Icons.sim_card_download_outlined,
                                       iconColor: kPrimaryColor,
                                       iconBackgroundColor:
@@ -1091,49 +1170,53 @@ class _HomeState extends State<Home> {
                         if (contraint.maxWidth <= 1000)
                           Column(children: [
                             FeatureMenuItem(
-                              // FeatureMenuItem widget with custom title, description, and icon.
-                                title: AppLocalizations.of(context)!.feature_title_1,
-                                description:
-                                    AppLocalizations.of(context)!.feature_title_desc_1,
+                                // FeatureMenuItem widget with custom title, description, and icon.
+                                title: AppLocalizations.of(context)!
+                                    .feature_title_1,
+                                description: AppLocalizations.of(context)!
+                                    .feature_title_desc_1,
                                 icon: Icons.lock_open_rounded,
                                 iconColor: kGreenColor,
                                 iconBackgroundColor:
                                     kGreenColor.withOpacity(0.1)),
                             h48, //Custom vertical spacing.
                             FeatureMenuItem(
-                              // FeatureMenuItem widget with custom title, description, and icon.
-                                title: AppLocalizations.of(context)!.feature_title_2,
-                                description:
-                                    AppLocalizations.of(context)!.feature_title_desc_2,
+                                // FeatureMenuItem widget with custom title, description, and icon.
+                                title: AppLocalizations.of(context)!
+                                    .feature_title_2,
+                                description: AppLocalizations.of(context)!
+                                    .feature_title_desc_2,
                                 icon: Icons.text_fields_rounded,
                                 iconColor: kPinkColor,
                                 iconBackgroundColor:
                                     kPinkColor.withOpacity(0.1)),
-                            h48,//Custom vertical spacing.
+                            h48, //Custom vertical spacing.
                             FeatureMenuItem(
-                              // FeatureMenuItem widget with custom title, description, and icon.
-                                title: AppLocalizations.of(context)!.feature_title_3,
-                                description:
-                                    AppLocalizations.of(context)!.feature_title_desc_3,
+                                // FeatureMenuItem widget with custom title, description, and icon.
+                                title: AppLocalizations.of(context)!
+                                    .feature_title_3,
+                                description: AppLocalizations.of(context)!
+                                    .feature_title_desc_3,
                                 icon: Icons.edit_document,
                                 iconColor: kBlueColor,
                                 iconBackgroundColor:
                                     kBlueColor.withOpacity(0.1)),
-                            h48,//Custom vertical spacing.
+                            h48, //Custom vertical spacing.
                             FeatureMenuItem(
-                              // FeatureMenuItem widget with custom title, description, and icon.
-                                title: AppLocalizations.of(context)!.feature_title_4,
-                                description:
-                                    AppLocalizations.of(context)!.feature_title_desc_4,
+                                // FeatureMenuItem widget with custom title, description, and icon.
+                                title: AppLocalizations.of(context)!
+                                    .feature_title_4,
+                                description: AppLocalizations.of(context)!
+                                    .feature_title_desc_4,
                                 icon: Icons.sim_card_download_outlined,
                                 iconColor: kPrimaryColor,
                                 iconBackgroundColor:
                                     kPrimaryColor.withOpacity(0.1))
                           ]),
-                        h256,//Custom vertical spacing.
+                        h256, //Custom vertical spacing.
                         SizedBox(
                             child: Column(children: [
-                               // Text widget displaying a localized text with varying font size based on screen width.
+                          // Text widget displaying a localized text with varying font size based on screen width.
                           Text(AppLocalizations.of(context)!.home_head_below_1,
                               style:
                                   contraint.maxWidth > 1000 ? fTG64SB : fTG32SB,
@@ -1179,7 +1262,7 @@ class _HomeState extends State<Home> {
                               contraint.maxWidth > 480
                                   ? Row(children: [
                                       Tooltip(
-                                        // Tooltip widget with an IconButton to launch Gitlab URL.
+                                          // Tooltip widget with an IconButton to launch Gitlab URL.
                                           message: 'Gitlab',
                                           child: IconButton(
                                               onPressed: () =>
@@ -1188,7 +1271,7 @@ class _HomeState extends State<Home> {
                                                   Ionicons.logo_gitlab))),
                                       w8,
                                       Tooltip(
-                                         // Tooltip widget with an IconButton to launch LinkedIn URL.
+                                          // Tooltip widget with an IconButton to launch LinkedIn URL.
                                           message: 'LinkedIn',
                                           child: IconButton(
                                               onPressed: () =>
@@ -1197,7 +1280,7 @@ class _HomeState extends State<Home> {
                                                   Ionicons.logo_linkedin))),
                                       w8,
                                       Tooltip(
-                                        // Tooltip widget with an IconButton to launch icfoss.in URL.
+                                          // Tooltip widget with an IconButton to launch icfoss.in URL.
                                           message: 'icfoss.in',
                                           child: IconButton(
                                               onPressed: () =>
@@ -1206,7 +1289,7 @@ class _HomeState extends State<Home> {
                                                   Icons.language_rounded))),
                                       w8,
                                       Tooltip(
-                                        // Tooltip widget with an IconButton to launch Youtube URL
+                                          // Tooltip widget with an IconButton to launch Youtube URL
                                           message: 'Youtube',
                                           child: IconButton(
                                               onPressed: () =>
@@ -1218,7 +1301,7 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Tooltip(
-                                            // Tooltip widget with an IconButton to launch Gitlab URL.
+                                              // Tooltip widget with an IconButton to launch Gitlab URL.
                                               message: 'Gitlab',
                                               child: IconButton(
                                                   onPressed: () =>
@@ -1227,7 +1310,7 @@ class _HomeState extends State<Home> {
                                                       Ionicons.logo_gitlab))),
                                           w8,
                                           Tooltip(
-                                            // Tooltip widget with an IconButton to launch LinkedIn URL.
+                                              // Tooltip widget with an IconButton to launch LinkedIn URL.
                                               message: 'LinkedIn',
                                               child: IconButton(
                                                   onPressed: () =>
@@ -1239,7 +1322,7 @@ class _HomeState extends State<Home> {
                                       Column(
                                         children: [
                                           Tooltip(
-                                            // Tooltip widget with an IconButton to launch icfoss.in URL.
+                                              // Tooltip widget with an IconButton to launch icfoss.in URL.
                                               message: 'icfoss.in',
                                               child: IconButton(
                                                   onPressed: () =>
@@ -1248,7 +1331,7 @@ class _HomeState extends State<Home> {
                                                       Icons.language_rounded))),
                                           w8,
                                           Tooltip(
-                                            // Tooltip widget with an IconButton to launch Youtube URL.
+                                              // Tooltip widget with an IconButton to launch Youtube URL.
                                               message: 'Youtube',
                                               child: IconButton(
                                                   onPressed: () =>
@@ -1265,6 +1348,7 @@ class _HomeState extends State<Home> {
               }));
   }
 }
+
 /// A custom button widget for platform-specific actions.
 class PlatformItemButton extends StatelessWidget {
   /// A callback function to be executed when the button is tapped.
@@ -1275,7 +1359,7 @@ class PlatformItemButton extends StatelessWidget {
 
   /// The icon to be displayed on the button.
   final IconData icon;
- 
+
   /// The color of the icon.
   final Color? iconColor;
 
@@ -1306,7 +1390,7 @@ class PlatformItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       InkWell(
-        // InkWell widget for tap handling with a circular border.
+          // InkWell widget for tap handling with a circular border.
           onTap: onTap,
           borderRadius: const BorderRadius.all(Radius.circular(100)),
           child: Container(
@@ -1321,6 +1405,7 @@ class PlatformItemButton extends StatelessWidget {
     ]);
   }
 }
+
 /// A custom widget representing a feature menu item with a title, description,
 /// and an associated icon.
 ///
@@ -1346,6 +1431,7 @@ class FeatureMenuItem extends StatelessWidget {
   final Color iconBackgroundColor;
   final Color? containerColor;
   final BoxBorder? border;
+
   /// Constructs a [FeatureMenuItem] widget.
   ///
   /// The [title], [description], [icon], [iconColor], and [iconBackgroundColor]
@@ -1359,15 +1445,16 @@ class FeatureMenuItem extends StatelessWidget {
       this.containerColor,
       this.border,
       required this.iconBackgroundColor});
-/// Builds the UI for the [FeatureMenuItem] widget.
-///
-/// This method constructs the visual representation of the [FeatureMenuItem].
-/// It creates a container with customizable padding, background color, and
-/// border. Inside the container, it displays the icon, title, and description
-/// of the menu item in a structured layout.
-///
-/// Returns:
-/// - A [Container] widget representing the feature menu item.
+
+  /// Builds the UI for the [FeatureMenuItem] widget.
+  ///
+  /// This method constructs the visual representation of the [FeatureMenuItem].
+  /// It creates a container with customizable padding, background color, and
+  /// border. Inside the container, it displays the icon, title, and description
+  /// of the menu item in a structured layout.
+  ///
+  /// Returns:
+  /// - A [Container] widget representing the feature menu item.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1395,6 +1482,7 @@ class FeatureMenuItem extends StatelessWidget {
     );
   }
 }
+
 /// A custom widget representing the ICFOSS logo.
 ///
 /// This widget displays the ICFOSS logo image along with a "Powered by" text.
@@ -1416,6 +1504,7 @@ class IcfossLogo extends StatelessWidget {
     );
   }
 }
+
 /// A custom widget representing a large menu item with an icon, title,
 /// description, and an associated callback.
 ///
@@ -1456,7 +1545,8 @@ class MenuChildLarge extends StatelessWidget {
                   color: Colors.black.withOpacity(.4))
             ]),
         child: InkWell(
-            onTap: onTap,// Define the action to be performed when the menu item is tapped.
+            onTap:
+                onTap, // Define the action to be performed when the menu item is tapped.
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -1466,6 +1556,7 @@ class MenuChildLarge extends StatelessWidget {
                 ])));
   }
 }
+
 /// A custom widget representing a menu item with an icon, title, and an
 /// associated callback.
 ///
@@ -1485,23 +1576,25 @@ class MenuChild extends StatelessWidget {
   final String description;
   final VoidCallback onTap;
   const MenuChild(
-  /// Constructs a [MenuChild] widget.
-  ///
-  /// The [icon], [title], [description], and [onTap] parameters are required.
-  /// All other parameters are optional.
+
+      /// Constructs a [MenuChild] widget.
+      ///
+      /// The [icon], [title], [description], and [onTap] parameters are required.
+      /// All other parameters are optional.
       {required this.icon,
       required this.title,
       required this.description,
       required this.onTap,
       super.key});
-/// Builds the UI for the [MenuChild] widget.
-///
-/// This method constructs the visual representation of the [MenuChild]. It
-/// creates a container with customizable padding, background color, and shadow.
-/// Inside the container, it displays the icon and title in a column layout.
-///
-/// Returns:
-/// - A [Container] widget representing the menu item.
+
+  /// Builds the UI for the [MenuChild] widget.
+  ///
+  /// This method constructs the visual representation of the [MenuChild]. It
+  /// creates a container with customizable padding, background color, and shadow.
+  /// Inside the container, it displays the icon and title in a column layout.
+  ///
+  /// Returns:
+  /// - A [Container] widget representing the menu item.
   @override
   Widget build(BuildContext context) {
     return Container(
