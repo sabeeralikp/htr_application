@@ -26,23 +26,26 @@ class OCRResult extends StatefulWidget {
 }
 
 class _OCRResultState extends State<OCRResult> {
+  int i = 0;
   getNextPage() async {
     if (widget.ocrResult!.ocr != null &&
         widget.ocrResult!.ocr!.numberOfPages! > 1) {
-      for (int i = 1; i < widget.ocrResult!.ocr!.numberOfPages!; i++) {
+      for (i = 1; i < widget.ocrResult!.ocr!.numberOfPages!; i++) {
         String? extractedText =
             await extractText(i, widget.ocrResult!.ocr!.id!);
         String text = widget.ocrResult!.quillController!.document.toPlainText();
         text += (extractedText ?? '');
         widget.ocrResult!.quillController!.clear();
         widget.ocrResult!.quillController!.document.insert(0, text);
+        setState(() { });
       }
     }
   }
 
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
-        content: Text(AppLocalizations.of(context)!.snack_location(downloadLocation)),
+        content: Text(
+            AppLocalizations.of(context)!.snack_location(downloadLocation)),
         action: SnackBarAction(
             label: 'Open',
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
@@ -115,24 +118,35 @@ class _OCRResultState extends State<OCRResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Result'), actions: [
-          CustomWhiteElevatedButton(
-              onPressed: () async => copyText(),
-              child: const Row(children: [
-                Text("Copy All"),
-                w8,
-                Icon(Icons.copy_all_rounded)
-              ])),
-          w8,
-          CustomWhiteElevatedButton(
-              onPressed: () async => exportDoc(),
-              child: const Row(children: [
-                Text("Export As"),
-                w8,
-                Icon(Icons.file_download_outlined)
-              ])),
-          w8
-        ]),
+        appBar: AppBar(
+            title: const Text('Result'),
+            actions: [
+              CustomWhiteElevatedButton(
+                  onPressed: () async => copyText(),
+                  child: const Row(
+                    children: [
+                      Text("Copy All"),
+                      w8,
+                      Icon(Icons.copy_all_rounded)
+                    ],
+                  )),
+              w8,
+              CustomWhiteElevatedButton(
+                  onPressed: () async => exportDoc(),
+                  child: const Row(
+                    children: [
+                      Text("Export As"),
+                      w8,
+                      Icon(Icons.file_download_outlined)
+                    ],
+                  )),
+              w8
+            ],
+            bottom: (i < widget.ocrResult!.ocr!.numberOfPages!)
+                ? const PreferredSize(
+                    preferredSize: Size(double.infinity, 16),
+                    child: LinearProgressIndicator())
+                : null),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
