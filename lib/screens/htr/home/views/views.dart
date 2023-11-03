@@ -155,7 +155,9 @@ class _HTRHomeState extends State<HTRHome> {
   /// and the floating action button (either the upload and camera buttons or an empty container).
   ///
   /// Returns a [Scaffold] widget.
-
+//TODO: Alert message for select the words in bounding box
+//TODO: Alert message for after adjusting horizontal and vertical lines click the threshold button 
+//TODO: Description about auto and manual buttons
   @override
   Widget build(BuildContext context) {
     return Scaffold(

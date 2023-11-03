@@ -52,6 +52,11 @@ class _HomeState extends State<Home> {
     }
   }
 
+  //TODO: Update UI
+  //TODO: Each unit functionality to be added
+  //TODO: Description of the product 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
