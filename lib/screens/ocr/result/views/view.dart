@@ -19,7 +19,7 @@ import 'dart:html' as html;
 /// [Printed with OCR integrated]
 /// [author] sabeerali
 /// [since]	v0.0.1
-/// [version]	v1.0.0	(August 17th, 2023 12:32 PM) 
+/// [version]	v1.0.0	(August 17th, 2023 12:32 PM)
 ///
 /// Define a Flutter Stateful Widget for the OCR result screen.
 class OCRResult extends StatefulWidget {
@@ -31,12 +31,14 @@ class OCRResult extends StatefulWidget {
   @override
   State<OCRResult> createState() => _OCRResultState();
 }
+
 // Define the state for the OCRResult widget.
 class _OCRResultState extends State<OCRResult> {
+  int i = 0;
   // Function to get the next page's text and append it to the Quill controller.
   getNextPage() async {
     if (widget.ocrResult!.ocr!.numberOfPages! > 1) {
-      for (int i = 1; i < widget.ocrResult!.ocr!.numberOfPages!; i++) {
+      for (i = 1; i < widget.ocrResult!.ocr!.numberOfPages!; i++) {
         // Extract text from the page and append it to the existing text.
         String? extractedText =
             await extractText(i, widget.ocrResult!.ocr!.id!);
@@ -45,10 +47,12 @@ class _OCRResultState extends State<OCRResult> {
         // Clear the Quill controller and insert the updated text.
         widget.ocrResult!.quillController!.clear();
         widget.ocrResult!.quillController!.document.insert(0, text);
+        setState(() {});
       }
     }
   }
- // Show a snackbar with a download location and file opening action.
+
+  // Show a snackbar with a download location and file opening action.
   showSavedSnackbar(String downloadLocation, filename) {
     SnackBar snackBar = SnackBar(
         content: Text('File has been downloaded to $downloadLocation'),
@@ -57,10 +61,11 @@ class _OCRResultState extends State<OCRResult> {
             onPressed: () => OpenAppFile.open('$downloadLocation/$filename')));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
 // Function to save a PDF document as a DOCX file.
   saveDOCX(pdf) async {
     /// Save the PDF as a temporary file
-    
+
 // Generate bytes from the PDF document.
     final bytes = await pdf.save();
     // final output = await getApplicationDocumentsDirectory();
@@ -91,6 +96,7 @@ class _OCRResultState extends State<OCRResult> {
     // response.pipe(docfile.openWrite());
     // showSavedSnackbar(output.path, 'document.docx');
   }
+
 // Function to get the PDF generation theme with custom fonts.
   getTheme() async {
     // Define the custom fonts for the PDF theme.
@@ -105,6 +111,7 @@ class _OCRResultState extends State<OCRResult> {
             .load("assets/font/mandharam/mandharam_bold_italic.ttf")));
     return myTheme;
   }
+
 // Function to copy text to the clipboard.
   copyText() async {
     // Copy the text from the Quill controller to the clipboard.
@@ -119,6 +126,7 @@ class _OCRResultState extends State<OCRResult> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
+
 // Function to export the document as a PDF.
   exportDoc() async {
     // Create a PDF document with custom theme.
@@ -137,12 +145,14 @@ class _OCRResultState extends State<OCRResult> {
 // Save the PDF as a DOCX file.
     await saveDOCX(pdf);
   }
+
 // Initialize the state and call getNextPage function.
   @override
   void initState() {
     super.initState();
     getNextPage();
   }
+
 // Build the widget tree for the OCR result screen.
   @override
   Widget build(BuildContext context) {
@@ -152,7 +162,7 @@ class _OCRResultState extends State<OCRResult> {
                 Text(AppLocalizations.of(context)!.appbar_result, style: fB20N),
             actions: [
               Padding(
-                 // Row with copy and export buttons.
+                // Row with copy and export buttons.
                 padding: const EdgeInsets.only(right: 48.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -167,7 +177,7 @@ class _OCRResultState extends State<OCRResult> {
                             const Icon(Icons.copy_all_rounded),
                           ],
                         )),
-                    w16,// Horizontal spacing.
+                    w16, // Horizontal spacing.
                     // Button to export the document as PDF.
                     CustomWhiteElevatedButton(
                         onPressed: () async => exportDoc(),
@@ -181,7 +191,12 @@ class _OCRResultState extends State<OCRResult> {
                   ],
                 ),
               )
-            ]),
+            ],
+            bottom: (i < widget.ocrResult!.ocr!.numberOfPages!)
+                ? const PreferredSize(
+                    preferredSize: Size(double.infinity, 16),
+                    child: LinearProgressIndicator())
+                : null),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
