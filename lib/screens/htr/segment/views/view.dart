@@ -50,6 +50,13 @@ class _SegmentState extends State<Segment> {
     return extractedText;
   }
 
+  showWordSnackbar() {
+    SnackBar snackBar = const SnackBar(
+      content: Text("Select atleast one word"),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   void navigateToResult(extractedText) {
     if (_selectedCordinates.isNotEmpty) {
       Navigator.of(context)
@@ -155,6 +162,9 @@ class _SegmentState extends State<Segment> {
       List<dynamic> extractedText =
           await _getExtractedText(widget.args!.id) as List<dynamic>;
       navigateToResult(extractedText);
+    }
+    else{
+    showWordSnackbar();
     }
   }
 
