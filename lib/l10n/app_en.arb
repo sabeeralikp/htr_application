@@ -37,7 +37,7 @@
     "sheet_components_threshold_value":"Threshold Value",
     "sheet_components_horizontal_spacing": "Horizontal Spacing",
     "sheet_components_vertical_spacing": "Vertical Spacing",
-    "eleveted_button_threshold": "Threshold",
+    "eleveted_button_threshold": "Apply Changes",
     "@snack_location":{
         "placeholders": {
           "downloadLocation": {
