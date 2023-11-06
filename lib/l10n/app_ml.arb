@@ -72,7 +72,7 @@
   "sheet_components_threshold_value": "പരിധി മൂല്യം നിർണയിക്കുക",
   "sheet_components_horizontal_spacing": "തിരശ്ചീന അകലം",
   "sheet_components_vertical_spacing": "ലംബതലത്തിലുള്ള അകലം",
-  "eleveted_button_threshold": "തുടരുക",
+  "eleveted_button_threshold": "മാറ്റങ്ങൾ വരുത്തുക",
   "@snack_location": {
     "placeholders": {
       "downloadLocation": {

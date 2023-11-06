@@ -71,6 +71,7 @@ TextStyle fB64SB = GoogleFonts.inter(
     color: kBlackColor, fontSize: 64, fontWeight: FontWeight.w600);
 TextStyle fB16N = GoogleFonts.inter(
     color: kBlackColor, fontSize: 16, fontWeight: FontWeight.w400);
+
 TextStyle fB16M = GoogleFonts.inter(
     color: kBlackColor, fontSize: 16, fontWeight: FontWeight.w500);
 TextStyle fB18N = GoogleFonts.inter(
@@ -97,6 +98,10 @@ TextStyle fTG30SB = GoogleFonts.inter(
     color: kTextGreyColor, fontSize: 30, fontWeight: FontWeight.w600);
 TextStyle fTG24SB = GoogleFonts.inter(
     color: kTextGreyColor, fontSize: 24, fontWeight: FontWeight.w600);
+
+// Orange
+TextStyle fO14N = GoogleFonts.inter(
+    color: kOrangeColor, fontSize: 14, fontWeight: FontWeight.w400);
 
 //Malayalam
 TextStyle fMTG32SB = GoogleFonts.notoSansMalayalam(

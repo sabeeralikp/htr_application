@@ -178,20 +178,21 @@ class _SegmentState extends State<Segment> {
   ///
   /// If the [segment] is "auto," it fetches auto-segmented coordinates.
   /// If the [segment] is "manual," it fetches coordinates based on current settings.
-   showWordSnackbar() {
+  showWordSnackbar() {
     SnackBar snackBar = const SnackBar(
       content: Text("Select atleast one word"),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+
   void initFunction() {
     if (widget.args!.segment == "auto") {
       _getAutoSegmentationCordinates(widget.args!.id);
-    } else if (widget.args!.segment == "manual") {
+      } else if (widget.args!.segment == "manual") {
       _getCordinates();
     }
-  }
+    }
 
   @override
   void initState() {
@@ -223,8 +224,7 @@ class _SegmentState extends State<Segment> {
           await _getExtractedText(widget.args!.id) as List<dynamic>;
       // Navigate to the result screen with extracted text.
       navigateToResult(extractedText);
-    }
-    else{
+    } else {
       showWordSnackbar();
     }
   }

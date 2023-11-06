@@ -497,7 +497,8 @@ class _HomeState extends State<Home> {
                                                               /// and a border with a color that has slight opacity. Inside the container, a FeatureMenuItem displays
                                                               /// an icon, title, and description related to the handwritten document selection option.
                                                               borderRadius:
-                                                                  const BorderRadius.all(
+                                                                  const BorderRadius
+                                                                      .all(
                                                                       // Defines rounded corners for the container.
                                                                       Radius.circular(
                                                                           32)),
@@ -513,9 +514,10 @@ class _HomeState extends State<Home> {
                                                                           .document_scanner_outlined, // Specifies the icon for the FeatureMenuItem.
                                                                       iconColor:
                                                                           kPrimaryColor, // Sets the color of the icon.
-                                                                      iconBackgroundColor: kPrimaryColor.withOpacity(
-                                                                          // Defines the icon's background color with slight opacity.
-                                                                          0.1),
+                                                                      iconBackgroundColor: kPrimaryColor
+                                                                          .withOpacity(
+                                                                              // Defines the icon's background color with slight opacity.
+                                                                              0.1),
                                                                       title: AppLocalizations.of(
                                                                               context)!
                                                                           .feature_menu_handwritten, // Sets the title text.
@@ -568,111 +570,122 @@ class _HomeState extends State<Home> {
                                                                         .all(
                                                                         Radius.circular(
                                                                             12))),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
+                                                        child: Column(
                                                           children: [
-                                                            Row(children: [
-                                                              w16,
-                                                              const Icon(
-                                                                  Ionicons
-                                                                      .document_outline,
-                                                                  size:
-                                                                      32), // Size of the document icon.
-                                                              w16,
-                                                              Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.16,
-                                                                      child: Text(
-                                                                          result!
-                                                                              .files
-                                                                              .first
-                                                                              .name, // Displayed file name.
-                                                                          style:
-                                                                              fB16M), // Text style for the file name.
-                                                                    ),
-                                                                    Text(
-                                                                        '${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', // Displayed file size in megabytes
-                                                                        style:
-                                                                            fTG16N) // Text style for the file size.
-                                                                  ])
-                                                            ]),
                                                             Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
-                                                                if (isHTR) ...[
-                                                                  const Text(
-                                                                      'as'), // Displayed when in HTR mode.
-                                                                  w8,
-
-                                                                  /// Creates a DropdownButtonFormField for selecting segmentation type.
-                                                                  /// This code block defines a DropdownButtonFormField widget that allows the user to select
-                                                                  /// the segmentation type for file processing. The dropdown displays two options: 'Automatic'
-                                                                  /// and 'Manual', which correspond to the segmentation modes. It also includes an input decoration
-                                                                  /// for styling and uses a callback function to handle the user's selection.
-                                                                  SizedBox(
-                                                                    width:
-                                                                        112, // Sets the width of the dropdown field.
-                                                                    child:
-                                                                        DropdownButtonFormField(
-                                                                      value: AppLocalizations.of(
-                                                                              context)!
-                                                                          .segmentation_button_auto, // Initial selected value.
-                                                                      decoration: InputDecoration(
-                                                                          contentPadding: const EdgeInsets.only(left: 12), // Padding for dropdown content.
-                                                                          border: OutlineInputBorder(
-                                                                              borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), // Border color with slight opacity.
-                                                                              borderRadius: const BorderRadius.all(Radius.circular(8)))), // Rounded border corners.
-                                                                      items: [
-                                                                        AppLocalizations.of(context)!
-                                                                            .segmentation_button_auto, // Option: 'Automatic'.
-                                                                        AppLocalizations.of(context)!
-                                                                            .segmentation_button_manual // Option: 'Manual'.
-                                                                      ]
-                                                                          .map((e) =>
-                                                                              DropdownMenuItem(
-                                                                                value: e,
-                                                                                child: Text(e), // Displayed text for each option.
-                                                                              ))
-                                                                          .toList(),
-                                                                      onChanged:
-                                                                          (e) {
-                                                                        // Callback function when a new value is selected.
-                                                                        isAuto =
-                                                                            e ==
-                                                                                AppLocalizations.of(context)!.segmentation_button_auto; // Set the 'isAuto' flag based on the selected value.
-                                                                      },
-                                                                    ),
-                                                                  ),
+                                                                Row(children: [
                                                                   w16,
-                                                                ],
+                                                                  const Icon(
+                                                                      Ionicons
+                                                                          .document_outline,
+                                                                      size:
+                                                                          32), // Size of the document icon.
+                                                                  w16,
+                                                                  Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width: MediaQuery.of(context)
+                                                                                  .size
+                                                                                  .width *
+                                                                              0.16,
+                                                                          child: Text(
+                                                                              result!
+                                                                                  .files
+                                                                                  .first
+                                                                                  .name, // Displayed file name.
+                                                                              style:
+                                                                                  fB16M), // Text style for the file name.
+                                                                        ),
+                                                                        Text(
+                                                                            '${(result!.files.first.size / 1024000).toStringAsFixed(2)} MB', // Displayed file size in megabytes
+                                                                            style:
+                                                                                fTG16N) // Text style for the file size.
+                                                                      ])
+                                                                ]),
+                                                                Row(
+                                                                  children: [
+                                                                    if (isHTR) ...[
+                                                                      const Text(
+                                                                          'as'), // Displayed when in HTR mode.
+                                                                      w8,
 
-                                                                /// This code block creates a row of widgets that includes a close button
-                                                                /// (for clearing the current selection) and an upload button. The close
-                                                                /// button is an IconButton that triggers a callback to reset certain
-                                                                IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      setState(
-                                                                          () {
-                                                                        isHTR =
-                                                                            false; // Resets the 'isHTR' flag.
-                                                                        result =
-                                                                            null; // Clears the 'result' variable.
-                                                                      });
-                                                                    },
-                                                                    icon: const Icon(
-                                                                        Ionicons
-                                                                            .close)), // Close icon for clearing the selection.
+                                                                      /// Creates a DropdownButtonFormField for selecting segmentation type.
+                                                                      /// This code block defines a DropdownButtonFormField widget that allows the user to select
+                                                                      /// the segmentation type for file processing. The dropdown displays two options: 'Automatic'
+                                                                      /// and 'Manual', which correspond to the segmentation modes. It also includes an input decoration
+                                                                      /// for styling and uses a callback function to handle the user's selection.
+                                                                      SizedBox(
+                                                                        width:
+                                                                            112, // Sets the width of the dropdown field.
+                                                                        child:
+                                                                            DropdownButtonFormField(
+                                                                          value: AppLocalizations.of(
+                                                                                  context)!
+                                                                              .segmentation_button_auto, // Initial selected value.
+                                                                          decoration: InputDecoration(
+                                                                              contentPadding: const EdgeInsets.only(left: 12), // Padding for dropdown content.
+                                                                              border: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), // Border color with slight opacity.
+                                                                                  borderRadius: const BorderRadius.all(Radius.circular(8)))), // Rounded border corners.
+                                                                          items: [
+                                                                            AppLocalizations.of(context)!
+                                                                                .segmentation_button_auto, // Option: 'Automatic'.
+                                                                            AppLocalizations.of(context)!
+                                                                                .segmentation_button_manual // Option: 'Manual'.
+                                                                          ]
+                                                                              .map((e) =>
+                                                                                  DropdownMenuItem(
+                                                                                    value: e,
+                                                                                    child: Text(e), // Displayed text for each option.
+                                                                                  ))
+                                                                              .toList(),
+                                                                          onChanged:
+                                                                              (e) {
+                                                                            // Callback function when a new value is selected.
+                                                                            setState((){
+                                                                              isAuto =
+                                                                                e ==
+                                                                                    AppLocalizations.of(context)!.segmentation_button_auto; // Set the 'isAuto' flag based on the selected value.
+                                                                            });
+                                                                            
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      w16,
+                                                                      
+                                                                    ],
+
+                                                                    /// This code block creates a row of widgets that includes a close button
+                                                                    /// (for clearing the current selection) and an upload button. The close
+                                                                    /// button is an IconButton that triggers a callback to reset certain
+                                                                    IconButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            isHTR =
+                                                                                false; // Resets the 'isHTR' flag.
+                                                                            result =
+                                                                                null; // Clears the 'result' variable.
+                                                                          });
+                                                                        },
+                                                                        icon: const Icon(
+                                                                            Ionicons
+                                                                                .close)), // Close icon for clearing the selection.
+                                                                  ],
+                                                                )
                                                               ],
-                                                            )
+                                                            ),
+                                                          if (isAuto) ...[
+                                                              h16,
+                                                              const AutomaticWarning(),]
                                                           ],
                                                         )),
                                                     w32, // Horizontal spacing.
@@ -701,12 +714,7 @@ class _HomeState extends State<Home> {
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(7),
-                                                        width:
-                                                            MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.35,
+                                                        width: double.infinity,
                                                         decoration:
                                                             BoxDecoration(
                                                                 color:
@@ -817,46 +825,19 @@ class _HomeState extends State<Home> {
                                                             h8, // Custom widget (possibly a spacer) with a specified height
                                                             // Conditional rendering based on screen width and 'isHTR' state
                                                             width > 675
-                                                                ? Row(
-                                                                    children: [
-                                                                      // Conditional rendering using the spread operator (...)
-                                                                      if (isHTR) ...[
-                                                                        w16, // Custom horizontal spacing
-                                                                        const Text(
-                                                                            'Segment as'), // Display a text label
-                                                                        w8, // Custom horizontal spacing
-                                                                        // Dropdown button for segment selection with a specified width
-                                                                        SizedBox(
-                                                                          width:
-                                                                              112,
-                                                                          child:
-                                                                              DropdownButtonFormField(
-                                                                            value:
-                                                                                'Automatic', // Default dropdown value
-                                                                            decoration:
-                                                                                InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
-                                                                            items: [
-                                                                              'Automatic',
-                                                                              'Manual'
-                                                                            ]
-                                                                                .map((e) => DropdownMenuItem(
-                                                                                      value: e,
-                                                                                      child: Text(e),
-                                                                                    ))
-                                                                                .toList(),
-                                                                            onChanged:
-                                                                                (e) {
-                                                                              // Update 'isAuto' based on dropdown selection
-                                                                              isAuto = e == 'Automatic';
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ],
-                                                                  )
-                                                                : isHTR
-                                                                    ? Column(
-                                                                        children: [
+                                                                ? Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        right:
+                                                                            8.0),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        // Conditional rendering using the spread operator (...)
+                                                                        if (isHTR) ...[
+                                                                          w16, // Custom horizontal spacing
                                                                           const Text(
                                                                               'Segment as'), // Display a text label
                                                                           w8, // Custom horizontal spacing
@@ -879,36 +860,77 @@ class _HomeState extends State<Home> {
                                                                                   .toList(),
                                                                               onChanged: (e) {
                                                                                 // Update 'isAuto' based on dropdown selection
-                                                                                isAuto = e == 'Automatic';
+                                                                                setState((() {
+                                                                                  isAuto = e == 'Automatic';
+                                                                                }));
                                                                               },
                                                                             ),
                                                                           ),
                                                                         ],
-                                                                      )
-                                                                    : const SizedBox() // An empty SizedBox when 'isHTR' is false
+                                                                      ],
+                                                                    ),
+                                                                  )
+                                                                : isHTR
+                                                                    ? Column(
+                                                                        children: [
+                                                                            const Text('Segment as'), // Display a text label
+                                                                            w8, // Custom horizontal spacing
+                                                                            // Dropdown button for segment selection with a specified width
+                                                                            SizedBox(
+                                                                                width: 112,
+                                                                                child: DropdownButtonFormField(
+                                                                                    value: 'Automatic', // Default dropdown value
+                                                                                    decoration: InputDecoration(contentPadding: const EdgeInsets.only(left: 12), border: OutlineInputBorder(borderSide: BorderSide(color: kTextGreyColor.withOpacity(0.4)), borderRadius: const BorderRadius.all(Radius.circular(8)))),
+                                                                                    items: ['Automatic', 'Manual']
+                                                                                        .map((e) => DropdownMenuItem(
+                                                                                              value: e,
+                                                                                              child: Text(e),
+                                                                                            ))
+                                                                                        .toList(),
+                                                                                    onChanged: (e) {
+                                                                                      // Update 'isAuto' based on dropdown selection
+                                                                                      setState((() {
+                                                                                        isAuto = e == 'Automatic';
+                                                                                      }));
+                                                                                    }))
+                                                                          ])
+                                                                    : const SizedBox(), // An empty SizedBox when 'isHTR' is false
+                                                            if (result !=
+                                                                    null &&
+                                                                isHTR &&
+                                                                isAuto) ...[
+                                                              h16,
+                                                              const AutomaticWarning(),
+                                                            ],
                                                           ],
                                                         )),
                                                     // Additional UI components
                                                     h16, // Custom widget (possibly a spacer) with a specified height
-                                                    CustomElevatedButton(
-                                                        onPressed:
-                                                            uploadFile, // Specify the button's onPressed callback
-                                                        child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(AppLocalizations
-                                                                      .of(context)!
-                                                                  .elevated_button_ext), // Display a localized button label
-                                                              w12,
-                                                              const Icon(Icons
-                                                                  .arrow_forward_rounded) // Display an arrow icon
-                                                            ])),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        CustomElevatedButton(
+                                                            onPressed:
+                                                                uploadFile, // Specify the button's onPressed callback
+                                                            child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Text(AppLocalizations
+                                                                          .of(context)!
+                                                                      .elevated_button_ext), // Display a localized button label
+                                                                  w12,
+                                                                  const Icon(Icons
+                                                                      .arrow_forward_rounded) // Display an arrow icon
+                                                                ])),
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
+
                                   // Custom spacer with a height of 64 units
-                                  h64,
+                                  if (linuxSelected) h64,
                                   // Conditional rendering based on 'androidSelected'
                                   // if (androidSelected)
                                   // // Display a Column widget with left-aligned content
@@ -1346,6 +1368,43 @@ class _HomeState extends State<Home> {
                       ]))
                 ]));
               }));
+  }
+}
+
+class AutomaticWarning extends StatelessWidget {
+  const AutomaticWarning({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: pA8,
+        width: double
+            .infinity,
+        decoration:
+            BoxDecoration(
+                color: kOrangeColor.withOpacity(
+                    0.1), // Background color of the container
+                border: Border.all(
+                    color: kOrangeColor.withOpacity(
+                        0.2)), // Border color with opacity
+                borderRadius: const BorderRadius.all(Radius.circular(
+                    4))),
+        child: Row(
+            children: [
+              const Icon(
+                  Icons
+                      .info_outline_rounded,
+                  color:
+                      kOrangeColor),
+              w8,
+              Flexible(
+                child: Text(
+                    "Automatic segmentation may not be accurate. For better results choose Manual.",
+                    style: fO14N),
+              )
+            ]));
   }
 }
 
