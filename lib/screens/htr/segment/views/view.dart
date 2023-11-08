@@ -51,8 +51,8 @@ class _SegmentState extends State<Segment> {
   }
 
   showWordSnackbar() {
-    SnackBar snackBar = const SnackBar(
-      content: Text("Select atleast one word"),
+    SnackBar snackBar = SnackBar(
+      content: Text(AppLocalizations.of(context)!.word_snackbar),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
