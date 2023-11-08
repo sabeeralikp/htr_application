@@ -22,6 +22,8 @@
   "document_upload_heading": "Select your document type",
   "document_upload_subheading": "Choose the desired document type from the options below to extract text using Dhriti OCR.",
   "handwritten_segment_type_subheading": "Also specify the segment type as automatic or manual.",
+  "automatic_warning_text": "Automatic segmentation may not be accurate. For better results choose Manual.",
+  "word_snackbar":"Select atleast one word",
   "feature_menu_printed": "Printed",
   "feature_menu_printed_description": "Capture Malayalam and English text from books, articles, and more",
   "feature_menu_handwritten": "Handwritten",

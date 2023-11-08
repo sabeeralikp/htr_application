@@ -179,8 +179,8 @@ class _SegmentState extends State<Segment> {
   /// If the [segment] is "auto," it fetches auto-segmented coordinates.
   /// If the [segment] is "manual," it fetches coordinates based on current settings.
   showWordSnackbar() {
-    SnackBar snackBar = const SnackBar(
-      content: Text("Select atleast one word"),
+    SnackBar snackBar = SnackBar(
+      content: Text(AppLocalizations.of(context)!.word_snackbar),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

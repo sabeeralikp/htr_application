@@ -1401,7 +1401,7 @@ class AutomaticWarning extends StatelessWidget {
               w8,
               Flexible(
                 child: Text(
-                    "Automatic segmentation may not be accurate. For better results choose Manual.",
+                    AppLocalizations.of(context)!.automatic_warning_text,
                     style: fO14N),
               )
             ]));
