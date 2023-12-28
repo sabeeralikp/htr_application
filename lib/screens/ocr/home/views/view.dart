@@ -1,12 +1,13 @@
 import 'dart:developer';
 
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
+// import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:flutter_tesseract_ocr/android_ios.dart';
 import 'package:dhriti/api/ocr.dart';
 import 'package:dhriti/models/ocr_result.dart';
 import 'package:dhriti/models/upload_ocr.dart';
 import 'package:flutter_quill/flutter_quill.dart' as fq;
 import 'package:dhriti/screens/htr/home/widgets/widgets.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfx/pdfx.dart';
 
@@ -108,13 +109,18 @@ class _OCRHomeState extends State<OCRHome> {
             source: ImageSource.camera,
             preferredCameraDevice: CameraDevice.rear);
         if (capturedImage == null) return;
-        file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
+
+        // file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
+        final croppedImage =
+            await ImageCropper().cropImage(sourcePath: capturedImage.path);
+        if (croppedImage == null) return;
+        file = File(croppedImage.path);
         if (file != null) {
           setState(() {
             isUploading = true;
           });
           if (widget.isOffline) {
-            String text = await extractOffline(capturedImage.path);
+            String text = await extractOffline(file!.path);
             setState(() {
               isUploading = false;
               _quillController.clear();

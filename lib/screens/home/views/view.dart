@@ -52,10 +52,11 @@ class _HomeState extends State<Home> {
     }
   }
 
+  //DONE: Crop Feature for selected image
+  //TODO: Add Multiple Languages for text extraction
   //TODO: Update UI
   //TODO: Each unit functionality to be added
-  //TODO: Description of the product 
-  
+  //TODO: Description of the product
 
   @override
   Widget build(BuildContext context) {
@@ -124,27 +125,35 @@ class _HomeState extends State<Home> {
                         children: [
                           Padding(
                               padding: const EdgeInsets.only(left: 4.0),
-                              child: Text(AppLocalizations.of(context)!.box_title_1, style: fB16M)),
+                              child: Text(
+                                  AppLocalizations.of(context)!.box_title_1,
+                                  style: fB16M)),
                           h16,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               MenuChild(
                                   icon: Icons.cloud_off_rounded,
-                                  title: AppLocalizations.of(context)!.menu_title_1,
-                                  description: AppLocalizations.of(context)!.description_title_1,
+                                  title: AppLocalizations.of(context)!
+                                      .menu_title_1,
+                                  description: AppLocalizations.of(context)!
+                                      .description_title_1,
                                   iconColor: kGreenColor,
                                   onTap: () => navigateToOCR(context, true)),
                               MenuChild(
                                   icon: Icons.description_outlined,
-                                  title: AppLocalizations.of(context)!.menu_title_1,
-                                  description: AppLocalizations.of(context)!.description_title_2,
+                                  title: AppLocalizations.of(context)!
+                                      .menu_title_1,
+                                  description: AppLocalizations.of(context)!
+                                      .description_title_2,
                                   iconColor: kBlueColor,
                                   onTap: () => navigateToOCR(context, false)),
                               MenuChild(
                                   icon: Icons.draw_rounded,
-                                  title: AppLocalizations.of(context)!.menu_title_2,
-                                  description: AppLocalizations.of(context)!.description_title_3,
+                                  title: AppLocalizations.of(context)!
+                                      .menu_title_2,
+                                  description: AppLocalizations.of(context)!
+                                      .description_title_3,
                                   iconColor: kPurpleColor,
                                   onTap: () => navigateToHTR(context)),
                             ],
@@ -174,7 +183,8 @@ class _HomeState extends State<Home> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(left: 4.0),
-                                  child: Text(AppLocalizations.of(context)!.box_title_2,
+                                  child: Text(
+                                      AppLocalizations.of(context)!.box_title_2,
                                       style: fTG16M)),
                               h16,
                               Row(
@@ -183,19 +193,22 @@ class _HomeState extends State<Home> {
                                 children: [
                                   MenuChild(
                                       icon: Icons.translate_outlined,
-                                      title: AppLocalizations.of(context)!.menu_title_3,
+                                      title: AppLocalizations.of(context)!
+                                          .menu_title_3,
                                       // description: 'Documents',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
                                   MenuChild(
                                       icon: Icons.short_text_outlined,
-                                      title: AppLocalizations.of(context)!.menu_title_4,
+                                      title: AppLocalizations.of(context)!
+                                          .menu_title_4,
                                       // description: 'Summerizer',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
                                   MenuChild(
                                       icon: Icons.mic_none_outlined,
-                                      title: AppLocalizations.of(context)!.menu_title_5,
+                                      title: AppLocalizations.of(context)!
+                                          .menu_title_5,
                                       // description: 'Documents',
                                       iconColor: kTextGreyColor,
                                       onTap: () {}),
@@ -214,7 +227,9 @@ class _HomeState extends State<Home> {
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(16),
                                       bottomLeft: Radius.circular(16))),
-                              child: Text(AppLocalizations.of(context)!.child_text, style: fW16N)))
+                              child: Text(
+                                  AppLocalizations.of(context)!.child_text,
+                                  style: fW16N)))
                     ],
                   ),
                 ]),

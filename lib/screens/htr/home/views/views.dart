@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dhriti/screens/htr/home/widgets/widgets.dart';
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
+import 'package:image_cropper/image_cropper.dart';
+// import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 
 /// An enumeration representing different types of segmentation.
 ///
@@ -108,7 +109,11 @@ class _HTRHomeState extends State<HTRHome> {
             source: ImageSource.camera,
             preferredCameraDevice: CameraDevice.rear);
         if (capturedImage == null) return;
-        file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
+        final croppedImage =
+            await ImageCropper().cropImage(sourcePath: capturedImage.path);
+        if (croppedImage == null) return;
+        file = File(croppedImage.path);
+        // file = await FlutterExifRotation.rotateImage(path: capturedImage.path);
         if (file != null) {
           htr = await uploadHTR(file!);
           isUploading = false;
