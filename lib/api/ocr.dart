@@ -73,3 +73,20 @@ Future<String?> extractText(int pageNumber, int ocrID) async {
   }
   return null;
 }
+
+Future<String?> textToSpeech(String text, String folderName, int id) async {
+  FormData formData = FormData.fromMap(
+      {"text_data": text, "folder_name": folderName, "id": id});
+  try {
+    final response = await dio.post("/api/document/tts", data: formData);
+    if (response.statusCode == 200) {
+      return "success";
+    } else {
+      log('${response.statusCode} : ${response.data.toString()}');
+      throw response.statusCode!;
+    }
+  } catch (error) {
+    log(error.toString());
+  }
+  return null;
+}

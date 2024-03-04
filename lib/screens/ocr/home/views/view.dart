@@ -25,13 +25,13 @@ class _OCRHomeState extends State<OCRHome> {
   UploadOCRModel? ocr;
   bool isUploading = false;
   final fq.QuillController _quillController = fq.QuillController.basic();
-  String language = "mal+eng";
+  String language = "mal+eng+tam";
   List<DropdownMenuItem<dynamic>>? languages = [
     const DropdownMenuItem(
-        value: "mal+eng",
-        child: SizedBox(width: 80, child: Text('English & Malayalam'))),
+        value: "mal+eng+tam", child: SizedBox(width: 80, child: Text('Auto'))),
     const DropdownMenuItem(value: "mal", child: Text('Malayalam')),
-    const DropdownMenuItem(value: "eng", child: Text('English'))
+    const DropdownMenuItem(value: "eng", child: Text('English')),
+    const DropdownMenuItem(value: "tam", child: Text('Tamil'))
   ];
   extractOffline(String path) async {
     String text = "";

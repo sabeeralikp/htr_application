@@ -1,6 +1,7 @@
 {
     "files": [
         "eng.traineddata",
-        "mal.traineddata"
+        "mal.traineddata",
+        "tam.traineddata"
     ]
 }
