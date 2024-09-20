@@ -134,13 +134,13 @@ class _OCRResultState extends State<OCRResult> {
       theme: await getTheme(),
     );
     // Convert Quill Delta to PDF format and add it to the PDF document.
-    var delta = widget.ocrResult!.quillController!.document.toDelta().toList();
+    var delta = widget.ocrResult!.quillController!.document.toDelta();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         margin: pw.EdgeInsets.zero,
         build: (pw.Context context) {
           DeltaToPDF dpdf = DeltaToPDF();
-          return dpdf.deltaToPDF(delta);
+          return dpdf.toPDFWidget(delta);
         }));
 // Save the PDF as a DOCX file.
     await saveDOCX(pdf);
@@ -202,12 +202,16 @@ class _OCRResultState extends State<OCRResult> {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               // Display Quill toolbar and editor for editing text.
               if (widget.ocrResult!.ocr != null) ...[
-                fq.QuillToolbar.basic(
-                    controller: widget.ocrResult!.quillController!),
+                fq.QuillSimpleToolbar(
+                  configurations: fq.QuillSimpleToolbarConfigurations(
+                    controller: widget.ocrResult!.quillController!,
+                  ),
+                ),
                 Expanded(
                     child: fq.QuillEditor.basic(
-                        controller: widget.ocrResult!.quillController!,
-                        readOnly: false))
+                  configurations: fq.QuillEditorConfigurations(
+                      controller: widget.ocrResult!.quillController!),
+                ))
               ]
             ])));
   }

@@ -166,13 +166,13 @@ class _ResulPageState extends State<ResulPage> {
     final pdf = pw.Document(
       theme: await getTheme(),
     );
-    var delta = _controller.document.toDelta().toList();
+    var delta = _controller.document.toDelta();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         margin: pw.EdgeInsets.zero,
         build: (pw.Context context) {
           DeltaToPDF dpdf = DeltaToPDF();
-          return dpdf.deltaToPDF(delta);
+          return dpdf.toPDFWidget(delta);
         }));
     await saveData(_controller.document.toPlainText().split(" "));
     if (isSelected[0]) {
@@ -428,11 +428,21 @@ class _ResulPageState extends State<ResulPage> {
               )
             ]),
         body: Column(children: [
-          fq.QuillToolbar.basic(controller: _controller),
+          // fq.QuillToolbar.basic(controller: _controller),
+          // Expanded(
+          //     child: fq.QuillEditor.basic(
+          //   controller: _controller,
+          //   readOnly: false,
+          // ))
+          fq.QuillSimpleToolbar(
+            configurations: fq.QuillSimpleToolbarConfigurations(
+              controller: _controller,
+            ),
+          ),
           Expanded(
               child: fq.QuillEditor.basic(
-            controller: _controller,
-            readOnly: false,
+            configurations:
+                fq.QuillEditorConfigurations(controller: _controller),
           ))
         ]));
   }
