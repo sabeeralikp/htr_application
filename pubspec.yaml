@@ -17,7 +17,7 @@ dependencies:
   dio: ^5.0.0
   http_parser: ^4.0.2
   internet_file: ^1.2.0
-  flutter_quill: ^7.0.1
+  flutter_quill: ^9.3.1
   pdf: ^3.10.1
   path_provider: ^2.0.14
   intl: ^0.18.0

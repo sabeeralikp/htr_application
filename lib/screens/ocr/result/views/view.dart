@@ -107,13 +107,13 @@ class _OCRResultState extends State<OCRResult> {
     final pdf = pw.Document(
       theme: await getTheme(),
     );
-    var delta = widget.ocrResult!.quillController!.document.toDelta().toList();
+    var delta = widget.ocrResult!.quillController!.document.toDelta();
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         margin: pw.EdgeInsets.zero,
         build: (pw.Context context) {
           DeltaToPDF dpdf = DeltaToPDF();
-          return dpdf.deltaToPDF(delta);
+          return dpdf.toPDFWidget(delta);
         }));
 
     await saveDOCX(pdf);
@@ -247,12 +247,19 @@ class _OCRResultState extends State<OCRResult> {
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               if (widget.ocrResult!.quillController != null) ...[
-                fq.QuillToolbar.basic(
-                    controller: widget.ocrResult!.quillController!),
+                // fq.QuillToolbar.basic(
+                //     controller: widget.ocrResult!.quillController!),
+                // Expanded(
+                //     child: fq.QuillEditor.basic(
+                //         controller: widget.ocrResult!.quillController!,
+                //         readOnly: false))
+                fq.QuillSimpleToolbar(
+                    configurations: fq.QuillSimpleToolbarConfigurations(
+                        controller: widget.ocrResult!.quillController!)),
                 Expanded(
                     child: fq.QuillEditor.basic(
-                        controller: widget.ocrResult!.quillController!,
-                        readOnly: false))
+                        configurations: fq.QuillEditorConfigurations(
+                            controller: widget.ocrResult!.quillController!)))
               ]
             ])),
         floatingActionButton: (!isTextLoading)
